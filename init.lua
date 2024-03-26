@@ -4,12 +4,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-require 'custom.settings.general'
-require 'custom.settings.autocmds'
-require 'custom.settings.iabbrev'
-require 'custom.settings.keymaps'
-require 'custom.settings.netrw'
-
 -- vim.cmd 'source ~/.config/nvim.bak/shared/shortcuts.vim'
 
 -- Set to true if you have a Nerd Font installed
@@ -87,8 +81,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[E]rror Messages' })
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[Q]uickfix List' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -165,6 +159,7 @@ require('lazy').setup({
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
+    lazy = false,
     opts = {
       signs = {
         add = { text = '+' },
@@ -175,14 +170,50 @@ require('lazy').setup({
       },
     },
     keys = {
+      -- TODO: add lazygit
+      {
+        '<leader>gl',
+        '<cmd>lua require "gitsigns".blame_line()<cr>',
+        desc = '[G]it B[l]ame',
+      },
+      {
+        '<leader>gp',
+        '<cmd>lua require "gitsigns".preview_hunk()<cr>',
+        desc = '[G]it [P]review Hunk',
+      },
+      {
+        '<leader>grh',
+        '<cmd>lua require "gitsigns".reset_hunk()<cr>',
+        desc = '[G]it [R]eset Hunk',
+      },
+      {
+        '<leader>grb',
+        '<cmd>lua require "gitsigns".reset_buffer()<cr>',
+        desc = '[G]it [R]eset [B]uffer',
+      },
+      {
+        '<leader>go',
+        '<cmd>Telescope git_status<cr>',
+        desc = '[G]it [O]pen Changed File',
+      },
+      {
+        '<leader>gc',
+        '<cmd>Telescope git_bcommits<cr>',
+        desc = '[G]it [C]Checkout Commit (current file)',
+      },
+      {
+        '<leader>gd',
+        '<cmd>Gitsigns diffthis HEAD<cr>',
+        desc = '[G]it [D]iff',
+      },
       {
         ']c',
-        "<cmd>lua require'gitsigns'.next_hunk({navigation_message = false})<CR>",
+        '<cmd>lua require"gitsigns".next_hunk({navigation_message = false})<CR>',
         desc = 'Next Git [C]hange',
       },
       {
         '[c',
-        "<cmd>lua require'gitsigns'.prev_hunk({navigation_message = false})<CR>",
+        '<cmd>lua require"gitsigns".prev_hunk({navigation_message = false})<CR>',
         desc = 'Prev Git [C]hange',
       },
     },
@@ -208,6 +239,7 @@ require('lazy').setup({
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {
+        -- ignore_missing = true,
         plugins = {
           presets = {
             operators = false, -- adds help for operators like d, y, ...
@@ -225,10 +257,18 @@ require('lazy').setup({
       -- Document existing key chains
       require('which-key').register {
         ['<leader>c'] = { name = '[C]onsole', _ = 'which_key_ignore' },
+        ['<leader>r'] = { name = '[R]eplace', _ = 'which_key_ignore' },
+        ['<leader>o'] = { name = '[O]bsession', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>l'] = { name = '[L]sp', _ = 'which_key_ignore' },
+        ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
+        ['<leader>ls'] = { name = '[S]ymbols', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]ab', _ = 'which_key_ignore' },
+        ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = 'Vim[W]iki', _ = 'which_key_ignore' },
+        ['<leader>d'] = { name = '[D]iagnostic', _ = 'which_key_ignore' },
+        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+        ['yo'] = { name = 'T[o]ggle', _ = 'which_key_ignore' },
+        ['yos'] = { name = '[S]pelling', _ = 'which_key_ignore' },
       }
     end,
   },
@@ -302,16 +342,19 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch Current [W]ord' })
-      vim.keymap.set('n', '<leader>st', builtin.live_grep, { desc = '[S]earch by [T]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[S]earch [L]ast Resume' })
-      vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch [R]ecent Files' })
-      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch Existing [B]uffers' })
+      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[H]elp' })
+      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[K]eymaps' })
+      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[F]iles' })
+      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]elect Telescope' })
+      vim.keymap.set('n', '<leader>sh', builtin.search_history, { desc = '[H]istory' })
+      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[W]ord' })
+      vim.keymap.set('n', '<leader>st', builtin.live_grep, { desc = '[T]ext' })
+      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[D]iagnostics' })
+      vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[L]ast Resume' })
+      vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[R]ecent Files' })
+      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[B]uffers' })
+      vim.keymap.set('n', '<leader>sc', builtin.colorscheme, { desc = '[C]olorscheme' })
+      vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = '[G]it Files' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -329,12 +372,12 @@ require('lazy').setup({
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = '[S]earch [/] in Open Files' })
+      end, { desc = '[/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
+      end, { desc = '[N]eovim files' })
     end,
   },
 
@@ -342,7 +385,16 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      'williamboman/mason.nvim',
+      {
+        'williamboman/mason.nvim',
+        keys = {
+          {
+            '<leader>lm',
+            '<cmd>Mason<CR>',
+            desc = '[L]SP [M]ason',
+          },
+        },
+      },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -393,7 +445,7 @@ require('lazy').setup({
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = '[L]SP: ' .. desc })
+            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = '' .. desc })
           end
 
           -- Jump to the definition of the word under your cursor.
@@ -408,18 +460,29 @@ require('lazy').setup({
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
+          map('gl', function()
+            local float = vim.diagnostic.config().float
+
+            if float then
+              local config = type(float) == 'table' and float or {}
+              config.scope = 'line'
+
+              vim.diagnostic.open_float(config)
+            end
+          end, '[G]oto [L]ine Diagnostics')
+
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>ld', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+          map('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[T]ype Definition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>lsd', require('telescope.builtin').lsp_document_symbols, '[S]ymbols [D]ocument')
+          map('<leader>lsd', require('telescope.builtin').lsp_document_symbols, '[D]ocument')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>lsw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[S]ymbols [W]orkspace')
+          map('<leader>lsw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
@@ -429,11 +492,11 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>la', vim.lsp.buf.code_action, '[A]ction')
 
-          map('<leader>l_', vim.lsp.buf.restart, '[_]Restart')
+          map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
-          map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -555,7 +618,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, json = true }
         return {
           timeout_ms = 500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -569,6 +632,13 @@ require('lazy').setup({
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
+      },
+    },
+    keys = {
+      {
+        '<leader>ff',
+        '<cmd>lua require("conform").format()<cr>',
+        desc = '[F]ormat',
       },
     },
   },
@@ -773,7 +843,7 @@ require('lazy').setup({
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
       ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
+      -- require('nvim-treesitter.configs').setup(opts)
 
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:
@@ -792,10 +862,10 @@ require('lazy').setup({
   --
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
+  -- --
+  -- require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.indent_line',
+  -- require 'kickstart.plugins.lint',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
@@ -827,3 +897,9 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+require 'custom.general'
+require 'custom.autocmds'
+require 'custom.iabbrev'
+require 'custom.netrw'
+require 'custom.keymaps'
