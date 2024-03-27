@@ -5,7 +5,7 @@ local M = {
   },
   l = {
     i = {
-      name = '[L]SP [I]mports',
+      name = '[I]mports',
       o = { '<cmd>TSToolsOrganizeImports<CR>', '[O]rganize' },
       s = { '<cmd>TSToolsSortImports<CR>', '[S]ort' },
       r = { '<cmd>TSToolsRemoveUnusedImports<CR>', '[R]emove Unused' },
