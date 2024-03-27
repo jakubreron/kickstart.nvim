@@ -121,7 +121,74 @@ return {
       'nvim-treesitter/nvim-treesitter',
     },
     config = function()
-      require('user.plugins.settings.neotest').config()
+      local neotest_status_ok, neotest = pcall(require, 'neotest')
+      if not neotest_status_ok then
+        return
+      end
+
+      neotest.setup {
+        quickfix = {
+          enabled = false,
+          open = false,
+        },
+
+        summary = {
+          open = 'topleft vsplit | vertical resize 50',
+          animated = true,
+          enabled = true,
+          expand_errors = true,
+          follow = true,
+          mappings = {
+            attach = 'a',
+            clear_marked = 'M',
+            clear_target = 'T',
+            debug = 'd',
+            debug_marked = 'D',
+            expand = { '<CR>', '<2-LeftMouse>' },
+            expand_all = 'e',
+            jumpto = { 'i', 'l' },
+            mark = 'm',
+            next_failed = ']x',
+            output = 'o',
+            prev_failed = '[x',
+            run = 'r',
+            run_marked = 'R',
+            short = 'O',
+            stop = 'u',
+            target = 't',
+          },
+        },
+        output_panel = {
+          enabled = true,
+          open = 'rightbelow vsplit | resize 75',
+        },
+
+        adapters = {
+          require 'neotest-jest' {
+            -- jestCommand = "jest --watch",
+            -- jestConfigFile = "tests/unit/jest.conf.js",
+          },
+        },
+      }
+
+      local neodev_status_ok, neodev = pcall(require, 'neodev')
+      if not neodev_status_ok then
+        return
+      end
+
+      neodev.setup {
+        library = {
+          plugins = { 'neotest' },
+          types = true,
+        },
+      }
+
+      vim.keymap.set('n', ']u', "<cmd>lua require('neotest').jump.next({ status = 'failed' })<CR>", {
+        desc = 'Next failed unit test',
+      })
+      vim.keymap.set('n', '[u', "<cmd>lua require('neotest').jump.prev({ status = 'failed' })<CR>", {
+        desc = 'Previous failed unit test',
+      })
     end,
     event = 'BufWinEnter *.spec.*',
     lazy = true,
@@ -135,7 +202,20 @@ return {
   {
     'norcalli/nvim-colorizer.lua', -- highlight the hex / rgb colors
     config = function()
-      require('user.plugins.settings.colorizer').config()
+      local status_ok, colorizer = pcall(require, 'colorizer')
+      if not status_ok then
+        return
+      end
+
+      colorizer.setup({ 'css', 'scss', 'html', 'javascript' }, {
+        RGB = true, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        RRGGBBAA = true, -- #RRGGBBAA hex codes
+        rgb_fn = true, -- CSS rgb() and rgba() functions
+        hsl_fn = true, -- CSS hsl() and hsla() functions
+        -- css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        -- css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+      })
     end,
     ft = {
       'css',
