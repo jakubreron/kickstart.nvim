@@ -1,13 +1,63 @@
--- Set <space> as the leader key
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- vim.cmd 'source ~/.config/nvim.bak/shared/shortcuts.vim'
+vim.cmd 'source ~/.config/nvim/lua/custom/shortcuts.vim'
 
--- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
+
+vim.b.match_words = '<<<<<<<:=======:>>>>>>>' -- match git conflict markers with %
+
+-- use var for vimwiki home dir
+vim.g.vimwiki_list = {
+  {
+    path = vim.fn.expand '$VIMWIKI_DIR',
+    syntax = 'markdown',
+    ext = '.md',
+  },
+}
+
+-- do not wrap tmux
+vim.g.tmux_navigator_no_wrap = 1
+
+-- remove unnecessary unimpaired mappings
+vim.g.nremap = {
+  --tags
+  ['[t'] = '',
+  [']t'] = '',
+  ['[T'] = '',
+  [']T'] = '',
+
+  -- url encode/decode
+  ['[u'] = '',
+  ['[uu'] = '',
+  ['v_[u'] = '',
+  [']u'] = '',
+  [']uu'] = '',
+  ['v_]u'] = '',
+
+  -- XML encode/decode
+  ['[x'] = '',
+  ['[xx'] = '',
+  ['v_[x'] = '',
+  [']x'] = '',
+  [']xx'] = '',
+  ['v_]x'] = '',
+
+  -- C string encode/decode
+  ['[y'] = '',
+  ['[yy'] = '',
+  ['v_[y'] = '',
+  ['[C'] = '',
+  ['[CC'] = '',
+  ['v_[C'] = '',
+  [']y'] = '',
+  [']yy'] = '',
+  ['v_]y'] = '',
+  [']C'] = '',
+  [']CC'] = '',
+  ['v_]C'] = '',
+}
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -71,9 +121,6 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -84,26 +131,15 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[E]rror Messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[Q]uickfix List' })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
--- TODO: check it
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -125,17 +161,8 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
 -- NOTE: Here is where you install your plugins.
+-- TODO: look at lunarvim events, keys, etc...
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
@@ -262,6 +289,7 @@ require('lazy').setup({
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
         ['<leader>ls'] = { name = '[S]ymbols', _ = 'which_key_ignore' },
+        ['<leader>p'] = { name = '[P]ackages', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]ab', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = 'Vim[W]iki', _ = 'which_key_ignore' },
@@ -387,13 +415,16 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       {
         'williamboman/mason.nvim',
+        cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog' },
         keys = {
           {
             '<leader>lm',
             '<cmd>Mason<CR>',
-            desc = '[L]SP [M]ason',
+            desc = '[M]ason',
           },
         },
+        event = 'User FileOpened',
+        lazy = true,
       },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -498,8 +529,7 @@ require('lazy').setup({
 
           -- hover with lsp instead of manpages
           map('K', vim.lsp.buf.hover, '[K] Hover')
-
-          map('<C-k>', vim.lsp.buf.signature_help, '[C-k] Signature Help')
+          map('H', vim.lsp.buf.signature_help, '[C-k] Signature Help')
 
           map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
 
