@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "LspAttach" }, {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "neotest-output", "neotest-output-panel" },
+	pattern = { "neotest-output", "neotest-output-panel", "neotest-attach" },
 	callback = function()
 		vim.cmd("norm G")
 		vim.cmd("setlocal number")
