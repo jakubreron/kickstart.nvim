@@ -5,18 +5,18 @@ if string.find(vim.fn.expand '%:p', 'package.json') ~= nil then
   end
 
   local opts = {
-    mode = 'n', -- NORMAL mode
+    mode = 'n',
     prefix = '<leader>',
-    buffer = vim.api.nvim_get_current_buf(), -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
+    buffer = vim.api.nvim_get_current_buf(),
+    silent = true,
+    noremap = true,
+    nowait = true,
   }
 
   local mappings = {
     l = {
       n = {
-        name = '[L]SP [N]PM',
+        name = '[N]PM',
         a = { "<cmd>lua require('package-info').install()<CR>", '[A]dd' },
         d = { "<cmd>lua require('package-info').delete()<CR>", '[D]elete' },
         f = { "<cmd>lua require('package-info').show({ force = true })<CR>", '[F]etch' },

@@ -1,19 +1,24 @@
-local status_ok, which_key = pcall(require, "which-key")
-local ts_mappings = require "custom.keymaps.typescript"
-local js_ts_mappings = require "custom.keymaps.javascript-and-typescript"
-
+local status_ok, which_key = pcall(require, 'which-key')
 if not status_ok then
   return
 end
 
+local which_key_typescript_mappings = require 'custom.keymaps.ftplugin.which_key.typescript'
+local which_key_javascript_typescript_mappings = require 'custom.keymaps.ftplugin.which_key.javascript-and-typescript'
+local normal_javascript_typescript_mappings = require 'custom.keymaps.ftplugin.normal.javascript-and-typescript'
+
+local current_buf = vim.api.nvim_get_current_buf()
+
 local opts = {
-  mode = "n", -- NORMAL mode
-  prefix = "<leader>",
-  buffer = vim.api.nvim_get_current_buf(), -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
+  mode = 'n',
+  prefix = '<leader>',
+  buffer = current_buf,
+  silent = true,
+  noremap = true,
+  nowait = true,
 }
 
-which_key.register(ts_mappings, opts)
-which_key.register(js_ts_mappings, opts)
+which_key.register(which_key_typescript_mappings, opts)
+which_key.register(which_key_javascript_typescript_mappings, opts)
+
+normal_javascript_typescript_mappings.config(current_buf)
