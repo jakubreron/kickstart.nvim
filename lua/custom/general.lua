@@ -1,6 +1,5 @@
 local options = {
   dictionary = '/usr/share/dict/words',
-  thesaurus = '~/.config/nvim/mthesaur.txt',
   backup = false, -- creates a backup file
   -- completeopt = { "menuone", "noselect" },
   conceallevel = 0, -- so that `` is visible in markdown files
