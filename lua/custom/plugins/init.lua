@@ -238,6 +238,7 @@ return {
       'typescript',
       'typescriptreact',
     },
+    -- TODO: check if I can initialize it in the place where lua_ls and jsonls is
     opts = {},
   },
 
