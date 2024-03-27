@@ -6,7 +6,23 @@ return {
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
+        javascript = { { 'eslint_d' } },
+        javascriptreact = { { 'eslint_d' } },
+        vue = { { 'eslint_d' } },
+        typescript = { { 'eslint_d' } },
+        typescriptreact = { { 'eslint_d' } },
+
+        css = { { 'stylelint' } },
+        scss = { { 'stylelint' } },
+        less = { { 'stylelint' } },
+        sass = { { 'stylelint' } },
+
+        markdown = { { 'markdownlint' } },
+        vimwiki = { { 'markdownlint' } },
+
+        html = { { 'prettierd' } },
+        yaml = { { 'prettierd' } },
+        json = { { 'prettierd' } },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
