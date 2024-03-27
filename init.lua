@@ -574,6 +574,9 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        jsonls = {},
+        vale_ls = {},
+        stylelint_lsp = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -597,7 +600,7 @@ require('lazy').setup({
                 callSnippet = 'Replace',
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              diagnostics = { disable = { 'missing-fields' } },
             },
           },
         },
@@ -615,7 +618,24 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        -- NOTE: LSP
+        'lua-language-server', -- lua
+        'json-lsp', -- json
+        'vale-ls', -- markdown
+        'stylelint-lsp', -- styles
+
+        -- NOTE: linters
+        'htmlhint', -- html
+        'stylelint', -- styles
+
+        -- NOTE: formatters
+        'stylua', -- lua
+        'prettierd', -- html, yaml, json, etc
+
+        -- NOTE: 2 in 1, linters & formatters
+        'eslint_d', -- js/ts
+        'eslint-lsp', -- js/ts
+        'markdownlint', -- markdown, vimwiki
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -672,10 +692,10 @@ require('lazy').setup({
         typescript = { { 'eslint_d' } },
         typescriptreact = { { 'eslint_d' } },
 
-        css = { { 'stylelint' } },
-        scss = { { 'stylelint' } },
-        less = { { 'stylelint' } },
-        sass = { { 'stylelint' } },
+        css = { { 'prettierd' } },
+        scss = { { 'prettierd' } },
+        less = { { 'prettierd' } },
+        sass = { { 'prettierd' } },
 
         markdown = { { 'markdownlint' } },
         vimwiki = { { 'markdownlint' } },
@@ -929,7 +949,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
 
   -- TODO: luacheck linter
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
