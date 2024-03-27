@@ -30,12 +30,13 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   command = 'setlocal filetype=tf',
 })
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  pattern = '*.conf',
-  command = 'setlocal filetype=conf',
-})
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { '.env*' },
   command = 'setlocal filetype=sh',
+})
+
+-- TODO: make it working
+vim.filetype.add({
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 })
 
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
