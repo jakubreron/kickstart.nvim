@@ -1,6 +1,7 @@
 local status_ok, which_key = pcall(require, "which-key")
-local ts_mappings = require "user.keymaps.typescript"
-local js_ts_mappings = require "user.keymaps.js-ts"
+local ts_mappings = require "custom.keymaps.typescript"
+local js_ts_mappings = require "custom.keymaps.javascript-and-typescript"
+
 if not status_ok then
   return
 end
