@@ -898,6 +898,7 @@ require('lazy').setup({
         'json',
         'yaml',
         'toml',
+        'hyprlang',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
