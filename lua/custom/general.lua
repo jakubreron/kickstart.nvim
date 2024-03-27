@@ -1,5 +1,6 @@
 local options = {
   dictionary = '/usr/share/dict/words',
+  relativenumber = true,
   backup = false, -- creates a backup file
   -- completeopt = { "menuone", "noselect" },
   conceallevel = 0, -- so that `` is visible in markdown files
@@ -42,3 +43,54 @@ for k, v in pairs(options) do
 end
 
 vim.b.match_words = '<<<<<<<:=======:>>>>>>>' -- match git conflict markers with %
+
+-- use var for vimwiki home dir
+vim.g.vimwiki_list = {
+  {
+    path = vim.fn.expand '$VIMWIKI_DIR',
+    syntax = 'markdown',
+    ext = '.md',
+  },
+}
+
+-- do not wrap tmux
+vim.g.tmux_navigator_no_wrap = 1
+
+-- remove unnecessary unimpaired mappings
+vim.g.nremap = {
+  --tags
+  ['[t'] = '',
+  [']t'] = '',
+  ['[T'] = '',
+  [']T'] = '',
+
+  -- url encode/decode
+  ['[u'] = '',
+  ['[uu'] = '',
+  ['v_[u'] = '',
+  [']u'] = '',
+  [']uu'] = '',
+  ['v_]u'] = '',
+
+  -- XML encode/decode
+  ['[x'] = '',
+  ['[xx'] = '',
+  ['v_[x'] = '',
+  [']x'] = '',
+  [']xx'] = '',
+  ['v_]x'] = '',
+
+  -- C string encode/decode
+  ['[y'] = '',
+  ['[yy'] = '',
+  ['v_[y'] = '',
+  ['[C'] = '',
+  ['[CC'] = '',
+  ['v_[C'] = '',
+  [']y'] = '',
+  [']yy'] = '',
+  ['v_]y'] = '',
+  [']C'] = '',
+  [']CC'] = '',
+  ['v_]C'] = '',
+}
