@@ -46,7 +46,6 @@ return {
   --   end,
   -- },
 
-  -- TODO: look at lunarvim events, keys, etc...
   {
     'vimwiki/vimwiki',
     lazy = true,
@@ -191,8 +190,6 @@ return {
   {
     'windwp/nvim-spectre', -- search & replace throughout all the files (without vimgrepping)
     lazy = true,
-    event = 'BufRead',
-    config = true,
     keys = {
       {
         '<leader>ra',
@@ -212,7 +209,6 @@ return {
     lazy = true,
     dependencies = 'MunifTanjim/nui.nvim',
     event = 'BufWinEnter package.json',
-    config = true,
   },
 
   -- {
@@ -245,7 +241,7 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     version = '*',
-    lazy = false,
+    lazy = true,
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
