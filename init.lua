@@ -453,6 +453,10 @@ require('lazy').setup({
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
+          -- WARN: This is not Goto Definition, this is Goto Declaration.
+          --  For example, in C this would take you to the header.
+          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
@@ -492,15 +496,16 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>la', vim.lsp.buf.code_action, '[A]ction')
 
+          -- hover with lsp instead of manpages
+          map('K', vim.lsp.buf.hover, '[K] Hover')
+
+          map('<C-k>', vim.lsp.buf.signature_help, '[C-k] Signature Help')
+
           map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
           -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
-
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
-          --  For example, in C this would take you to the header.
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -631,7 +636,23 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { 'eslint_d' } },
+        javascriptreact = { { 'eslint_d' } },
+        vue = { { 'eslint_d' } },
+        typescript = { { 'eslint_d' } },
+        typescriptreact = { { 'eslint_d' } },
+
+        css = { { 'stylelint' } },
+        scss = { { 'stylelint' } },
+        less = { { 'stylelint' } },
+        sass = { { 'stylelint' } },
+
+        markdown = { { 'markdownlint' } },
+        vimwiki = { { 'markdownlint' } },
+
+        html = { { 'prettierd' } },
+        yaml = { { 'prettierd' } },
+        json = { { 'prettierd' } },
       },
     },
     keys = {
@@ -753,13 +774,14 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'catppuccin-mocha'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -809,6 +831,16 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    dependencies = {
+      {
+        'nvim-treesitter/nvim-treesitter-context',
+        opts = {
+          max_lines = 5, -- How many lines the window should span. Values
+        },
+      }, -- sticky scroll context
+
+      -- { "nvim-treesitter/nvim-treesitter-textobjects" }, -- more movements (if, af, ic, ac, etc...)
+    },
     opts = {
       ensure_installed = {
         'bash',
@@ -865,6 +897,8 @@ require('lazy').setup({
   -- --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
+
+  -- TODO: luacheck linter
   -- require 'kickstart.plugins.lint',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -903,54 +937,3 @@ require 'custom.autocmds'
 require 'custom.iabbrev'
 require 'custom.netrw'
 require 'custom.keymaps'
-
-vim.g.matchup_matchparen_offscreen = { method = "popup" }
-
-vim.g.vimwiki_list = {
-  {
-    path = vim.fn.expand "$VIMWIKI_DIR",
-    syntax = "markdown",
-    ext = ".md",
-  },
-}
-
-vim.g.tmux_navigator_no_wrap = 1
-
--- remove unnecessary unimpaired mappings
-vim.g.nremap = {
-  --tags
-  ["[t"] = "",
-  ["]t"] = "",
-  ["[T"] = "",
-  ["]T"] = "",
-
-  -- url encode/decode
-  ["[u"] = "",
-  ["[uu"] = "",
-  ["v_[u"] = "",
-  ["]u"] = "",
-  ["]uu"] = "",
-  ["v_]u"] = "",
-
-  -- XML encode/decode
-  ["[x"] = "",
-  ["[xx"] = "",
-  ["v_[x"] = "",
-  ["]x"] = "",
-  ["]xx"] = "",
-  ["v_]x"] = "",
-
-  -- C string encode/decode
-  ["[y"] = "",
-  ["[yy"] = "",
-  ["v_[y"] = "",
-  ["[C"] = "",
-  ["[CC"] = "",
-  ["v_[C"] = "",
-  ["]y"] = "",
-  ["]yy"] = "",
-  ["v_]y"] = "",
-  ["]C"] = "",
-  ["]CC"] = "",
-  ["v_]C"] = "",
-}
