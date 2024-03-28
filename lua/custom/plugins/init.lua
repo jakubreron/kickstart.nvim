@@ -1,3 +1,5 @@
+local obsession_status_icons = { '', '' }
+
 return {
   'sangdol/mintabline.vim', -- tabs with numbers & icons
   'tpope/vim-repeat', -- better "."
@@ -5,46 +7,6 @@ return {
   'tpope/vim-unimpaired', -- additional mappings
   'stevearc/dressing.nvim', -- better default nvim interfaces
   'christoomey/vim-titlecase', -- "gz" movement to toggle the words case
-  -- {
-  --   'fgheng/winbar.nvim',
-  --   config = function()
-  --     require('winbar').setup {
-  --       enabled = true,
-  --
-  --       show_file_path = true,
-  --       show_symbols = true,
-  --
-  --       colors = {
-  --         path = '', -- You can customize colors like #c946fd
-  --         file_name = '',
-  --         symbols = '',
-  --       },
-  --
-  --       icons = {
-  --         file_icon_default = '',
-  --         seperator = '>',
-  --         editor_state = '●',
-  --         lock_icon = '',
-  --       },
-  --
-  --       exclude_filetype = {
-  --         'help',
-  --         'startify',
-  --         'dashboard',
-  --         'packer',
-  --         'neogitstatus',
-  --         'NvimTree',
-  --         'Trouble',
-  --         'alpha',
-  --         'lir',
-  --         'Outline',
-  --         'spectre_panel',
-  --         'toggleterm',
-  --         'qf',
-  --       },
-  --     }
-  --   end,
-  -- },
 
   {
     'vimwiki/vimwiki',
@@ -164,8 +126,6 @@ return {
       'nvim-treesitter/nvim-treesitter',
       {
         'haydenmeade/neotest-jest',
-        -- pin = true,
-        -- commit = 'c2118446d770fedb360a91b1d91a7025db86d4f1',
         event = 'BufWinEnter *.spec.*',
       },
     },
@@ -209,6 +169,7 @@ return {
     lazy = true,
     dependencies = 'MunifTanjim/nui.nvim',
     event = 'BufWinEnter package.json',
+    opts = {},
   },
 
   -- {
@@ -257,5 +218,62 @@ return {
     },
     cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus', 'NvimTreeFindFileToggle' },
     event = 'User DirOpened',
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    event = 'VimEnter',
+    opts = {
+      style = 'default',
+      options = {
+        theme = 'auto',
+        globalstatus = true,
+        icons_enabled = vim.g.have_nerd_font,
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = {
+          {
+            '',
+            type = 'stl',
+            color = { fg = '#7fff00' },
+            cond = function()
+              local status = vim.api.nvim_call_function('ObsessionStatus', obsession_status_icons)
+              return status == obsession_status_icons[1]
+            end,
+          },
+          {
+            '',
+            type = 'stl',
+            color = { fg = '#ff6955' },
+            cond = function()
+              local status = vim.api.nvim_call_function('ObsessionStatus', obsession_status_icons)
+              return status == obsession_status_icons[2] or status == nil or status == ''
+            end,
+          },
+          'filename',
+          function()
+            return require('package-info').get_status()
+          end,
+        },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
+        lualine_y = {},
+        lualine_z = {},
+      },
+      tabline = {},
+      extensions = {},
+    },
   },
 }
