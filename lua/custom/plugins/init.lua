@@ -164,8 +164,8 @@ return {
       'nvim-treesitter/nvim-treesitter',
       {
         'haydenmeade/neotest-jest',
-        pin = true,
-        commit = 'c2118446d770fedb360a91b1d91a7025db86d4f1',
+        -- pin = true,
+        -- commit = 'c2118446d770fedb360a91b1d91a7025db86d4f1',
         event = 'BufWinEnter *.spec.*',
       },
     },
