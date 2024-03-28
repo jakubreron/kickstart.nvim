@@ -55,8 +55,6 @@ vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<CR>', { desc = '[S]pelling Tog
 vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<CR>', { desc = '[P]olish' })
 vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<CR>', { desc = '[E]nglish' })
 
--- TODO: ]x [x mappings are free
-
 vim.keymap.set('c', 'w!!', "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!", { desc = '[W]rite as sudo[!!]' })
 
 vim.keymap.set('n', 'Y', 'y$', { desc = '[Y]ank to the end' })
@@ -65,6 +63,10 @@ vim.keymap.set('n', '<A-h>', ':vertical resize +2<CR>')
 vim.keymap.set('n', '<A-j>', ':resize -2<CR>')
 vim.keymap.set('n', '<A-k>', ':resize +2<CR>')
 vim.keymap.set('n', '<A-l>', ':vertical resize -2<CR>')
+vim.keymap.set('n', '<C-Left>', ':vertical resize +2<CR>')
+vim.keymap.set('n', '<C-Down>', ':resize -2<CR>')
+vim.keymap.set('n', '<C-Up>', ':resize +2<CR>')
+vim.keymap.set('n', '<A-Right>', ':vertical resize -2<CR>')
 
 vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h')
 vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j')
