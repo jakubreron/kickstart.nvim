@@ -201,37 +201,37 @@ require('lazy').setup({
       {
         '<leader>gl',
         '<cmd>lua require "gitsigns".blame_line()<cr>',
-        desc = '[G]it B[l]ame',
+        desc = 'B[l]ame',
       },
       {
         '<leader>gp',
         '<cmd>lua require "gitsigns".preview_hunk()<cr>',
-        desc = '[G]it [P]review Hunk',
+        desc = '[P]review Hunk',
       },
       {
         '<leader>grh',
         '<cmd>lua require "gitsigns".reset_hunk()<cr>',
-        desc = '[G]it [R]eset Hunk',
+        desc = '[H]unk',
       },
       {
         '<leader>grb',
         '<cmd>lua require "gitsigns".reset_buffer()<cr>',
-        desc = '[G]it [R]eset [B]uffer',
+        desc = '[B]uffer',
       },
       {
         '<leader>go',
         '<cmd>Telescope git_status<cr>',
-        desc = '[G]it [O]pen Changed File',
+        desc = '[O]pen Changed File',
       },
       {
         '<leader>gc',
         '<cmd>Telescope git_bcommits<cr>',
-        desc = '[G]it [C]Checkout Commit (current file)',
+        desc = '[C]heckout Commit (current file)',
       },
       {
         '<leader>gd',
         '<cmd>Gitsigns diffthis HEAD<cr>',
-        desc = '[G]it [D]iff',
+        desc = '[D]iff',
       },
       {
         ']c',
@@ -295,6 +295,7 @@ require('lazy').setup({
         ['<leader>w'] = { name = 'Vim[W]iki', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]iagnostic', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+        ['<leader>gr'] = { name = '[R]eset', _ = 'which_key_ignore' },
         ['yo'] = { name = 'T[o]ggle', _ = 'which_key_ignore' },
         ['yos'] = { name = '[S]pelling', _ = 'which_key_ignore' },
       }
@@ -577,6 +578,7 @@ require('lazy').setup({
         jsonls = {},
         vale_ls = {},
         stylelint_lsp = {},
+        html = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -623,6 +625,7 @@ require('lazy').setup({
         'json-lsp', -- json
         'vale-ls', -- markdown
         'stylelint-lsp', -- styles
+        'html-lsp', -- html
 
         -- NOTE: linters
         'htmlhint', -- html
@@ -913,6 +916,20 @@ require('lazy').setup({
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
+      context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+        config = {
+          -- Languages that have a single comment style
+          typescript = '// %s',
+          css = '/* %s */',
+          scss = '/* %s */',
+          html = '<!-- %s -->',
+          svelte = '<!-- %s -->',
+          vue = '<!-- %s -->',
+          json = '',
+        },
+      },
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
