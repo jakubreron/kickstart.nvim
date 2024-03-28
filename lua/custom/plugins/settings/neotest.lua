@@ -8,7 +8,11 @@ M.config = function()
 
   neotest.setup {
     jump = {
-      enabled = false,
+      enabled = true,
+    },
+
+    output ={
+      open_on_run = false,
     },
 
     summary = {
