@@ -55,6 +55,10 @@ vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<CR>', { desc = '[s]pelling Tog
 vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<CR>', { desc = '[p]olish' })
 vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<CR>', { desc = '[e]nglish' })
 
+-- jumplist every 5 lines jump with j/k
+vim.keymap.set('n', 'k', 'v:count > 5 ? "m\'" .. v:count .. "k" : "k"', { expr = true, silent = true })
+vim.keymap.set('n', 'j', 'v:count > 5 ? "m\'" .. v:count .. "j" : "j"', { expr = true, silent = true })
+
 vim.keymap.set('c', 'w!!', "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!", { desc = '[w]rite as sudo[!!]' })
 
 vim.keymap.set('n', 'Y', 'y$', { desc = '[Y]ank to the end' })
