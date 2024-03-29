@@ -31,14 +31,14 @@ return {
         function()
           require('treesj').join { split = { recursive = true } }
         end,
-        desc = '[G]oto [J]oin',
+        desc = '[g]oto [J]oin',
       },
       {
         'gS',
         function()
           require('treesj').split { split = { recursive = true } }
         end,
-        desc = '[G]oto [S]plit',
+        desc = '[g]oto [S]plit',
       },
     },
   }, -- gJ, gS movements
@@ -64,7 +64,7 @@ return {
       {
         '<leader>fo',
         '<cmd>Outline<cr>',
-        desc = '[O]utline',
+        desc = '[o]utline',
       },
     },
     opts = {},
@@ -154,12 +154,12 @@ return {
       {
         '<leader>ra',
         '<cmd>lua require("spectre").open()<cr>',
-        desc = '[A]ll',
+        desc = '[a]ll',
       },
       {
         '<leader>rw',
         '<cmd>lua require("spectre").open_visual({select_word=true})<cr>',
-        desc = '[W]ord',
+        desc = '[w]ord',
       },
     },
   },
@@ -213,7 +213,7 @@ return {
       {
         '<leader>e',
         '<cmd>NvimTreeToggle<cr>',
-        desc = '[E]xplorer',
+        desc = '[e]xplorer',
       },
     },
     cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus', 'NvimTreeFindFileToggle' },
