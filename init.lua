@@ -1,8 +1,8 @@
+vim.cmd 'source ~/.config/nvim/lua/custom/shortcuts.vim'
+
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
-vim.cmd 'source ~/.config/nvim/lua/custom/shortcuts.vim'
 
 vim.g.have_nerd_font = true
 
@@ -716,7 +716,7 @@ require('lazy').setup({
     keys = {
       {
         '<leader>ff',
-        '<cmd>lua require("conform").format()<cr>',
+        '<cmd>lua require("conform").format({ lsp_fallback = true })<cr>',
         desc = '[f]ormat',
       },
     },
