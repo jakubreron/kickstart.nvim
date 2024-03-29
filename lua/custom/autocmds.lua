@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
 
 vim.api.nvim_create_autocmd('BufRead', {
   pattern = '*',
-  command = 'normal g\'"'
+  command = 'normal g\'"',
 })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'LspAttach' }, {
@@ -35,9 +35,9 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 -- TODO: make it working
-vim.filetype.add({
-  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-})
+vim.filetype.add {
+  pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
+}
 
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
   pattern = 'bm-*',
@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 })
 
 local auto_commit = function(type, scope)
-  return "git add .; git commit -m '" .. type .. '(' .. scope .. "): ⚙️ auto-commit changes'; git pull && git push;"
+  return 'git add .; git commit -m "' .. type .. '(' .. scope .. '): ⚙️ auto-commit changes"; git pull && git push;'
 end
 
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
