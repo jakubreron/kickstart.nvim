@@ -20,19 +20,19 @@ if harpoon_status_ok then
   vim.keymap.set('n', ']h', function()
     harpoon:list():next()
   end, {
-    desc = 'Next harpoon file',
+    desc = 'Next [h]arpoon file',
   })
 
   vim.keymap.set('n', '[h', function()
     harpoon:list():prev()
   end, {
-    desc = 'Prev harpoon file',
+    desc = 'Prev [h]arpoon file',
   })
 
   for i = 1, 6 do
     vim.keymap.set('n', '<leader>' .. i, function()
       harpoon:list():select(i)
-    end, { desc = 'Mark ' .. i })
+    end, { desc = '[' .. i .. '] Mark' })
   end
 end
 
