@@ -48,8 +48,8 @@ vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[p]aste without yanking' })
 
 vim.keymap.set('n', 'yoe', function()
   vim.cmd('set eventignore=' .. (vim.o.eventignore == '' and 'all' or ''))
-  print(vim.o.eventignore == '' and '[e]ventignore OFF' or '[e]ventignore ON')
-end, { desc = '[E]ventignore' })
+  print(vim.o.eventignore == '' and 'Eventignore OFF' or 'Eventignore ON')
+end, { desc = '[e]ventignore' })
 
 vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<CR>', { desc = '[s]pelling Toggle' })
 vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<CR>', { desc = '[p]olish' })
