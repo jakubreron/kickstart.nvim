@@ -534,6 +534,9 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>la', vim.lsp.buf.code_action, '[a]ction')
 
+          -- Info about attached servers
+          map('<leader>li', '<cmd>LspInfo<cr>', '[i]nfo')
+
           -- hover with lsp instead of manpages
           map('K', vim.lsp.buf.hover, '[K] Hover')
           map('H', vim.lsp.buf.signature_help, 'Signature [H]elp')
@@ -788,6 +791,12 @@ require('lazy').setup({
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          -- TODO: check
+          -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-u>'] = cmp.mapping.scroll_docs(4),
 
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
