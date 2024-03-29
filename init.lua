@@ -705,7 +705,7 @@ require('lazy').setup({
 
         html = { { 'prettierd' } },
         yaml = { { 'prettierd' } },
-        json = { { 'prettierd' } },
+        -- json = { { 'prettierd' } }, -- NOTE: nice to have, but it creates bugs in japanese characters
       },
     },
     keys = {
