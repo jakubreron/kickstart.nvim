@@ -535,7 +535,7 @@ require('lazy').setup({
           map('<leader>la', vim.lsp.buf.code_action, '[a]ction')
 
           -- Info about attached servers
-          map('<leader>li', '<cmd>LspInfo<cr>', '[i]nfo')
+          map('<leader>lI', '<cmd>LspInfo<cr>', '[I]nfo')
 
           -- hover with lsp instead of manpages
           map('K', vim.lsp.buf.hover, '[K] Hover')
@@ -590,6 +590,7 @@ require('lazy').setup({
         },
         stylelint_lsp = {},
         html = {},
+        eslint = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -637,6 +638,7 @@ require('lazy').setup({
         'vale-ls', -- markdown
         'stylelint-lsp', -- styles
         'html-lsp', -- html
+        'eslint-lsp', -- js/ts
 
         -- NOTE: linters
         'htmlhint', -- html
@@ -648,7 +650,6 @@ require('lazy').setup({
 
         -- NOTE: 2 in 1, linters & formatters
         'eslint_d', -- js/ts
-        -- 'eslint-lsp', -- js/ts
         'markdownlint', -- markdown, vimwiki
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -673,6 +674,8 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
+        -- TODO: skip auto-format with formatter (not only with LSP) for json
+
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
@@ -689,11 +692,13 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        javascript = { { 'eslint_d' } },
-        javascriptreact = { { 'eslint_d' } },
-        vue = { { 'eslint_d' } },
-        typescript = { { 'eslint_d' } },
-        typescriptreact = { { 'eslint_d' } },
+
+        -- RFB = eslint_d, Singularity = LSP formatter (eslint-lsp) fallback
+        -- javascript = { { 'eslint_d' } },
+        -- javascriptreact = { { 'eslint_d' } },
+        -- vue = { { 'eslint_d' } },
+        -- typescript = { { 'eslint_d' } },
+        -- typescriptreact = { { 'eslint_d' } },
 
         css = { { 'prettierd' } },
         scss = { { 'prettierd' } },
@@ -778,8 +783,6 @@ require('lazy').setup({
           ['<C-p>'] = cmp.mapping.select_prev_item(),
 
           -- Scroll the documentation window [b]ack / [f]orward
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
           -- TODO: check
           -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
