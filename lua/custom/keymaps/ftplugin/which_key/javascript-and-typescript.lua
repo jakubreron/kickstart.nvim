@@ -10,41 +10,41 @@ local M = {
     },
   },
   u = {
-    name = '[U]nit Tests',
+    name = '[u]nit Tests',
     r = {
       function()
         vim.cmd "lua require('neotest').output_panel.clear()"
         vim.cmd "lua require('neotest').run.run()"
       end,
-      '[R]un Nearest',
+      '[r]un Nearest',
     },
     f = {
       function()
         vim.cmd "lua require('neotest').output_panel.clear()"
         vim.cmd "lua require('neotest').run.run(vim.fn.expand('%'))"
       end,
-      'Run [F]ile',
+      'Run [f]ile',
     },
     l = {
       function()
         vim.cmd "lua require('neotest').output_panel.clear()"
         vim.cmd "lua require('neotest').run.run_last()"
       end,
-      'Run [L]ast',
+      'Run [l]ast',
     },
-    s = { "<cmd>lua require('neotest').run.stop()<CR>", '[S]top' },
-    t = { "<cmd>lua require('neotest').summary.toggle()<CR>", 'Summary [T]ree' },
-    w = { "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>", '[W]atch' },
+    s = { "<cmd>lua require('neotest').run.stop()<CR>", '[s]top' },
+    t = { "<cmd>lua require('neotest').summary.toggle()<CR>", 'Summary [t]ree' },
+    w = { "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>", '[w]atch' },
     c = {
       function()
         vim.cmd "lua require('neotest').summary.toggle()"
         vim.cmd "lua require('neotest').output_panel.toggle()"
       end,
-      '[C]ombo: Summary Tree + Output Panel',
+      '[c]ombo: Summary Tree + Output Panel',
     },
-    a = { "<cmd>lua require('neotest').run.attach()<CR>", '[A]ttach' },
-    p = { "<cmd>lua require('neotest').output_panel.toggle()<CR>", '[P]anel Toggle' },
-    o = { "<cmd>lua require('neotest').output.open({ enter = true })<CR>", '[O]utput' },
+    a = { "<cmd>lua require('neotest').run.attach()<CR>", '[a]ttach' },
+    p = { "<cmd>lua require('neotest').output_panel.toggle()<CR>", '[p]anel Toggle' },
+    o = { "<cmd>lua require('neotest').output.open({ enter = true })<CR>", '[o]utput' },
   },
 }
 

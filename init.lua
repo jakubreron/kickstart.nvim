@@ -126,10 +126,10 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[E]rror Messages' })
-vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[Q]uickfix List' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [d]iagnostic message' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[e]rror Messages' })
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
 
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
@@ -160,6 +160,12 @@ if not vim.loop.fs_stat(lazypath) then
   vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
+
+local function telescope_theme_wrapper(telescope_command)
+  return function()
+    telescope_command(require('telescope.themes').get_ivy())
+  end
+end
 
 -- NOTE: Here is where you install your plugins.
 -- TODO: look at lunarvim events, keys, etc...
@@ -206,42 +212,42 @@ require('lazy').setup({
       {
         '<leader>gp',
         '<cmd>lua require "gitsigns".preview_hunk()<cr>',
-        desc = '[P]review Hunk',
+        desc = '[p]review Hunk',
       },
       {
-        '<leader>grh',
+        '<leader>gr',
         '<cmd>lua require "gitsigns".reset_hunk()<cr>',
-        desc = '[H]unk',
+        desc = '[r]eset Hunk',
       },
       {
-        '<leader>grb',
+        '<leader>gR',
         '<cmd>lua require "gitsigns".reset_buffer()<cr>',
-        desc = '[B]uffer',
+        desc = '[R]eset Buffer',
       },
       {
         '<leader>go',
         '<cmd>Telescope git_status<cr>',
-        desc = '[O]pen Changed File',
+        desc = '[o]pen Changed File',
       },
       {
         '<leader>gc',
         '<cmd>Telescope git_bcommits<cr>',
-        desc = '[C]heckout Commit (current file)',
+        desc = '[c]heckout Commit (current file)',
       },
       {
         '<leader>gd',
         '<cmd>Gitsigns diffthis HEAD<cr>',
-        desc = '[D]iff',
+        desc = '[d]iff',
       },
       {
         ']c',
         '<cmd>lua require"gitsigns".next_hunk({navigation_message = false})<CR>',
-        desc = 'Next Git [C]hange',
+        desc = 'Next Git [c]hange',
       },
       {
         '[c',
         '<cmd>lua require"gitsigns".prev_hunk({navigation_message = false})<CR>',
-        desc = 'Prev Git [C]hange',
+        desc = 'Prev Git [c]hange',
       },
     },
   },
@@ -283,21 +289,20 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').register {
-        ['<leader>c'] = { name = '[C]onsole', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]eplace', _ = 'which_key_ignore' },
-        ['<leader>o'] = { name = '[O]bsession', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>l'] = { name = '[L]SP', _ = 'which_key_ignore' },
-        ['<leader>ls'] = { name = '[S]ymbols', _ = 'which_key_ignore' },
-        ['<leader>p'] = { name = '[P]ackages', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]ab', _ = 'which_key_ignore' },
-        ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = 'Vim[W]iki', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]iagnostic', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-        ['<leader>gr'] = { name = '[R]eset', _ = 'which_key_ignore' },
+        ['<leader>c'] = { name = '[c]onsole', _ = 'which_key_ignore' },
+        ['<leader>r'] = { name = '[r]eplace', _ = 'which_key_ignore' },
+        ['<leader>o'] = { name = '[o]bsession', _ = 'which_key_ignore' },
+        ['<leader>s'] = { name = '[s]earch', _ = 'which_key_ignore' },
+        ['<leader>l'] = { name = '[l]SP', _ = 'which_key_ignore' },
+        ['<leader>ls'] = { name = '[s]ymbols', _ = 'which_key_ignore' },
+        ['<leader>p'] = { name = '[p]ackages', _ = 'which_key_ignore' },
+        ['<leader>t'] = { name = '[t]ab', _ = 'which_key_ignore' },
+        ['<leader>f'] = { name = '[f]ile', _ = 'which_key_ignore' },
+        ['<leader>w'] = { name = 'Vim[w]iki', _ = 'which_key_ignore' },
+        ['<leader>d'] = { name = '[d]iagnostic', _ = 'which_key_ignore' },
+        ['<leader>g'] = { name = '[g]it', _ = 'which_key_ignore' },
         ['yo'] = { name = 'T[o]ggle', _ = 'which_key_ignore' },
-        ['yos'] = { name = '[S]pelling', _ = 'which_key_ignore' },
+        ['yos'] = { name = '[s]pelling', _ = 'which_key_ignore' },
       }
     end,
   },
@@ -371,19 +376,20 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sh', builtin.search_history, { desc = '[H]istory' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[W]ord' })
-      vim.keymap.set('n', '<leader>st', builtin.live_grep, { desc = '[T]ext' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[D]iagnostics' })
-      vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[L]ast Resume' })
-      vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[R]ecent Files' })
-      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[B]uffers' })
-      vim.keymap.set('n', '<leader>sc', builtin.colorscheme, { desc = '[C]olorscheme' })
-      vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = '[G]it Files' })
+
+      vim.keymap.set('n', '<leader>sh', telescope_theme_wrapper(builtin.help_tags), { desc = '[h]elp' })
+      vim.keymap.set('n', '<leader>sk', telescope_theme_wrapper(builtin.keymaps), { desc = '[k]eymaps' })
+      vim.keymap.set('n', '<leader>sf', telescope_theme_wrapper(builtin.find_files), { desc = '[f]iles' })
+      vim.keymap.set('n', '<leader>ss', telescope_theme_wrapper(builtin.builtin), { desc = '[s]elect Telescope' })
+      vim.keymap.set('n', '<leader>sh', telescope_theme_wrapper(builtin.search_history), { desc = '[h]istory' })
+      vim.keymap.set('n', '<leader>sw', telescope_theme_wrapper(builtin.grep_string), { desc = '[w]ord' })
+      vim.keymap.set('n', '<leader>st', telescope_theme_wrapper(builtin.live_grep), { desc = '[t]ext' })
+      vim.keymap.set('n', '<leader>sd', telescope_theme_wrapper(builtin.diagnostics), { desc = '[d]iagnostics' })
+      vim.keymap.set('n', '<leader>sl', telescope_theme_wrapper(builtin.resume), { desc = '[l]ast Resume' })
+      vim.keymap.set('n', '<leader>sr', telescope_theme_wrapper(builtin.oldfiles), { desc = '[r]ecent Files' })
+      vim.keymap.set('n', '<leader>sb', telescope_theme_wrapper(builtin.buffers), { desc = '[b]uffers' })
+      vim.keymap.set('n', '<leader>sc', telescope_theme_wrapper(builtin.colorscheme), { desc = '[c]olorscheme' })
+      vim.keymap.set('n', '<leader>sg', telescope_theme_wrapper(builtin.git_files), { desc = '[g]it Files' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -397,16 +403,16 @@ require('lazy').setup({
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
       vim.keymap.set('n', '<leader>s/', function()
-        builtin.live_grep {
+        telescope_theme_wrapper(builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
-        }
+        })
       end, { desc = '[/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[N]eovim files' })
+        telescope_theme_wrapper(builtin.find_files { cwd = vim.fn.stdpath 'config' })
+      end, { desc = '[n]eovim files' })
     end,
   },
 
@@ -421,7 +427,7 @@ require('lazy').setup({
           {
             '<leader>lm',
             '<cmd>Mason<CR>',
-            desc = '[M]ason',
+            desc = '[m]ason',
           },
         },
         event = 'User FileOpened',
@@ -483,18 +489,18 @@ require('lazy').setup({
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', telescope_theme_wrapper(require('telescope.builtin').lsp_definitions), '[g]oto [d]efinition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          map('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gr', telescope_theme_wrapper(require('telescope.builtin').lsp_references), '[g]oto [r]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          map('gI', telescope_theme_wrapper(require('telescope.builtin').lsp_implementations), '[g]oto [I]mplementation')
 
           map('gl', function()
             local float = vim.diagnostic.config().float
@@ -505,32 +511,32 @@ require('lazy').setup({
 
               vim.diagnostic.open_float(config)
             end
-          end, '[G]oto [L]ine Diagnostics')
+          end, '[g]oto [l]ine Diagnostics')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[T]ype Definition')
+          map('<leader>lt', telescope_theme_wrapper(require('telescope.builtin').lsp_type_definitions), '[t]ype Definition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>lsd', require('telescope.builtin').lsp_document_symbols, '[D]ocument')
+          map('<leader>lsd', telescope_theme_wrapper(require('telescope.builtin').lsp_document_symbols), '[d]ocument')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>lsw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace')
+          map('<leader>lsw', telescope_theme_wrapper(require('telescope.builtin').lsp_dynamic_workspace_symbols), '[w]orkspace')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>lr', vim.lsp.buf.rename, '[R]ename')
+          map('<leader>lr', vim.lsp.buf.rename, '[r]ename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>la', vim.lsp.buf.code_action, '[A]ction')
+          map('<leader>la', vim.lsp.buf.code_action, '[a]ction')
 
           -- hover with lsp instead of manpages
           map('K', vim.lsp.buf.hover, '[K] Hover')
-          map('H', vim.lsp.buf.signature_help, '[C-k] Signature Help')
+          map('H', vim.lsp.buf.signature_help, 'Signature [H]elp')
 
           map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
 
@@ -576,7 +582,9 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         jsonls = {},
-        vale_ls = {},
+        vale_ls = {
+          filetypes = { 'markdown', 'vimwiki' },
+        },
         stylelint_lsp = {},
         html = {},
         -- clangd = {},
@@ -701,7 +709,7 @@ require('lazy').setup({
       {
         '<leader>ff',
         '<cmd>lua require("conform").format()<cr>',
-        desc = '[F]ormat',
+        desc = '[f]ormat',
       },
     },
   },
