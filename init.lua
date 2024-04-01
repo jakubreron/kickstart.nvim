@@ -114,18 +114,10 @@ local function telescope_theme_wrapper(telescope_command)
   end
 end
 
--- NOTE: Here is where you install your plugins.
--- TODO: look at lunarvim events, keys, etc...
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
   -- Use `opts = {}` to force a plugin to be loaded.
-  --
   --  This is equivalent to:
   --    require('Comment').setup({})
 
@@ -150,7 +142,6 @@ require('lazy').setup({
       },
     },
     keys = {
-      -- TODO: add lazygit
       {
         '<leader>gl',
         '<cmd>lua require "gitsigns".blame_line()<cr>',
@@ -249,8 +240,10 @@ require('lazy').setup({
         ['<leader>d'] = { name = '[d]iagnostic', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[g]it', _ = 'which_key_ignore' },
 
-        ['gJ'] = { name = '[g]oto [J]oin', _ = 'which_key_ignore' },
-        ['gS'] = { name = '[g]oto [S]plit', _ = 'which_key_ignore' },
+        ['gc'] = { name = '[c]omment', _ = 'which_key_ignore' },
+        ['gb'] = { name = '[b]lock comment', _ = 'which_key_ignore' },
+        ['gJ'] = { name = '[J]oin', _ = 'which_key_ignore' },
+        ['gS'] = { name = '[S]plit', _ = 'which_key_ignore' },
         ['yo'] = { name = 'T[o]ggle', _ = 'which_key_ignore' },
         ['yos'] = { name = '[s]pelling', _ = 'which_key_ignore' },
       }
@@ -445,18 +438,18 @@ require('lazy').setup({
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', telescope_theme_wrapper(require('telescope.builtin').lsp_definitions), '[g]oto [d]efinition')
+          map('gd', telescope_theme_wrapper(require('telescope.builtin').lsp_definitions), '[d]efinition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
-          map('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration')
+          map('gD', vim.lsp.buf.declaration, '[D]eclaration')
 
           -- Find references for the word under your cursor.
-          map('gr', telescope_theme_wrapper(require('telescope.builtin').lsp_references), '[g]oto [r]eferences')
+          map('gr', telescope_theme_wrapper(require('telescope.builtin').lsp_references), '[r]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', telescope_theme_wrapper(require('telescope.builtin').lsp_implementations), '[g]oto [I]mplementation')
+          map('gI', telescope_theme_wrapper(require('telescope.builtin').lsp_implementations), '[I]mplementation')
 
           map('gl', function()
             local float = vim.diagnostic.config().float
@@ -467,7 +460,7 @@ require('lazy').setup({
 
               vim.diagnostic.open_float(config)
             end
-          end, '[g]oto [l]ine Diagnostics')
+          end, '[l]ine Diagnostics')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
@@ -838,6 +831,7 @@ require('lazy').setup({
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
+      --  - dil{  - [D]elete [I]nside [L]ast [{]
       require('mini.ai').setup { n_lines = 500 }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
