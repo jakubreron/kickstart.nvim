@@ -7,6 +7,7 @@ return {
   'tpope/vim-unimpaired', -- additional mappings
   'stevearc/dressing.nvim', -- better default nvim interfaces
   'christoomey/vim-titlecase', -- "gz" movement to toggle the words case
+  'AndrewRadev/splitjoin.vim',
 
   {
     'vimwiki/vimwiki',
@@ -18,30 +19,6 @@ return {
     },
   },
 
-  {
-    'Wansmer/treesj',
-    lazy = true,
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require('custom.plugins.settings.treesj').config()
-    end,
-    keys = {
-      {
-        'gJ',
-        function()
-          require('treesj').join { split = { recursive = true } }
-        end,
-        desc = '[g]oto [J]oin',
-      },
-      {
-        'gS',
-        function()
-          require('treesj').split { split = { recursive = true } }
-        end,
-        desc = '[g]oto [S]plit',
-      },
-    },
-  }, -- gJ, gS movements
 
   {
     'szw/vim-maximizer',
