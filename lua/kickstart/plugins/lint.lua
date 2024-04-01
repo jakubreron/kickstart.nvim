@@ -7,19 +7,22 @@ return {
       local lint = require 'lint'
 
       lint.linters_by_ft = {
+        -- NOTE: already handled by an lsp
         -- javascript = { 'eslint_d' },
         -- javascriptreact = { 'eslint_d' },
         -- vue = { 'eslint_d' },
         -- typescript = { 'eslint_d' },
         -- typescriptreact = { 'eslint_d' },
 
-        css = { 'stylelint' },
-        scss = { 'stylelint' },
-        less = { 'stylelint' },
-        sass = { 'stylelint' },
+        -- NOTE: already handled by an lsp
+        -- css = { 'stylelint' },
+        -- scss = { 'stylelint' },
+        -- less = { 'stylelint' },
+        -- sass = { 'stylelint' },
 
-        markdown = { 'markdownlint' },
-        vimwiki = { 'markdownlint' },
+        -- TODO: should be handled by vale_ls, but it's better to check
+        -- markdown = { 'markdownlint' },
+        -- vimwiki = { 'markdownlint' },
       }
 
       -- To allow othrr plugins to add linters to require('lint').linters_by_ft,

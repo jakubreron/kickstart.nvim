@@ -663,12 +663,20 @@ require('lazy').setup({
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
 
-        -- RFB = eslint_d, Singularity = LSP formatter (eslint-lsp) fallback
+        -- NOTE: RFB = eslint_d,
+        -- NOTE: Singularity = prettierd or LSP formatter (eslint-lsp) fallback
+
         -- javascript = { { 'eslint_d' } },
         -- javascriptreact = { { 'eslint_d' } },
         -- vue = { { 'eslint_d' } },
         -- typescript = { { 'eslint_d' } },
         -- typescriptreact = { { 'eslint_d' } },
+
+        javascript = { { 'prettierd' } },
+        javascriptreact = { { 'prettierd' } },
+        vue = { { 'prettierd' } },
+        typescript = { { 'prettierd' } },
+        typescriptreact = { { 'prettierd' } },
 
         css = { { 'prettierd' } },
         scss = { { 'prettierd' } },
@@ -680,7 +688,7 @@ require('lazy').setup({
 
         html = { { 'prettierd' } },
         yaml = { { 'prettierd' } },
-        -- json = { { 'prettierd' } }, -- NOTE: nice to have, but it creates bugs in japanese characters
+        json = { { 'prettierd' } }, -- NOTE: nice to have, but it creates bugs in japanese characters
       },
     },
   },
@@ -945,7 +953,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
 
   -- TODO: luacheck linter
-  require 'kickstart.plugins.lint',
+  -- require 'kickstart.plugins.lint',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
