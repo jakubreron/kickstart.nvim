@@ -41,7 +41,7 @@ return {
         desc = '[o]utline',
       },
     },
-    opts = {},
+    config = true,
   },
 
   {
@@ -143,15 +143,8 @@ return {
     lazy = true,
     dependencies = 'MunifTanjim/nui.nvim',
     event = 'BufWinEnter package.json',
-    opts = {},
+    config = true,
   },
-
-  -- {
-  --   'kevinhwang91/nvim-bqf', -- better quickfix window (preview, search & replace, etc...)
-  --   lazy = true,
-  --   event = { 'BufRead', 'BufNew' },
-  --   config = true,
-  -- },
 
   -- TODO: integrate
   -- {
@@ -169,7 +162,7 @@ return {
       'typescript',
       'typescriptreact',
     },
-    -- TODO: check if I can initialize it in the place where lua_ls and jsonls is
+    -- TODO: check if I can lazyload it using config = true + load only on certain filetypes / events
     opts = {},
   },
 
