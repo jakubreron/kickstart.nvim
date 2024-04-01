@@ -248,6 +248,9 @@ require('lazy').setup({
         ['<leader>w'] = { name = 'Vim[w]iki', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[d]iagnostic', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[g]it', _ = 'which_key_ignore' },
+
+        ['gJ'] = { name = '[g]oto [J]oin', _ = 'which_key_ignore' },
+        ['gS'] = { name = '[g]oto [S]plit', _ = 'which_key_ignore' },
         ['yo'] = { name = 'T[o]ggle', _ = 'which_key_ignore' },
         ['yos'] = { name = '[s]pelling', _ = 'which_key_ignore' },
       }
