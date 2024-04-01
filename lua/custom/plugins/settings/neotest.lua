@@ -1,8 +1,8 @@
 local M = {}
 
 M.config = function()
-  local neotest_status_ok, neotest = pcall(require, 'neotest')
-  if not neotest_status_ok then
+  local status_ok, neotest = pcall(require, 'neotest')
+  if not status_ok then
     return
   end
 
@@ -11,7 +11,7 @@ M.config = function()
       enabled = true,
     },
 
-    output ={
+    output = {
       open_on_run = false,
     },
 

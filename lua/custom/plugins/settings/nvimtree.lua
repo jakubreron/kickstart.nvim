@@ -1,8 +1,8 @@
 local M = {}
 
 M.config = function()
-  local nvim_tree_status, nvim_tree = pcall(require, 'nvim-tree')
-  if not nvim_tree_status then
+  local status_ok, nvim_tree = pcall(require, 'nvim-tree')
+  if not status_ok then
     return
   end
 
