@@ -1,63 +1,10 @@
-vim.cmd 'source ~/.config/nvim/lua/custom/shortcuts.vim'
+require 'custom.plugins.settings.vars'
 
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.g.have_nerd_font = true
-
-vim.b.match_words = '<<<<<<<:=======:>>>>>>>' -- match git conflict markers with %
-
--- use var for vimwiki home dir
-vim.g.vimwiki_list = {
-  {
-    path = vim.fn.expand '$VIMWIKI_DIR',
-    syntax = 'markdown',
-    ext = '.md',
-  },
-}
-
--- do not wrap tmux
-vim.g.tmux_navigator_no_wrap = 1
-
--- remove unnecessary unimpaired mappings
-vim.g.nremap = {
-  --tags
-  ['[t'] = '',
-  [']t'] = '',
-  ['[T'] = '',
-  [']T'] = '',
-
-  -- url encode/decode
-  ['[u'] = '',
-  ['[uu'] = '',
-  ['v_[u'] = '',
-  [']u'] = '',
-  [']uu'] = '',
-  ['v_]u'] = '',
-
-  -- XML encode/decode
-  ['[x'] = '',
-  ['[xx'] = '',
-  ['v_[x'] = '',
-  [']x'] = '',
-  [']xx'] = '',
-  ['v_]x'] = '',
-
-  -- C string encode/decode
-  ['[y'] = '',
-  ['[yy'] = '',
-  ['v_[y'] = '',
-  ['[C'] = '',
-  ['[CC'] = '',
-  ['v_[C'] = '',
-  [']y'] = '',
-  [']yy'] = '',
-  ['v_]y'] = '',
-  [']C'] = '',
-  [']CC'] = '',
-  ['v_]C'] = '',
-}
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -691,7 +638,7 @@ require('lazy').setup({
 
         return {
           timeout_ms = 500,
-          lsp_fallback = true
+          lsp_fallback = true,
         }
       end,
       formatters_by_ft = {
