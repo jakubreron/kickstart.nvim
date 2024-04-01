@@ -146,14 +146,6 @@ return {
     config = true,
   },
 
-  -- TODO: integrate
-  -- {
-  --   'nvim-telescope/telescope-live-grep-args.nvim',
-  --   dependencies = {
-  --     'nvim-telescope/telescope.nvim',
-  --   },
-  -- },
-
   {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },

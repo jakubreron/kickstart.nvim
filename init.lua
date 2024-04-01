@@ -252,6 +252,8 @@ require('lazy').setup({
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
+      { 'nvim-telescope/telescope-live-grep-args.nvim' },
+
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -297,12 +299,24 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          live_grep_args = {
+            auto_quoting = true,
+            mappings = {
+              i = {
+                ['<C-q>'] = require('telescope-live-grep-args.actions').quote_prompt(),
+                ['<C-g>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob ' },
+                ['<C-s>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob *.spec.*' },
+              },
+            },
+            theme = 'ivy',
+          },
         },
       }
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'live_grep_args')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -312,8 +326,8 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sf', telescope_theme_wrapper(builtin.find_files), { desc = '[f]iles' })
       vim.keymap.set('n', '<leader>ss', telescope_theme_wrapper(builtin.builtin), { desc = '[s]elect Telescope' })
       vim.keymap.set('n', '<leader>sh', telescope_theme_wrapper(builtin.search_history), { desc = '[h]istory' })
-      vim.keymap.set('n', '<leader>sw', telescope_theme_wrapper(builtin.grep_string), { desc = '[w]ord' })
-      vim.keymap.set('n', '<leader>st', telescope_theme_wrapper(builtin.live_grep), { desc = '[t]ext' })
+      vim.keymap.set('n', '<leader>sw', require('telescope-live-grep-args.shortcuts').grep_word_under_cursor, { desc = '[w]ord' })
+      vim.keymap.set('n', '<leader>st', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[t]ext' })
       vim.keymap.set('n', '<leader>sd', telescope_theme_wrapper(builtin.diagnostics), { desc = '[d]iagnostics' })
       vim.keymap.set('n', '<leader>sl', telescope_theme_wrapper(builtin.resume), { desc = '[l]ast Resume' })
       vim.keymap.set('n', '<leader>sr', telescope_theme_wrapper(builtin.oldfiles), { desc = '[r]ecent Files' })
