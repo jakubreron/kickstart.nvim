@@ -947,7 +947,7 @@ require('lazy').setup({
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
-require 'custom.general'
+require 'custom.settings'
 require 'custom.autocmds'
 require 'custom.iabbrev'
 require 'custom.keymaps'

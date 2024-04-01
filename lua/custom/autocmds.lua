@@ -34,11 +34,6 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   command = 'setlocal filetype=sh',
 })
 
--- TODO: make it working
-vim.filetype.add {
-  pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
-}
-
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
   pattern = 'bm-*',
   command = '!shortcuts',
