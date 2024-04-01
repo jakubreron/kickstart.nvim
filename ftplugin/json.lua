@@ -16,7 +16,7 @@ if string.find(vim.fn.expand '%:p', 'package.json') ~= nil then
   local mappings = {
     l = {
       n = {
-        name = '[N]PM',
+        name = '[n]pm',
         a = { "<cmd>lua require('package-info').install()<CR>", '[A]dd' },
         d = { "<cmd>lua require('package-info').delete()<CR>", '[D]elete' },
         f = { "<cmd>lua require('package-info').show({ force = true })<CR>", '[F]etch' },
