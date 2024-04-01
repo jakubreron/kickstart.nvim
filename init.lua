@@ -624,6 +624,17 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
+    lazy = false,
+    keys = {
+      {
+        '<leader>ff',
+        function()
+          require('conform').format { async = true, lsp_fallback = true }
+        end,
+        mode = '',
+        desc = '[f]ormat buffer',
+      },
+    },
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -667,13 +678,6 @@ require('lazy').setup({
         html = { { 'prettierd' } },
         yaml = { { 'prettierd' } },
         -- json = { { 'prettierd' } }, -- NOTE: nice to have, but it creates bugs in japanese characters
-      },
-    },
-    keys = {
-      {
-        '<leader>ff',
-        '<cmd>lua require("conform").format({ lsp_fallback = true })<cr>',
-        desc = '[f]ormat',
       },
     },
   },
@@ -865,6 +869,7 @@ require('lazy').setup({
         'c',
         'html',
         'lua',
+        'luadoc',
         'markdown',
         'vim',
         'vimdoc',
