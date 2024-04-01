@@ -602,7 +602,7 @@ require('lazy').setup({
 
         -- NOTE: formatters
         'stylua', -- lua
-        'prettierd', -- html, yaml, json, etc
+        'prettier', -- html, yaml, json, etc
 
         -- NOTE: 2 in 1, linters & formatters
         'eslint_d', -- js/ts
@@ -664,7 +664,7 @@ require('lazy').setup({
         -- is found.
 
         -- NOTE: RFB = eslint_d,
-        -- NOTE: Singularity = prettierd or LSP formatter (eslint-lsp) fallback
+        -- NOTE: Singularity = prettier or LSP formatter (eslint-lsp) fallback
 
         -- javascript = { { 'eslint_d' } },
         -- javascriptreact = { { 'eslint_d' } },
@@ -672,23 +672,23 @@ require('lazy').setup({
         -- typescript = { { 'eslint_d' } },
         -- typescriptreact = { { 'eslint_d' } },
 
-        javascript = { { 'prettierd' } },
-        javascriptreact = { { 'prettierd' } },
-        vue = { { 'prettierd' } },
-        typescript = { { 'prettierd' } },
-        typescriptreact = { { 'prettierd' } },
+        javascript = { { 'prettier' } },
+        javascriptreact = { { 'prettier' } },
+        vue = { { 'prettier' } },
+        typescript = { { 'prettier' } },
+        typescriptreact = { { 'prettier' } },
 
-        css = { { 'prettierd' } },
-        scss = { { 'prettierd' } },
-        less = { { 'prettierd' } },
-        sass = { { 'prettierd' } },
+        css = { { 'prettier' } },
+        scss = { { 'prettier' } },
+        less = { { 'prettier' } },
+        sass = { { 'prettier' } },
 
         markdown = { { 'markdownlint' } },
         vimwiki = { { 'markdownlint' } },
 
-        html = { { 'prettierd' } },
-        yaml = { { 'prettierd' } },
-        json = { { 'prettierd' } }, -- NOTE: nice to have, but it creates bugs in japanese characters
+        html = { { 'prettier' } },
+        yaml = { { 'prettier' } },
+        json = { { 'prettier' } }, -- NOTE: nice to have, but it creates bugs in japanese characters
       },
     },
   },
