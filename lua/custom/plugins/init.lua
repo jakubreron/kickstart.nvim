@@ -1,24 +1,49 @@
 return {
-  'sangdol/mintabline.vim', -- tabs with numbers & icons
   'tpope/vim-repeat', -- better "."
-  'tpope/vim-surround', -- surround movement
   'tpope/vim-unimpaired', -- additional mappings
-  -- 'stevearc/dressing.nvim', -- better default nvim interfaces
-  'christoomey/vim-titlecase', -- "gz" movement to toggle the words case
   'AndrewRadev/splitjoin.vim',
+
+  {
+    'sangdol/mintabline.vim', -- tabs with numbers & icons
+    lazy = true,
+    event = 'TabEnter',
+  },
+
+  {
+    'tpope/vim-surround', -- surround movement
+    lazy = true,
+    keys = {
+      'ys',
+      'ds',
+      'cs',
+      {
+        'S',
+        mode = 'v',
+      },
+    },
+  },
 
   {
     'vimwiki/vimwiki',
     lazy = true,
     cmd = { 'VimwikiIndex', 'VimwikiDiaryIndex' },
+    event = 'BufWinEnter ' .. vim.fn.expand '$VIMWIKI_DIR' .. '/*',
     keys = {
-      '<leader>ww',
-      '<leader>wi',
+      '<leader>w',
     },
   },
 
   {
-    'szw/vim-maximizer',
+    'christoomey/vim-titlecase', -- "gz" movement to toggle the words case
+    lazy = true,
+    keys = {
+      'gz',
+      'gzz',
+    },
+  },
+
+  {
+    'szw/vim-maximizer', -- maximize current window
     lazy = true,
     cmd = { 'MaximizerToggle' },
     keys = {
@@ -28,7 +53,7 @@ return {
         desc = '[ ] Maximize',
       },
     },
-  }, -- maximize current window
+  },
 
   {
     'hedyhli/outline.nvim',
@@ -60,7 +85,7 @@ return {
   },
 
   {
-    'christoomey/vim-tmux-navigator',
+    'christoomey/vim-tmux-navigator', -- tmux navigation from within nvim
     lazy = true,
     cmd = {
       'TmuxNavigateLeft',
@@ -76,10 +101,10 @@ return {
       { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
       { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
     },
-  }, -- tmux navigation from within nvim
+  },
 
   {
-    'tpope/vim-obsession',
+    'tpope/vim-obsession', -- save the session
     lazy = false, -- do not lazyload it since it can be pre-enabled with nvim -S
     cmd = { 'Obsession' },
     keys = {
@@ -88,7 +113,7 @@ return {
       { '<leader>os', '<cmd>source Session.vim<cr>', desc = '[s]ource Session' },
       { '<leader>oS', ':source Session-', desc = '[S]ource Custom Session' },
     },
-  }, -- save the session
+  },
 
   {
     'nvim-neotest/neotest', -- run tests directly from the file
