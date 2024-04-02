@@ -22,7 +22,11 @@ vim.opt.shortmess:append 'I' -- don't show the default intro message
 vim.opt.whichwrap:append '<,>,[,],h,l'
 
 vim.filetype.add {
-  pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
+  pattern = {
+    ['.*/hypr/.*%.conf'] = 'hyprlang',
+    -- TODO: check if it works
+    ['[jt]sconfig.*.json'] = 'jsonc',
+  },
 }
 
 for k, v in pairs(options) do
