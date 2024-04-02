@@ -20,6 +20,7 @@ return {
         -- less = { 'stylelint' },
         -- sass = { 'stylelint' },
 
+        -- NOTE: not handled by an LSP
         -- markdown = { 'markdownlint' },
         -- vimwiki = { 'markdownlint' },
       }

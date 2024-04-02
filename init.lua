@@ -530,9 +530,7 @@ require('lazy').setup({
       local servers = {
         emmet_language_server = {},
         jsonls = {},
-        vale_ls = {
-          filetypes = { 'markdown', 'vimwiki' },
-        },
+        markdown_oxide = {},
         stylelint_lsp = {},
         html = {},
         eslint = {},
@@ -581,7 +579,7 @@ require('lazy').setup({
         'lua-language-server', -- lua
         'emmet-language-server', -- html
         'json-lsp', -- json
-        'vale-ls', -- markdown
+        'markdown-oxide', -- markdown, vimwiki
         'stylelint-lsp', -- styles
         'html-lsp', -- html
         'eslint-lsp', -- js/ts
