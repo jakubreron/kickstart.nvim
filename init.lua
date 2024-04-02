@@ -623,63 +623,86 @@ require('lazy').setup({
         function()
           require('conform').format { async = true, lsp_fallback = true }
         end,
-        mode = '',
         desc = '[f]ormat buffer',
       },
-    },
-    opts = {
-      notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return false
-        end
-
-        return {
-          timeout_ms = 500,
-          lsp_fallback = true,
-        }
-      end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-
-        -- NOTE: RFB = eslint_d,
-        -- NOTE: Singularity = prettier or LSP formatter (eslint-lsp) fallback
-
-        -- javascript = { { 'eslint_d' } },
-        -- javascriptreact = { { 'eslint_d' } },
-        -- vue = { { 'eslint_d' } },
-        -- typescript = { { 'eslint_d' } },
-        -- typescriptreact = { { 'eslint_d' } },
-
-        javascript = { { 'prettierd' } },
-        javascriptreact = { { 'prettierd' } },
-        vue = { { 'prettierd' } },
-        typescript = { { 'prettierd' } },
-        typescriptreact = { { 'prettierd' } },
-
-        css = { { 'prettierd' } },
-        scss = { { 'prettierd' } },
-        less = { { 'prettierd' } },
-        sass = { { 'prettierd' } },
-
-        markdown = { { 'markdownlint' } },
-        vimwiki = { { 'markdownlint' } },
-
-        html = { { 'prettierd' } },
-        yaml = { { 'prettierd' } },
-        json = { { 'prettier' } }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
+      {
+        '<leader>fF',
+        '<cmd>ConformInfo<cr>',
+        desc = '[F]ormatters attached',
       },
     },
+    config = function()
+      local prettier_paths = { 'singularity' }
+      local js_ts_formatters = {}
+
+      for i = 1, #prettier_paths do
+        if string.find(vim.fn.expand '%:p:h', prettier_paths[i]) then
+          js_ts_formatters = { { 'prettierd' } }
+        else
+          js_ts_formatters = { { 'eslint_d' } }
+        end
+      end
+
+      require('conform').setup {
+        notify_on_error = false,
+        format_on_save = function(bufnr)
+          -- Disable "format_on_save lsp_fallback" for languages that don't
+          -- have a well standardized coding style. You can add additional
+          -- languages here or re-enable it for the disabled ones.
+          local disable_filetypes = { c = true, cpp = true }
+
+          if disable_filetypes[vim.bo[bufnr].filetype] then
+            return false
+          end
+
+          return {
+            timeout_ms = 500,
+            lsp_fallback = true,
+          }
+        end,
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          -- Conform can also run multiple formatters sequentially
+          -- python = { "isort", "black" },
+          --
+          -- You can use a sub-list to tell conform to run *until* a formatter
+          -- is found.
+
+          -- NOTE: RFB = eslint_d,
+          -- NOTE: Singularity = prettierd
+
+          javascript = js_ts_formatters,
+          javascriptreact = js_ts_formatters,
+          vue = js_ts_formatters,
+          typescript = js_ts_formatters,
+          typescriptreact = js_ts_formatters,
+
+          -- javascript = { { 'eslint_d' } },
+          -- javascriptreact = { { 'eslint_d' } },
+          -- vue = { { 'eslint_d' } },
+          -- typescript = { { 'eslint_d' } },
+          -- typescriptreact = { { 'eslint_d' } },
+
+          -- javascript = { { 'prettierd' } },
+          -- javascriptreact = { { 'prettierd' } },
+          -- vue = { { 'prettierd' } },
+          -- typescript = { { 'prettierd' } },
+          -- typescriptreact = { { 'prettierd' } },
+
+          css = { { 'prettierd' } },
+          scss = { { 'prettierd' } },
+          less = { { 'prettierd' } },
+          sass = { { 'prettierd' } },
+
+          markdown = { { 'markdownlint' } },
+          vimwiki = { { 'markdownlint' } },
+
+          html = { { 'prettierd' } },
+          yaml = { { 'prettierd' } },
+          json = { { 'prettier' } }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
+        },
+      }
+    end,
   },
 
   { -- Autocompletion
