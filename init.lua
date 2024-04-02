@@ -528,7 +528,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- TODO: try to add emmet_ls or emmet-language-server
+        emmet_language_server = {},
         jsonls = {},
         vale_ls = {
           filetypes = { 'markdown', 'vimwiki' },
@@ -579,6 +579,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         -- NOTE: LSP
         'lua-language-server', -- lua
+        'emmet-language-server', -- html
         'json-lsp', -- json
         'vale-ls', -- markdown
         'stylelint-lsp', -- styles
@@ -591,7 +592,8 @@ require('lazy').setup({
 
         -- NOTE: formatters
         'stylua', -- lua
-        'prettier', -- html, yaml, json, etc
+        'prettier', -- only json because prettierd is bugged
+        'prettierd', -- html, yaml, json, etc
 
         -- NOTE: 2 in 1, linters & formatters
         'eslint_d', -- js/ts
@@ -661,23 +663,23 @@ require('lazy').setup({
         -- typescript = { { 'eslint_d' } },
         -- typescriptreact = { { 'eslint_d' } },
 
-        javascript = { { 'prettier' } },
-        javascriptreact = { { 'prettier' } },
-        vue = { { 'prettier' } },
-        typescript = { { 'prettier' } },
-        typescriptreact = { { 'prettier' } },
+        javascript = { { 'prettierd' } },
+        javascriptreact = { { 'prettierd' } },
+        vue = { { 'prettierd' } },
+        typescript = { { 'prettierd' } },
+        typescriptreact = { { 'prettierd' } },
 
-        css = { { 'prettier' } },
-        scss = { { 'prettier' } },
-        less = { { 'prettier' } },
-        sass = { { 'prettier' } },
+        css = { { 'prettierd' } },
+        scss = { { 'prettierd' } },
+        less = { { 'prettierd' } },
+        sass = { { 'prettierd' } },
 
         markdown = { { 'markdownlint' } },
         vimwiki = { { 'markdownlint' } },
 
-        html = { { 'prettier' } },
-        yaml = { { 'prettier' } },
-        json = { { 'prettier' } }, -- NOTE: nice to have, but it creates bugs in japanese characters
+        html = { { 'prettierd' } },
+        yaml = { { 'prettierd' } },
+        json = { { 'prettier' } }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
       },
     },
   },

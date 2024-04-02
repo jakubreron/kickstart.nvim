@@ -20,7 +20,6 @@ return {
         -- less = { 'stylelint' },
         -- sass = { 'stylelint' },
 
-        -- TODO: should be handled by vale_ls, but it's better to check
         -- markdown = { 'markdownlint' },
         -- vimwiki = { 'markdownlint' },
       }
