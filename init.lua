@@ -839,7 +839,23 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  -- { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+    config = function()
+      vim.keymap.set('n', ']t', function()
+        require('todo-comments').jump_next()
+      end, { desc = 'Next [t]odo comment' })
+
+      vim.keymap.set('n', '[t', function()
+        require('todo-comments').jump_prev()
+      end, { desc = 'Previous [t]odo comment' })
+
+      vim.keymap.set('n', '<leader>T', '<cmd>TodoTelescope<cr>', { desc = '[T]odos' })
+    end,
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -913,7 +929,6 @@ require('lazy').setup({
         'toml',
         'hyprlang',
         'regex',
-        'comment',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
