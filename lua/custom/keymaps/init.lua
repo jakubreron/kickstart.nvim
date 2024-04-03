@@ -14,7 +14,7 @@ if harpoon_status_ok then
   })
 
   vim.keymap.set('n', '<C-b>', function()
-    harpoon:list():append()
+    harpoon:list():add()
   end, {
     desc = 'Add file to harpoon',
   })
