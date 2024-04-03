@@ -99,9 +99,9 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-local function telescope_theme_wrapper(telescope_command)
+local function telescope_theme_wrapper(telescope_command, args)
   return function()
-    telescope_command(require('telescope.themes').get_ivy())
+    telescope_command(require('telescope.themes').get_ivy { args })
   end
 end
 
@@ -332,7 +332,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sl', telescope_theme_wrapper(builtin.resume), { desc = '[l]ast Resume' })
       vim.keymap.set('n', '<leader>sr', telescope_theme_wrapper(builtin.oldfiles), { desc = '[r]ecent Files' })
       vim.keymap.set('n', '<leader>sb', telescope_theme_wrapper(builtin.buffers), { desc = '[b]uffers' })
-      vim.keymap.set('n', '<leader>sc', telescope_theme_wrapper(builtin.colorscheme), { desc = '[c]olorscheme' })
+      vim.keymap.set('n', '<leader>sc', telescope_theme_wrapper(builtin.colorscheme, { enable_preview = true }), { desc = '[c]olorscheme' })
       vim.keymap.set('n', '<leader>sg', telescope_theme_wrapper(builtin.git_files), { desc = '[g]it Files' })
 
       -- Slightly advanced example of overriding default behavior and theme
