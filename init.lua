@@ -292,7 +292,7 @@ require('lazy').setup({
               ['<C-k>'] = require('telescope.actions').cycle_history_prev,
             },
           },
-          path_display = { 'smart' },
+          path_display = { 'truncate' },
         },
         -- pickers = {}
         extensions = {
