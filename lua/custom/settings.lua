@@ -24,7 +24,6 @@ vim.opt.whichwrap:append '<,>,[,],h,l'
 vim.filetype.add {
   pattern = {
     ['.*/hypr/.*%.conf'] = 'hyprlang',
-    -- TODO: check if it works
     ['[jt]sconfig.*.json'] = 'jsonc',
   },
 }
