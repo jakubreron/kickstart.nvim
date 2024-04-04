@@ -44,6 +44,8 @@ vim.keymap.set('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<CR>
 
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>', { desc = '[s]ave' })
 
+vim.keymap.set('n', 'p', ']p', { desc = '[p]aste' })
+
 vim.keymap.set('v', '.', '<cmd>normal .<CR>', { desc = '[d]ot command over visual block' })
 
 vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[p]aste without yanking' })
