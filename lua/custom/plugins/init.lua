@@ -205,8 +205,7 @@ return {
       'typescript',
       'typescriptreact',
     },
-    -- TODO: check if I can lazyload it using config = true + load only on certain filetypes / events
-    opts = {},
+    config = true,
   },
 
   {
