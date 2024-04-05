@@ -462,6 +462,24 @@ require('lazy').setup({
               callback = vim.lsp.buf.clear_references,
             })
           end
+
+          -- add border to all hover actions
+          local border = {
+            { '╭', 'FloatBorder' },
+            { '─', 'FloatBorder' },
+            { '╮', 'FloatBorder' },
+            { '│', 'FloatBorder' },
+            { '╯', 'FloatBorder' },
+            { '─', 'FloatBorder' },
+            { '╰', 'FloatBorder' },
+            { '│', 'FloatBorder' },
+          }
+          local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+          function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+            opts = opts or {}
+            opts.border = opts.border or border
+            return orig_util_open_floating_preview(contents, syntax, opts, ...)
+          end
         end,
       })
 
@@ -702,13 +720,23 @@ require('lazy').setup({
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
+      local completeopt = 'menu,menuone,noinsert,preview'
+
+      vim.opt.completeopt = completeopt
+      vim.opt.pumheight = 20 -- completion menu height
+
       cmp.setup {
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
         },
-        completion = { completeopt = 'menu,menuone,noinsert' },
+        completion = { completeopt = completeopt },
+
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
@@ -815,8 +843,7 @@ require('lazy').setup({
       require('mini.ai').setup { n_lines = 500 }
       require('mini.animate').setup {
         cursor = {
-          enable = true,
-          timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
+          enable = false,
         },
         scroll = {
           enable = true,
