@@ -103,3 +103,25 @@ vim.keymap.set('n', '<leader>pi', '<cmd>Lazy install<cr>', { desc = '[i]nstall' 
 vim.keymap.set('n', '<leader>ps', '<cmd>Lazy sync<cr>', { desc = '[s]ync' })
 vim.keymap.set('n', '<leader>pp', '<cmd>Lazy profile<cr>', { desc = '[p]rofile' })
 vim.keymap.set('n', '<leader>pr', '<cmd>Lazy restore<cr>', { desc = '[r]estore' })
+
+-- disable scrolling on mouse since it's bugged with the smooth scroll plugin
+local scrolling_binds = {
+  '<ScrollWheelUp>',
+  '<S-ScrollWheelUp>',
+  '<C-ScrollWheelUp>',
+  '<ScrollWheelDown>',
+  '<S-ScrollWheelDown>',
+  '<C-ScrollWheelDown>',
+  '<ScrollWheelLeft>',
+  '<S-ScrollWheelLeft>',
+  '<C-ScrollWheelLeft>',
+  '<ScrollWheelRight>',
+  '<S-ScrollWheelRight>',
+  '<C-ScrollWheelRight>',
+}
+
+for i = 1, #scrolling_binds do
+  vim.keymap.set('n', scrolling_binds[i], '<nop>')
+  vim.keymap.set('i', scrolling_binds[i], '<nop>')
+  vim.keymap.set('v', scrolling_binds[i], '<nop>')
+end

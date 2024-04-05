@@ -813,6 +813,25 @@ require('lazy').setup({
       --  - ci'  - [C]hange [I]nside [']quote
       --  - dil{  - [D]elete [I]nside [L]ast [{]
       require('mini.ai').setup { n_lines = 500 }
+      require('mini.animate').setup {
+        cursor = {
+          enable = true,
+          timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
+        },
+        scroll = {
+          enable = true,
+          timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
+        },
+        resize = {
+          enable = false,
+        },
+        open = {
+          enable = false,
+        },
+        close = {
+          enable = false,
+        },
+      }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
