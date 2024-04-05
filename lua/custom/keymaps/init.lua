@@ -80,7 +80,7 @@ vim.keymap.set('n', '<A-l>', ':vertical resize -2<CR>')
 vim.keymap.set('n', '<C-Left>', ':vertical resize +2<CR>')
 vim.keymap.set('n', '<C-Down>', ':resize -2<CR>')
 vim.keymap.set('n', '<C-Up>', ':resize +2<CR>')
-vim.keymap.set('n', '<A-Right>', ':vertical resize -2<CR>')
+vim.keymap.set('n', '<C-Right>', ':vertical resize -2<CR>')
 
 vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h')
 vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j')
