@@ -39,14 +39,18 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
   command = '!shortcuts',
 })
 
-local auto_commit = function(type, scope)
-  return 'git add .; git commit -m "' .. type .. '(' .. scope .. '): ⚙️ auto-commit changes"; git pull && git push;'
+local auto_commit = function(type, scope, description)
+  description = description or '⚙️ auto-commit changes'
+  local commit = string.format('%s(%s): %s', type, scope, description)
+
+  return string.format('git add .; git commit -m "%s"; git pull && git push;', commit)
 end
 
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
-  pattern = vim.fn.expand '$VIMWIKI_DIR' .. '/*',
+  pattern = vim.fn.expand '$VIMWIKI_DIR' .. '/**/*',
   callback = function()
-    vim.fn.jobstart(auto_commit('docs', 'vimwiki'), { detach = true })
+    local filename = vim.fn.expand '%:t'
+    vim.fn.jobstart(auto_commit('docs', 'vimwiki', filename), { detach = true })
   end,
 })
 
