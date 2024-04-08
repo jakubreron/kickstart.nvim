@@ -204,6 +204,9 @@ require('lazy').setup({
           },
         },
         operators = { gc = 'Comments' },
+        window = {
+          border = 'single',
+        },
       }
 
       -- Document existing key chains
@@ -516,7 +519,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        -- tsserver = {},
         --
 
         lua_ls = {
