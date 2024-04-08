@@ -516,7 +516,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        tsserver = {},
         --
 
         lua_ls = {
@@ -652,18 +652,6 @@ require('lazy').setup({
           vue = js_ts_formatters,
           typescript = js_ts_formatters,
           typescriptreact = js_ts_formatters,
-
-          -- javascript = { { 'eslint_d' } },
-          -- javascriptreact = { { 'eslint_d' } },
-          -- vue = { { 'eslint_d' } },
-          -- typescript = { { 'eslint_d' } },
-          -- typescriptreact = { { 'eslint_d' } },
-
-          -- javascript = { { 'prettierd' } },
-          -- javascriptreact = { { 'prettierd' } },
-          -- vue = { { 'prettierd' } },
-          -- typescript = { { 'prettierd' } },
-          -- typescriptreact = { { 'prettierd' } },
 
           css = { { 'prettierd' } },
           scss = { { 'prettierd' } },
@@ -897,7 +885,7 @@ require('lazy').setup({
       {
         'nvim-treesitter/nvim-treesitter-context',
         opts = {
-          max_lines = 5, -- How many lines the window should span. Values
+          max_lines = 8, -- How many lines the window should span. Values
         },
       }, -- sticky scroll context
 
@@ -920,6 +908,7 @@ require('lazy').setup({
         'scss',
         'vue',
         'json',
+        'jsdoc',
         'yaml',
         'toml',
         'hyprlang',
