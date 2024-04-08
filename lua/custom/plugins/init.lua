@@ -197,16 +197,18 @@ return {
     config = true,
   },
 
-  {
-    'pmizio/typescript-tools.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    ft = {
-      'javascript',
-      'typescript',
-      'typescriptreact',
-    },
-    config = true,
-  },
+  -- NOTE: uncomment when this gets fixed https://github.com/pmizio/typescript-tools.nvim/issues/226
+  -- {
+  --   'pmizio/typescript-tools.nvim',
+  --   lazy = true,
+  --   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+  --   ft = {
+  --     'javascript',
+  --     'typescript',
+  --     'typescriptreact',
+  --   },
+  --   config = true,
+  -- },
 
   {
     'nvim-tree/nvim-tree.lua',
