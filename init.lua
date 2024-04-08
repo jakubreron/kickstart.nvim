@@ -548,6 +548,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         -- NOTE: LSP
         'lua-language-server', -- lua
+        'typescript-language-server', -- ts/js
         'emmet-language-server', -- html
         'json-lsp', -- json
         'markdown-oxide', -- markdown, vimwiki
