@@ -8,12 +8,12 @@ local M = {
       name = '[i]mports',
       o = { '<cmd>TSToolsOrganizeImports<CR>', '[o]rganize' },
       s = { '<cmd>TSToolsSortImports<CR>', '[s]ort' },
-      r = { '<cmd>TSToolsRemoveUnusedImports<CR>', '[r]emove Unused' },
-      a = { '<cmd>TSToolsAddMissingImports<CR>', '[a]dd Missing' },
+      r = { '<cmd>TSToolsRemoveUnusedImports<CR>', '[r]emove unused' },
+      a = { '<cmd>TSToolsAddMissingImports<CR>', '[a]dd missing' },
     }, -- default is :LspInfo
     o = {
       name = '[o]rganize',
-      r = { '<cmd>TSToolsRemoveUnused<CR>', '[r]emove Unused Statements' },
+      r = { '<cmd>TSToolsRemoveUnused<CR>', '[r]emove unused statements' },
       f = { '<cmd>TSToolsFixAll<CR>', '[f]ix fixable errors' },
     }, -- [o]rganize
   },

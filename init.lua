@@ -64,8 +64,8 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>', { desc = 'Go to previous [d]iagnostic message' })
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>', { desc = 'Go to next [d]iagnostic message' })
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>', { desc = 'go to previous [d]iagnostic message' })
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>', { desc = 'go to next [d]iagnostic message' })
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[e]rror Messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
 
@@ -74,16 +74,16 @@ vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfi
 -- vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'move focus to the upper window' })
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
+  desc = 'highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
@@ -136,32 +136,32 @@ require('lazy').setup({
       {
         '<leader>gl',
         '<cmd>lua require "gitsigns".blame_line()<cr>',
-        desc = 'B[l]ame',
+        desc = 'b[l]ame',
       },
       {
         '<leader>gp',
         '<cmd>lua require "gitsigns".preview_hunk()<cr>',
-        desc = '[p]review Hunk',
+        desc = '[p]review hunk',
       },
       {
         '<leader>gr',
         '<cmd>lua require "gitsigns".reset_hunk()<cr>',
-        desc = '[r]eset Hunk',
+        desc = '[r]eset hunk',
       },
       {
         '<leader>gR',
         '<cmd>lua require "gitsigns".reset_buffer()<cr>',
-        desc = '[R]eset Buffer',
+        desc = '[R]eset buffer',
       },
       {
         '<leader>go',
         '<cmd>Telescope git_status<cr>',
-        desc = '[o]pen Changed File',
+        desc = '[o]pen changed file',
       },
       {
         '<leader>gc',
         '<cmd>Telescope git_bcommits<cr>',
-        desc = '[c]heckout Commit (current file)',
+        desc = '[c]heckout commit (current file)',
       },
       {
         '<leader>gd',
@@ -171,12 +171,12 @@ require('lazy').setup({
       {
         ']c',
         '<cmd>lua require"gitsigns".next_hunk({navigation_message = false})<CR>',
-        desc = 'Next Git [c]hange',
+        desc = 'next git [c]hange',
       },
       {
         '[c',
         '<cmd>lua require"gitsigns".prev_hunk({navigation_message = false})<CR>',
-        desc = 'Prev Git [c]hange',
+        desc = 'prev git [c]hange',
       },
     },
   },
@@ -212,12 +212,12 @@ require('lazy').setup({
         ['<leader>r'] = { name = '[r]eplace', _ = 'which_key_ignore' },
         ['<leader>o'] = { name = '[o]bsession', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[s]earch', _ = 'which_key_ignore' },
-        ['<leader>l'] = { name = '[l]SP', _ = 'which_key_ignore' },
+        ['<leader>l'] = { name = '[l]sp', _ = 'which_key_ignore' },
         ['<leader>ls'] = { name = '[s]ymbols', _ = 'which_key_ignore' },
         ['<leader>p'] = { name = '[p]ackages', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[t]ab', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[f]ile', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = 'Vim[w]iki', _ = 'which_key_ignore' },
+        ['<leader>w'] = { name = 'vim[w]iki', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[d]iagnostic', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[g]it', _ = 'which_key_ignore' },
 
@@ -225,7 +225,7 @@ require('lazy').setup({
         ['gb'] = { name = '[b]lock comment', _ = 'which_key_ignore' },
         ['gJ'] = { name = '[J]oin', _ = 'which_key_ignore' },
         ['gS'] = { name = '[S]plit', _ = 'which_key_ignore' },
-        ['yo'] = { name = 'T[o]ggle', _ = 'which_key_ignore' },
+        ['yo'] = { name = 't[o]ggle', _ = 'which_key_ignore' },
         ['yos'] = { name = '[s]pelling', _ = 'which_key_ignore' },
       }
     end,
@@ -307,16 +307,16 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', telescope_theme_wrapper(builtin.help_tags), { desc = '[h]elp' })
       vim.keymap.set('n', '<leader>sk', telescope_theme_wrapper(builtin.keymaps), { desc = '[k]eymaps' })
       vim.keymap.set('n', '<leader>sf', telescope_theme_wrapper(builtin.find_files), { desc = '[f]iles' })
-      vim.keymap.set('n', '<leader>ss', telescope_theme_wrapper(builtin.builtin), { desc = '[s]elect Telescope' })
+      vim.keymap.set('n', '<leader>ss', telescope_theme_wrapper(builtin.builtin), { desc = '[s]elect telescope' })
       vim.keymap.set('n', '<leader>sh', telescope_theme_wrapper(builtin.search_history), { desc = '[h]istory' })
       vim.keymap.set('n', '<leader>sw', require('telescope-live-grep-args.shortcuts').grep_word_under_cursor, { desc = '[w]ord' })
       vim.keymap.set('n', '<leader>st', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[t]ext' })
       vim.keymap.set('n', '<leader>sd', telescope_theme_wrapper(builtin.diagnostics), { desc = '[d]iagnostics' })
-      vim.keymap.set('n', '<leader>sl', telescope_theme_wrapper(builtin.resume), { desc = '[l]ast Resume' })
-      vim.keymap.set('n', '<leader>sr', telescope_theme_wrapper(builtin.oldfiles), { desc = '[r]ecent Files' })
+      vim.keymap.set('n', '<leader>sl', telescope_theme_wrapper(builtin.resume), { desc = '[l]ast resume' })
+      vim.keymap.set('n', '<leader>sr', telescope_theme_wrapper(builtin.oldfiles), { desc = '[r]ecent files' })
       vim.keymap.set('n', '<leader>sb', telescope_theme_wrapper(builtin.buffers), { desc = '[b]uffers' })
       vim.keymap.set('n', '<leader>sc', telescope_theme_wrapper(builtin.colorscheme, { enable_preview = true }), { desc = '[c]olorscheme' })
-      vim.keymap.set('n', '<leader>sg', telescope_theme_wrapper(builtin.git_files), { desc = '[g]it Files' })
+      vim.keymap.set('n', '<leader>sg', telescope_theme_wrapper(builtin.git_files), { desc = '[g]it files' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -325,7 +325,7 @@ require('lazy').setup({
           winblend = 10,
           previewer = false,
         })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      end, { desc = '[/] fuzzily search in current buffer' })
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -334,7 +334,7 @@ require('lazy').setup({
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         })
-      end, { desc = '[/] in Open Files' })
+      end, { desc = '[/] in open files' })
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
@@ -604,7 +604,7 @@ require('lazy').setup({
       {
         '<leader>fF',
         '<cmd>ConformInfo<cr>',
-        desc = '[F]ormatters attached',
+        desc = 'attached [F]ormatters',
       },
     },
     config = function()
@@ -824,13 +824,13 @@ require('lazy').setup({
     config = function()
       vim.keymap.set('n', ']t', function()
         require('todo-comments').jump_next()
-      end, { desc = 'Next [t]odo comment' })
+      end, { desc = 'next [t]odo comment' })
 
       vim.keymap.set('n', '[t', function()
         require('todo-comments').jump_prev()
-      end, { desc = 'Previous [t]odo comment' })
+      end, { desc = 'previous [t]odo comment' })
 
-      vim.keymap.set('n', '<leader>T', '<cmd>TodoTelescope<cr>', { desc = '[T]odos' })
+      vim.keymap.set('n', '<leader>sT', '<cmd>TodoTelescope<cr>', { desc = '[T]odos' })
     end,
   },
 

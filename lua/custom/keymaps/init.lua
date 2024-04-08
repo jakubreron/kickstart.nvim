@@ -10,37 +10,37 @@ if harpoon_status_ok then
   vim.keymap.set('n', '<C-f>', function()
     harpoon.ui:toggle_quick_menu(harpoon:list())
   end, {
-    desc = 'Toggle harpoon quick menu',
+    desc = 'toggle harpoon quick menu',
   })
 
   vim.keymap.set('n', '<C-b>', function()
     harpoon:list():add()
   end, {
-    desc = 'Add file to harpoon',
+    desc = 'add file to harpoon',
   })
 
   vim.keymap.set('n', ']h', function()
     harpoon:list():next()
   end, {
-    desc = 'Next [h]arpoon file',
+    desc = 'next [h]arpoon file',
   })
 
   vim.keymap.set('n', '[h', function()
     harpoon:list():prev()
   end, {
-    desc = 'Prev [h]arpoon file',
+    desc = 'prev [h]arpoon file',
   })
 
   for i = 1, 6 do
     vim.keymap.set('n', '<leader>' .. i, function()
       harpoon:list():select(i)
-    end, { desc = '[' .. i .. '] Mark' })
+    end, { desc = '[' .. i .. '] mark' })
   end
 end
 
-vim.keymap.set('n', 'ZQ', '<cmd>qa<CR>', { desc = 'Quit all buffers' })
+vim.keymap.set('n', 'ZQ', '<cmd>qa<CR>', { desc = 'quit all buffers' })
 
-vim.keymap.set('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<CR>', { desc = '[v]ertical Split Definition' })
+vim.keymap.set('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<CR>', { desc = '[v]ertical split definition' })
 
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>', { desc = '[s]ave' })
 
@@ -55,7 +55,7 @@ vim.keymap.set('n', 'yoe', function()
   print(vim.o.eventignore == '' and 'Eventignore OFF' or 'Eventignore ON')
 end, { desc = '[e]ventignore' })
 
-vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<CR>', { desc = '[s]pelling Toggle' })
+vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<CR>', { desc = '[s]pelling toggle' })
 vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<CR>', { desc = '[p]olish' })
 vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<CR>', { desc = '[e]nglish' })
 
@@ -64,7 +64,8 @@ vim.keymap.set('n', 'k', 'v:count > 5 ? "m\'" .. v:count .. "k" : "k"', { expr =
 vim.keymap.set('n', 'j', 'v:count > 5 ? "m\'" .. v:count .. "j" : "j"', { expr = true, silent = true })
 
 vim.keymap.set('c', 'w!!', 'execute "silent! write !sudo tee % >/dev/null" <bar> edit!', { desc = '[w]rite as sudo[!!]' })
--- emacs keybinds in command line mode
+
+-- emacs keybinds in command/insert mode
 vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-e>', '<End>')
 vim.keymap.set('c', '<C-f>', '<Right>')
@@ -92,7 +93,7 @@ vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l')
 vim.keymap.set('n', '<leader>cs', '<C-w>s:term<CR>', { desc = '[s]plit' })
 vim.keymap.set('n', '<leader>cv', '<C-w>v:term<CR>', { desc = '[v]split' })
 vim.keymap.set('n', '<leader>ct', '<cmd>tabnew<CR><cmd>term<CR><cmd>setlocal nonumber norelativenumber<CR>', { desc = '[t]tab' })
-vim.keymap.set('n', '<leader>cs', '<cmd>silent !tmux neww tmux-sessionizer<CR>', { desc = 'Tmux [s]ession' })
+vim.keymap.set('n', '<leader>cs', '<cmd>silent !tmux neww tmux-sessionizer<CR>', { desc = 'tmux [s]ession' })
 
 vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', { desc = '[n]ew' })
 vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<CR>', { desc = '[c]lose' })
@@ -100,11 +101,23 @@ vim.keymap.set('n', '<leader>to', '<cmd>tabonly<CR>', { desc = '[o]nly' })
 vim.keymap.set('n', '<leader>tm', ':tabmove', { desc = '[m]ove' })
 vim.keymap.set('n', '<leader>te', ":tabedit <C-r>=expand('%:p:h')<CR>/", { desc = '[e]dit' })
 
+vim.api.nvim_create_autocmd('TabLeave', {
+  callback = function()
+    vim.api.nvim_set_keymap('n', '<leader><leader>', '<cmd>tabn ' .. vim.api.nvim_tabpage_get_number(0) .. '<CR>', { desc = '[ ] last tab' })
+  end,
+})
+
 vim.keymap.set('n', '<leader>pl', '<cmd>Lazy<cr>', { desc = '[l]azy' })
 vim.keymap.set('n', '<leader>pi', '<cmd>Lazy install<cr>', { desc = '[i]nstall' })
 vim.keymap.set('n', '<leader>ps', '<cmd>Lazy sync<cr>', { desc = '[s]ync' })
 vim.keymap.set('n', '<leader>pp', '<cmd>Lazy profile<cr>', { desc = '[p]rofile' })
 vim.keymap.set('n', '<leader>pr', '<cmd>Lazy restore<cr>', { desc = '[r]estore' })
+
+-- TODO: find something
+-- vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
+-- vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
+
+vim.keymap.set('n', '<leader>ru', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[u]nder cursor' })
 
 -- disable scrolling on mouse since it's bugged with the smooth scroll plugin
 local scrolling_binds = {
@@ -123,7 +136,8 @@ local scrolling_binds = {
 }
 
 for i = 1, #scrolling_binds do
-  vim.keymap.set('n', scrolling_binds[i], '<nop>')
-  vim.keymap.set('i', scrolling_binds[i], '<nop>')
-  vim.keymap.set('v', scrolling_binds[i], '<nop>')
+  vim.keymap.set({ 'n', 'v', 'i' }, scrolling_binds[i], '<nop>')
 end
+
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")

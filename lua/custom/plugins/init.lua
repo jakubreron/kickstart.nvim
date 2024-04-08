@@ -74,9 +74,9 @@ return {
     cmd = { 'MaximizerToggle' },
     keys = {
       {
-        '<leader><leader>',
+        '<leader>m',
         '<cmd>MaximizerToggle!<cr>',
-        desc = '[ ] Maximize',
+        desc = '[m]aximize',
       },
     },
   },
@@ -134,10 +134,10 @@ return {
     lazy = false, -- do not lazyload it since it can be pre-enabled with nvim -S
     cmd = { 'Obsession' },
     keys = {
-      { '<leader>ot', '<cmd>Obsession<cr>', desc = '[t]rack Session' },
-      { '<leader>oT', ':Obsession Session-', desc = '[T]rack Custom Session' },
-      { '<leader>os', '<cmd>source Session.vim<cr>', desc = '[s]ource Session' },
-      { '<leader>oS', ':source Session-', desc = '[S]ource Custom Session' },
+      { '<leader>ot', '<cmd>Obsession<cr>', desc = '[t]rack session' },
+      { '<leader>oT', ':Obsession Session-', desc = '[T]rack custom session' },
+      { '<leader>os', '<cmd>source Session.vim<cr>', desc = '[s]ource session' },
+      { '<leader>oS', ':source Session-', desc = '[S]ource custom session' },
     },
   },
 
