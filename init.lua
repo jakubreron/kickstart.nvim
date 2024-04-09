@@ -791,23 +791,22 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  {
-    'folke/todo-comments.nvim',
-    event = 'VimEnter',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false },
-    config = function()
-      vim.keymap.set('n', ']t', function()
-        require('todo-comments').jump_next()
-      end, { desc = 'next [t]odo comment' })
-
-      vim.keymap.set('n', '[t', function()
-        require('todo-comments').jump_prev()
-      end, { desc = 'previous [t]odo comment' })
-
-      vim.keymap.set('n', '<leader>sT', '<cmd>TodoTelescope<cr>', { desc = '[T]odos' })
-    end,
-  },
+  -- {
+  --   'folke/todo-comments.nvim',
+  --   opts = {},
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  --   config = function()
+  --     vim.keymap.set('n', ']t', function()
+  --       require('todo-comments').jump_next()
+  --     end, { desc = 'next [t]odo comment' })
+  --
+  --     vim.keymap.set('n', '[t', function()
+  --       require('todo-comments').jump_prev()
+  --     end, { desc = 'previous [t]odo comment' })
+  --
+  --     vim.keymap.set('n', '<leader>sT', '<cmd>TodoTelescope<cr>', { desc = '[T]odos' })
+  --   end,
+  -- },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -890,6 +889,7 @@ require('lazy').setup({
         'vimdoc',
         'tsx',
         'typescript',
+        'comment',
         'javascript',
         'css',
         'scss',
