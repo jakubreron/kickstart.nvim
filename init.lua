@@ -159,11 +159,6 @@ require('lazy').setup({
         desc = '[o]pen changed file',
       },
       {
-        '<leader>gc',
-        '<cmd>Telescope git_bcommits<cr>',
-        desc = '[c]heckout commit (current file)',
-      },
-      {
         '<leader>gd',
         '<cmd>Gitsigns diffthis HEAD<cr>',
         desc = '[d]iff',

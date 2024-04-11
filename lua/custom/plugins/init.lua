@@ -286,6 +286,26 @@ return {
     event = 'VimEnter',
   },
 
+  {
+    'kdheepak/lazygit.nvim',
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    keys = {
+      { '<leader>gg', '<cmd>LazyGitCurrentFile<cr>', desc = 'lazy[g]it' },
+      { '<leader>gc', '<cmd>LazyGitFilterCurrentFile<cr>', desc = '[c]heckout commit (current file)' },
+      { '<leader>gC', '<cmd>LazyGitFilter<cr>', desc = '[C]heckout commit' },
+      { '<leader>gs', '<cmd>lua require("telescope").extensions.lazygit.lazygit()<cr>', desc = 'lazygit [s]earch' },
+    },
+    config = function()
+      require('telescope').load_extension 'lazygit'
+    end,
+  },
+
   -- {
   --   'folke/tokyonight.nvim',
   --   priority = 1000, -- Make sure to load this before all the other start plugins.
