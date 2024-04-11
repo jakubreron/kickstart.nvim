@@ -554,10 +554,15 @@ require('lazy').setup({
         'prettierd', -- html, yaml, json, etc
 
         -- NOTE: 2 in 1, linters & formatters
-        'eslint_d', -- js/ts
         'markdownlint', -- markdown, vimwiki
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      -- vim.api.nvim_create_autocmd('BufWritePre', {
+      --   pattern = { '*.tsx', '*.ts', '*.jsx', '*.js', '*.vue' },
+      --   command = 'silent! EslintFixAll',
+      --   group = vim.api.nvim_create_augroup('MyAutocmdsJavaScripFormatting', {}),
+      -- })
 
       require('mason-lspconfig').setup {
         handlers = {
@@ -598,13 +603,15 @@ require('lazy').setup({
     },
     config = function()
       local prettier_paths = { 'singularity' }
-      local js_ts_formatters = {}
+      local js_ts_formatters_callback = function(bufnr)
+        vim.cmd 'silent! EslintFixAll' -- NOTE: always run eslint lsp
 
-      for i = 1, #prettier_paths do
-        if string.find(vim.fn.expand '%:p:h', prettier_paths[i]) then
-          js_ts_formatters = { { 'prettierd' } }
-        else
-          js_ts_formatters = { { 'eslint_d' } }
+        for i = 1, #prettier_paths do
+          if string.find(vim.api.nvim_buf_get_name(bufnr), prettier_paths[i]) then
+            return { 'prettierd' } -- NOTE: but run prettier for some projects as well
+          else
+            return {}
+          end
         end
       end
 
@@ -615,14 +622,9 @@ require('lazy').setup({
           -- have a well standardized coding style. You can add additional
           -- languages here or re-enable it for the disabled ones.
           local disable_filetypes = { c = true, cpp = true }
-
-          if disable_filetypes[vim.bo[bufnr].filetype] then
-            return false
-          end
-
           return {
             timeout_ms = 500,
-            lsp_fallback = true,
+            lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
           }
         end,
         formatters_by_ft = {
@@ -633,26 +635,26 @@ require('lazy').setup({
           -- You can use a sub-list to tell conform to run *until* a formatter
           -- is found.
 
-          -- NOTE: RFB = eslint_d,
+          -- NOTE: RFB = eslint_d or eslint-lsp (just `eslint`),
           -- NOTE: Singularity = prettierd
 
-          javascript = js_ts_formatters,
-          javascriptreact = js_ts_formatters,
-          vue = js_ts_formatters,
-          typescript = js_ts_formatters,
-          typescriptreact = js_ts_formatters,
+          javascript = js_ts_formatters_callback,
+          javascriptreact = js_ts_formatters_callback,
+          vue = js_ts_formatters_callback,
+          typescript = js_ts_formatters_callback,
+          typescriptreact = js_ts_formatters_callback,
 
-          css = { { 'prettierd' } },
-          scss = { { 'prettierd' } },
-          less = { { 'prettierd' } },
-          sass = { { 'prettierd' } },
+          css = { 'prettierd' },
+          scss = { 'prettierd' },
+          less = { 'prettierd' },
+          sass = { 'prettierd' },
 
-          markdown = { { 'markdownlint' } },
-          vimwiki = { { 'markdownlint' } },
+          markdown = { 'markdownlint' },
+          vimwiki = { 'markdownlint' },
 
-          html = { { 'prettierd' } },
-          yaml = { { 'prettierd' } },
-          json = { { 'prettier' } }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
+          html = { 'prettierd' },
+          yaml = { 'prettierd' },
+          json = { 'prettier' }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
         },
       }
     end,
