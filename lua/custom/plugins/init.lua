@@ -279,6 +279,7 @@ return {
 
   {
     'nvim-lualine/lualine.nvim',
+    lazy = false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('custom.plugins.settings.lualine').config()
@@ -288,6 +289,7 @@ return {
 
   {
     'kdheepak/lazygit.nvim',
+    lazy = true,
     cmd = {
       'LazyGit',
       'LazyGitConfig',
