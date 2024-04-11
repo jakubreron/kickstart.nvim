@@ -24,6 +24,10 @@ M.config = function()
     respect_buf_cwd = true,
     auto_reload_on_write = true,
     reload_on_bufenter = false,
+    diagnostics = {
+      enable = true,
+      show_on_dirs = true,
+    },
     disable_netrw = false, -- disabling netrw disables gx for opening URLs
     git = {
       enable = true,
