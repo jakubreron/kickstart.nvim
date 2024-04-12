@@ -299,9 +299,9 @@ return {
     },
     keys = {
       { '<leader>gg', '<cmd>LazyGitCurrentFile<cr>', desc = 'lazy[g]it' },
-      -- { '<leader>gc', '<cmd>LazyGitFilterCurrentFile<cr>', desc = '[c]heckout commit (current file)' },
-      { '<leader>gC', '<cmd>LazyGitFilter<cr>', desc = '[C]heckout commit' },
       { '<leader>gs', '<cmd>lua require("telescope").extensions.lazygit.lazygit()<cr>', desc = 'lazygit [s]earch' },
+      -- { '<leader>gc', '<cmd>LazyGitFilterCurrentFile<cr>', desc = '[c]heckout commit (current file)' },
+      -- { '<leader>gC', '<cmd>LazyGitFilter<cr>', desc = '[C]heckout commit' },
     },
     config = function()
       require('telescope').load_extension 'lazygit'

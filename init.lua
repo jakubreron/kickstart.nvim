@@ -71,7 +71,7 @@ vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfi
 
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
--- vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'move focus to the left window' })
@@ -162,6 +162,16 @@ require('lazy').setup({
         '<leader>gc',
         '<cmd>Telescope git_bcommits<cr>',
         desc = '[c]heckout commit (current file)',
+      },
+      {
+        '<leader>gC',
+        '<cmd>Telescope git_commits<cr>',
+        desc = '[C]heckout commit',
+      },
+      {
+        '<leader>gb',
+        '<cmd>Telescope git_branches<cr>',
+        desc = 'checkout [b]ranch',
       },
       {
         '<leader>gd',
