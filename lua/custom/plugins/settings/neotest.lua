@@ -15,6 +15,11 @@ M.config = function()
       open_on_run = false,
     },
 
+    quickfix = {
+      enabled = false,
+      open = false,
+    },
+
     summary = {
       open = 'topleft vsplit | vertical resize 50',
       animated = true,

@@ -299,7 +299,6 @@ require('lazy').setup({
             auto_quoting = true,
             mappings = {
               i = {
-                ['<C-q>'] = require('telescope-live-grep-args.actions').quote_prompt(),
                 ['<C-g>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob ' },
                 ['<C-s>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob *.spec.*' },
               },
