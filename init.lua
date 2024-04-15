@@ -234,6 +234,23 @@ require('lazy').setup({
         ['<leader>d'] = { name = '[d]iagnostic', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[g]it', _ = 'which_key_ignore' },
 
+        -- NOTE: mini.operators
+        ['g='] = { name = '[=]evaluate', _ = 'which_key_ignore' },
+        ['g=='] = { name = '[=]evaluate current line', _ = 'which_key_ignore' },
+
+        ['gs'] = { name = '[s]wap text', _ = 'which_key_ignore' },
+        ['gss'] = { name = '[s]wap current line', _ = 'which_key_ignore' },
+
+        ['ga'] = { name = '[a]rrange text', _ = 'which_key_ignore' },
+        ['gaa'] = { name = '[a]rrange current line', _ = 'which_key_ignore' },
+
+        ['gx'] = { name = 'e[x]change text', _ = 'which_key_ignore' },
+        ['gxx'] = { name = 'e[x]change current line', _ = 'which_key_ignore' },
+
+        ['gm'] = { name = '[m]ultiply text', _ = 'which_key_ignore' },
+        ['gmm'] = { name = '[m]ultiply current line', _ = 'which_key_ignore' },
+
+        ['gz'] = { name = '[z]Z titlecase', _ = 'which_key_ignore' },
         ['gc'] = { name = '[c]omment', _ = 'which_key_ignore' },
         ['gb'] = { name = '[b]lock comment', _ = 'which_key_ignore' },
         ['gJ'] = { name = '[J]oin', _ = 'which_key_ignore' },
@@ -581,9 +598,9 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
 
-            -- if server_name == 'tsserver' then
-            --   return
-            -- end
+            if server_name == 'tsserver' then
+              return
+            end
 
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
@@ -808,17 +825,14 @@ require('lazy').setup({
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
-      -- Better Around/Inside textobjects
-      --
       -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
-      --  - ci'  - [C]hange [I]nside [']quote
       --  - dil{  - [D]elete [I]nside [L]ast [{]
       require('mini.ai').setup { n_lines = 500 }
       require('mini.animate').setup {
         cursor = {
-          enable = false,
+          enable = true,
+          timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
         },
         scroll = {
           enable = true,
@@ -834,28 +848,51 @@ require('lazy').setup({
           enable = false,
         },
       }
+      require('mini.operators').setup {
+        -- Evaluate text and replace with output
+        evaluate = {
+          prefix = 'g=',
+        },
 
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      -- require('mini.surround').setup()
+        -- e[x]change text regions
+        exchange = {
+          prefix = 'gx',
+          -- Whether to reindent new text to match previous indent
+          reindent_linewise = true,
+        },
 
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      -- local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      -- statusline.setup { use_icons = vim.g.have_nerd_font }
+        -- [m]ultiply (duplicate) text
+        multiply = {
+          prefix = 'gm',
+          -- Function which can modify text before multiplying
+          func = nil,
+        },
+
+        -- [s]wap text with register
+        replace = {
+          prefix = 'gs',
+          -- Whether to reindent new text to match previous indent
+          reindent_linewise = true,
+        },
+
+        -- [a]rrange text
+        sort = {
+          prefix = 'ga',
+          -- Function which does the sort
+          func = nil,
+        },
+      }
+
+      local statusline = require 'mini.statusline'
+      statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      -- statusline.section_location = function()
-      --   return '%2l:%-2v'
-      -- end
+      statusline.section_location = function()
+        return '%2l:%-2v'
+      end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim

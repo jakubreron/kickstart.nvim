@@ -198,16 +198,17 @@ return {
   },
 
   -- NOTE: uncomment when this gets fixed https://github.com/pmizio/typescript-tools.nvim/issues/226
-  -- {
-  --   'pmizio/typescript-tools.nvim',
-  --   lazy = true,
-  --   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-  --   ft = {
-  --     'javascript',
-  --     'typescript',
-  --     'typescriptreact',
-  --   },
-  -- },
+  {
+    'pmizio/typescript-tools.nvim',
+    lazy = true,
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    ft = {
+      'javascript',
+      'typescript',
+      'typescriptreact',
+    },
+    config = true,
+  },
 
   -- co — choose ours
   -- ct — choose theirs
@@ -276,15 +277,15 @@ return {
     event = 'User DirOpened',
   },
 
-  {
-    'nvim-lualine/lualine.nvim',
-    lazy = false,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('custom.plugins.settings.lualine').config()
-    end,
-    event = 'VimEnter',
-  },
+  -- {
+  --   'nvim-lualine/lualine.nvim',
+  --   lazy = false,
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   config = function()
+  --     require('custom.plugins.settings.lualine').config()
+  --   end,
+  --   event = 'VimEnter',
+  -- },
 
   {
     'kdheepak/lazygit.nvim',
