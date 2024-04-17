@@ -277,15 +277,15 @@ return {
     event = 'User DirOpened',
   },
 
-  -- {
-  --   'nvim-lualine/lualine.nvim',
-  --   lazy = false,
-  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  --   config = function()
-  --     require('custom.plugins.settings.lualine').config()
-  --   end,
-  --   event = 'VimEnter',
-  -- },
+  {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('custom.plugins.settings.lualine').config()
+    end,
+    event = 'VimEnter',
+  },
 
   {
     'kdheepak/lazygit.nvim',
