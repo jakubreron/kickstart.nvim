@@ -25,6 +25,14 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'help',
+  callback = function()
+    vim.cmd 'setlocal number'
+    vim.cmd 'setlocal relativenumber'
+  end,
+})
+
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = '*.tfvars',
   command = 'setlocal filetype=tf',
