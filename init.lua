@@ -815,43 +815,53 @@ require('lazy').setup({
     priority = 1000, -- Make sure to load this before all the other start plugins.
     opts = {
       transparent_background = true,
+      dim_inactive = {
+        enabled = true, -- dims the background color of inactive window
+        shade = 'light',
+        percentage = 0.50, -- percentage of the shade to apply to the inactive window
+      },
+      default_integrations = false,
       integrations = {
-        aerial = false,
         alpha = false,
-        cmp = true,
+        barbecue = false,
         dashboard = false,
         flash = false,
-        gitsigns = true,
-        headlines = false,
+        neogit = false,
         illuminate = false,
         indent_blankline = { enabled = false },
-        leap = false,
-        lsp_trouble = false,
+        cmp = true,
+        gitsigns = true,
         mason = true,
         markdown = true,
-        mini = true,
+        mini = { enabled = true },
         native_lsp = {
           enabled = true,
+          virtual_text = {
+            errors = { 'italic' },
+            hints = { 'italic' },
+            warnings = { 'italic' },
+            information = { 'italic' },
+          },
           underlines = {
-            errors = { 'undercurl' },
-            hints = { 'undercurl' },
-            warnings = { 'undercurl' },
-            information = { 'undercurl' },
+            errors = { 'underline' },
+            hints = { 'underline' },
+            warnings = { 'underline' },
+            information = { 'underline' },
+          },
+          inlay_hints = {
+            background = true,
           },
         },
-        navic = { enabled = false },
         fidget = true,
         harpoon = true,
         neotest = true,
-        neotree = false,
         nvimtree = true,
-        noice = false,
-        notify = false,
         semantic_tokens = true,
         telescope = true,
         treesitter = true,
         treesitter_context = true,
         which_key = true,
+        -- ufo = true, -- uncomment after trying out this plugin
       },
     },
     init = function()
