@@ -40,7 +40,7 @@ vim.keymap.set('n', 'ZQ', '<cmd>qa<CR>', { desc = 'quit all buffers' })
 
 vim.keymap.set('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<CR>', { desc = '[v]ertical split definition' })
 
-vim.keymap.set('n', '<C-s>', '<cmd>w<CR>', { desc = '[s]ave' })
+vim.keymap.set({ 'n', 'v', 'i' }, '<C-s>', '<esc><cmd>w<CR>', { desc = '[s]ave' })
 
 vim.keymap.set('n', 'p', ']p', { desc = '[p]aste' })
 
