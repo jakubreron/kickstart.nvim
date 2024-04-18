@@ -571,8 +571,7 @@ require('lazy').setup({
         'eslint-lsp', -- js/ts
 
         -- NOTE: linters
-        'htmlhint', -- html
-        'stylelint', -- styles
+        -- ''
 
         -- NOTE: formatters
         'stylua', -- lua
