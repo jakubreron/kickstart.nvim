@@ -99,12 +99,6 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-local function telescope_theme_wrapper(telescope_command, args)
-  return function()
-    telescope_command(require('telescope.themes').get_ivy { args })
-  end
-end
-
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -305,9 +299,11 @@ require('lazy').setup({
               ['<C-k>'] = require('telescope.actions').cycle_history_prev,
             },
           },
-          path_display = { 'truncate' },
+          path_display = { 'smart' },
+          scroll_strategy = 'limit',
+          layout_strategy = 'vertical',
+          layout_config = { height = 0.95 },
         },
-        -- pickers = {}
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -320,7 +316,6 @@ require('lazy').setup({
                 ['<C-s>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob *.spec.*' },
               },
             },
-            theme = 'ivy',
           },
         },
       }
@@ -333,33 +328,35 @@ require('lazy').setup({
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
 
-      vim.keymap.set('n', '<leader>sh', telescope_theme_wrapper(builtin.help_tags), { desc = '[h]elp' })
-      vim.keymap.set('n', '<leader>sk', telescope_theme_wrapper(builtin.keymaps), { desc = '[k]eymaps' })
-      vim.keymap.set('n', '<leader>sf', telescope_theme_wrapper(builtin.find_files), { desc = '[f]iles' })
-      vim.keymap.set('n', '<leader>ss', telescope_theme_wrapper(builtin.builtin), { desc = '[s]elect telescope' })
-      vim.keymap.set('n', '<leader>sh', telescope_theme_wrapper(builtin.search_history), { desc = '[h]istory' })
+      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[h]elp' })
+      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[k]eymaps' })
+      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[f]iles' })
+      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]elect telescope' })
+      vim.keymap.set('n', '<leader>sh', builtin.search_history, { desc = '[h]istory' })
       vim.keymap.set('n', '<leader>sw', require('telescope-live-grep-args.shortcuts').grep_word_under_cursor, { desc = '[w]ord' })
       vim.keymap.set('n', '<leader>st', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[t]ext' })
-      vim.keymap.set('n', '<leader>sd', telescope_theme_wrapper(builtin.diagnostics), { desc = '[d]iagnostics' })
-      vim.keymap.set('n', '<leader>sl', telescope_theme_wrapper(builtin.resume), { desc = '[l]ast resume' })
-      vim.keymap.set('n', '<leader>sr', telescope_theme_wrapper(builtin.oldfiles), { desc = '[r]ecent files' })
-      vim.keymap.set('n', '<leader>sb', telescope_theme_wrapper(builtin.buffers), { desc = '[b]uffers' })
-      vim.keymap.set('n', '<leader>sc', telescope_theme_wrapper(builtin.colorscheme, { enable_preview = true }), { desc = '[c]olorscheme' })
-      vim.keymap.set('n', '<leader>sg', telescope_theme_wrapper(builtin.git_files), { desc = '[g]it files' })
-      vim.keymap.set('n', '<leader>/', telescope_theme_wrapper(builtin.current_buffer_fuzzy_find), { desc = '[/] fuzzily search in current buffer' })
+      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[d]iagnostics' })
+      vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[l]ast resume' })
+      vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[r]ecent files' })
+      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[b]uffers' })
+      vim.keymap.set('n', '<leader>sc', function()
+        builtin.colorscheme { enable_preview = true }
+      end, { desc = '[c]olorscheme' })
+      vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = '[g]it files' })
+      vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] fuzzily search in current buffer' })
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
       vim.keymap.set('n', '<leader>s/', function()
-        builtin.live_grep(require('telescope.themes').get_ivy {
+        builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
-        })
+        }
       end, { desc = '[/] in open files' })
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
-        telescope_theme_wrapper(builtin.find_files { cwd = vim.fn.stdpath 'config' })
+        builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[n]eovim files' })
     end,
   },
@@ -408,18 +405,18 @@ require('lazy').setup({
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', telescope_theme_wrapper(require('telescope.builtin').lsp_definitions), '[d]efinition')
+          map('gd', require('telescope.builtin').lsp_definitions, '[d]efinition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[D]eclaration')
 
           -- Find references for the word under your cursor.
-          map('gr', telescope_theme_wrapper(require('telescope.builtin').lsp_references), '[r]eferences')
+          map('gr', require('telescope.builtin').lsp_references, '[r]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', telescope_theme_wrapper(require('telescope.builtin').lsp_implementations), '[I]mplementation')
+          map('gI', require('telescope.builtin').lsp_implementations, '[I]mplementation')
 
           map('gl', function()
             local float = vim.diagnostic.config().float
@@ -435,15 +432,15 @@ require('lazy').setup({
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>lt', telescope_theme_wrapper(require('telescope.builtin').lsp_type_definitions), '[t]ype Definition')
+          map('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[t]ype Definition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>lsd', telescope_theme_wrapper(require('telescope.builtin').lsp_document_symbols), '[d]ocument')
+          map('<leader>lsd', require('telescope.builtin').lsp_document_symbols, '[d]ocument')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>lsw', telescope_theme_wrapper(require('telescope.builtin').lsp_dynamic_workspace_symbols), '[w]orkspace')
+          map('<leader>lsw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[w]orkspace')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
