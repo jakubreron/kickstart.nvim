@@ -299,7 +299,7 @@ require('lazy').setup({
               ['<C-k>'] = require('telescope.actions').cycle_history_prev,
             },
           },
-          path_display = { 'smart' },
+          path_display = { 'truncate' },
           scroll_strategy = 'limit',
           layout_strategy = 'vertical',
           layout_config = { height = 0.95 },
