@@ -4,6 +4,7 @@ require 'custom.plugins.settings.vars'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
 vim.opt.number = true
@@ -109,82 +110,6 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
-  -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
-  --    require('gitsigns').setup({ ... })
-  --
-  -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    lazy = false,
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-    keys = {
-      {
-        '<leader>gl',
-        '<cmd>lua require "gitsigns".blame_line()<cr>',
-        desc = 'b[l]ame',
-      },
-      {
-        '<leader>gp',
-        '<cmd>lua require "gitsigns".preview_hunk()<cr>',
-        desc = '[p]review hunk',
-      },
-      {
-        '<leader>gr',
-        '<cmd>lua require "gitsigns".reset_hunk()<cr>',
-        desc = '[r]eset hunk',
-      },
-      {
-        '<leader>gR',
-        '<cmd>lua require "gitsigns".reset_buffer()<cr>',
-        desc = '[R]eset buffer',
-      },
-      {
-        '<leader>go',
-        '<cmd>Telescope git_status<cr>',
-        desc = '[o]pen changed file',
-      },
-      {
-        '<leader>gc',
-        '<cmd>Telescope git_bcommits<cr>',
-        desc = '[c]heckout commit (current file)',
-      },
-      {
-        '<leader>gC',
-        '<cmd>Telescope git_commits<cr>',
-        desc = '[C]heckout commit',
-      },
-      {
-        '<leader>gb',
-        '<cmd>Telescope git_branches<cr>',
-        desc = 'checkout [b]ranch',
-      },
-      {
-        '<leader>gd',
-        '<cmd>Gitsigns diffthis HEAD<cr>',
-        desc = '[d]iff',
-      },
-      {
-        ']c',
-        '<cmd>lua require"gitsigns".next_hunk({navigation_message = false})<CR>',
-        desc = 'next git [c]hange',
-      },
-      {
-        '[c',
-        '<cmd>lua require"gitsigns".prev_hunk({navigation_message = false})<CR>',
-        desc = 'prev git [c]hange',
-      },
-    },
-  },
-
   -- Events can be normal autocommands events (`:help autocmd-events`).
   -- Then, because we use the `config` key, the configuration only runs
   -- after the plugin has been loaded:
@@ -226,7 +151,6 @@ require('lazy').setup({
         ['<leader>f'] = { name = '[f]ile', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = 'vim[w]iki', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[d]iagnostic', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[g]it', _ = 'which_key_ignore' },
 
         -- NOTE: mini.operators
         ['g='] = { name = '[=]evaluate', _ = 'which_key_ignore' },
@@ -252,6 +176,10 @@ require('lazy').setup({
         ['yo'] = { name = 't[o]ggle', _ = 'which_key_ignore' },
         ['yos'] = { name = '[s]pelling', _ = 'which_key_ignore' },
       }
+      -- visual mode
+      require('which-key').register({
+        ['<leader>g'] = { '[g]it' },
+      }, { mode = { 'v', 'n' } })
     end,
   },
 
@@ -331,6 +259,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[h]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[k]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[f]iles' })
+      vim.keymap.set('n', '<leader>sF', builtin.git_status, { desc = 'changed [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]elect telescope' })
       vim.keymap.set('n', '<leader>sh', builtin.search_history, { desc = '[h]istory' })
       vim.keymap.set('n', '<leader>sw', require('telescope-live-grep-args.shortcuts').grep_word_under_cursor, { desc = '[w]ord' })
@@ -339,9 +268,15 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[l]ast resume' })
       vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[r]ecent files' })
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[b]uffers' })
-      vim.keymap.set('n', '<leader>sc', function()
+      vim.keymap.set('n', '<leader>sB', builtin.git_branches, { desc = '[B]ranch' })
+
+      vim.keymap.set('n', '<leader>sc', builtin.git_bcommits, { desc = '[c]ommit (current file)' })
+      vim.keymap.set('n', '<leader>sC', builtin.git_commits, { desc = '[C]ommit (all files)' })
+
+      vim.keymap.set('n', '<leader>sT', function()
         builtin.colorscheme { enable_preview = true }
-      end, { desc = '[c]olorscheme' })
+      end, { desc = '[T]heme' })
+
       vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = '[g]it files' })
       vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] fuzzily search in current buffer' })
 
@@ -479,6 +414,16 @@ require('lazy').setup({
               buffer = event.buf,
               callback = vim.lsp.buf.clear_references,
             })
+          end
+
+          -- The following autocommand is used to enable inlay hints in your
+          -- code, if the language server you are using supports them
+          --
+          -- This may be unwanted, since they displace some of your code
+          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            map('<leader>lh', function()
+              vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+            end, 'inlay [h]ints')
           end
 
           -- add border to all hover actions
@@ -1007,6 +952,8 @@ require('lazy').setup({
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
+      -- Prefer git instead of curl in order to improve connectivity in some environments
+      require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       -- require('nvim-treesitter.configs').setup(opts)
 
@@ -1032,6 +979,9 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
 
   -- require 'kickstart.plugins.lint',
+  -- require 'kickstart.plugins.autopairs',
+  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
