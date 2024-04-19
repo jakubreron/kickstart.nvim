@@ -763,11 +763,11 @@ require('lazy').setup({
     priority = 1000, -- Make sure to load this before all the other start plugins.
     opts = {
       transparent_background = true,
-      dim_inactive = {
-        enabled = true, -- dims the background color of inactive window
-        shade = 'light',
-        percentage = 0.50, -- percentage of the shade to apply to the inactive window
-      },
+      -- dim_inactive = {
+      --   enabled = true, -- dims the background color of inactive window
+      --   shade = 'light',
+      --   percentage = 0.50, -- percentage of the shade to apply to the inactive window
+      -- },
       default_integrations = false,
       integrations = {
         alpha = false,
