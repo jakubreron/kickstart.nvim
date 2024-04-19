@@ -7,13 +7,6 @@ return {
     'lewis6991/gitsigns.nvim',
     lazy = false,
     opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
 
@@ -61,7 +54,7 @@ return {
           gitsigns.diffthis '@'
         end, { desc = '[D]iff against last commit' })
         -- Toggles
-        map('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = '[t]oggle show [D]eleted' })
+        map('n', '<leader>gt', gitsigns.toggle_deleted, { desc = '[t]oggle deleted' })
       end,
     },
   },

@@ -143,9 +143,14 @@ require('lazy').setup({
         ['<leader>c'] = { name = '[c]onsole', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[r]eplace', _ = 'which_key_ignore' },
         ['<leader>o'] = { name = '[o]bsession', _ = 'which_key_ignore' },
+
         ['<leader>s'] = { name = '[s]earch', _ = 'which_key_ignore' },
+        ['<leader>sv'] = { name = '[v]im', _ = 'which_key_ignore' },
+        ['<leader>sg'] = { name = '[g]it', _ = 'which_key_ignore' },
+
         ['<leader>l'] = { name = '[l]sp', _ = 'which_key_ignore' },
         ['<leader>ls'] = { name = '[s]ymbols', _ = 'which_key_ignore' },
+
         ['<leader>p'] = { name = '[p]ackages', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[t]ab', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[f]ile', _ = 'which_key_ignore' },
@@ -256,10 +261,13 @@ require('lazy').setup({
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
 
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[h]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[k]eymaps' })
+      vim.keymap.set('n', '<leader>svh', builtin.help_tags, { desc = '[h]elp' })
+      vim.keymap.set('n', '<leader>svk', builtin.keymaps, { desc = '[k]eymaps' })
+      vim.keymap.set('n', '<leader>svc', function()
+        builtin.colorscheme { enable_preview = true }
+      end, { desc = '[c]olorscheme' })
+
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[f]iles' })
-      vim.keymap.set('n', '<leader>sF', builtin.git_status, { desc = 'changed [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]elect telescope' })
       vim.keymap.set('n', '<leader>sh', builtin.search_history, { desc = '[h]istory' })
       vim.keymap.set('n', '<leader>sw', require('telescope-live-grep-args.shortcuts').grep_word_under_cursor, { desc = '[w]ord' })
@@ -268,16 +276,14 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[l]ast resume' })
       vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[r]ecent files' })
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[b]uffers' })
-      vim.keymap.set('n', '<leader>sB', builtin.git_branches, { desc = '[B]ranch' })
 
-      vim.keymap.set('n', '<leader>sc', builtin.git_bcommits, { desc = '[c]ommit (current file)' })
-      vim.keymap.set('n', '<leader>sC', builtin.git_commits, { desc = '[C]ommit (all files)' })
+      vim.keymap.set('n', '<leader>sgf', builtin.git_files, { desc = '[f]iles' })
+      vim.keymap.set('n', '<leader>sgF', builtin.git_status, { desc = '[F]iles (changed)' })
+      vim.keymap.set('n', '<leader>sgc', builtin.git_bcommits, { desc = '[c]ommit (current file)' })
+      vim.keymap.set('n', '<leader>sgC', builtin.git_commits, { desc = '[C]ommit (all files)' })
+      vim.keymap.set('n', '<leader>sgb', builtin.git_branches, { desc = '[b]ranch' })
+      vim.keymap.set('n', '<leader>sgs', builtin.git_stash, { desc = '[s]tash' })
 
-      vim.keymap.set('n', '<leader>sT', function()
-        builtin.colorscheme { enable_preview = true }
-      end, { desc = '[T]heme' })
-
-      vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = '[g]it files' })
       vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] fuzzily search in current buffer' })
 
       -- It's also possible to pass additional configuration options.
