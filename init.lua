@@ -191,7 +191,7 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
+    branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -222,26 +222,6 @@ require('lazy').setup({
       -- This opens a window that shows you all of the keymaps for the current
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
-
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = 'TelescopeResults',
-        callback = function(ctx)
-          vim.api.nvim_buf_call(ctx.buf, function()
-            vim.fn.matchadd('TelescopeParent', '\t\t.*$')
-            vim.api.nvim_set_hl(0, 'TelescopeParent', { link = 'Comment' })
-          end)
-        end,
-      })
-
-      local function filename_first(_, path)
-        local tail = vim.fs.basename(path)
-        local parent = vim.fs.dirname(path)
-        if parent == '.' then
-          return tail
-        end
-        return string.format('%s\t\t%s', tail, parent)
-      end
-
       require('telescope').setup {
         defaults = {
           mappings = {
@@ -252,7 +232,11 @@ require('lazy').setup({
               ['<C-k>'] = require('telescope.actions').cycle_history_prev,
             },
           },
-          path_display = filename_first,
+          path_display = {
+            filename_first = {
+              reverse_directories = true,
+            },
+          },
           scroll_strategy = 'limit',
           layout_strategy = 'vertical',
           layout_config = { height = 0.95 },
@@ -863,26 +847,26 @@ require('lazy').setup({
       -- Examples:
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - dil{  - [D]elete [I]nside [L]ast [{]
-      require('mini.ai').setup { n_lines = 500 }
-      require('mini.animate').setup {
-        cursor = {
-          enable = true,
-          timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
-        },
-        scroll = {
-          enable = true,
-          timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
-        },
-        resize = {
-          enable = false,
-        },
-        open = {
-          enable = false,
-        },
-        close = {
-          enable = false,
-        },
-      }
+      -- require('mini.ai').setup { n_lines = 500 }
+      -- require('mini.animate').setup {
+      --   cursor = {
+      --     enable = true,
+      --     timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
+      --   },
+      --   scroll = {
+      --     enable = true,
+      --     timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
+      --   },
+      --   resize = {
+      --     enable = false,
+      --   },
+      --   open = {
+      --     enable = false,
+      --   },
+      --   close = {
+      --     enable = false,
+      --   },
+      -- }
       require('mini.operators').setup {
         -- Evaluate text and replace with output
         evaluate = {
