@@ -222,6 +222,26 @@ require('lazy').setup({
       -- This opens a window that shows you all of the keymaps for the current
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'TelescopeResults',
+        callback = function(ctx)
+          vim.api.nvim_buf_call(ctx.buf, function()
+            vim.fn.matchadd('TelescopeParent', '\t\t.*$')
+            vim.api.nvim_set_hl(0, 'TelescopeParent', { link = 'Comment' })
+          end)
+        end,
+      })
+
+      local function filename_first(_, path)
+        local tail = vim.fs.basename(path)
+        local parent = vim.fs.dirname(path)
+        if parent == '.' then
+          return tail
+        end
+        return string.format('%s\t\t%s', tail, parent)
+      end
+
       require('telescope').setup {
         defaults = {
           mappings = {
@@ -232,7 +252,7 @@ require('lazy').setup({
               ['<C-k>'] = require('telescope.actions').cycle_history_prev,
             },
           },
-          path_display = { 'truncate' },
+          path_display = filename_first,
           scroll_strategy = 'limit',
           layout_strategy = 'vertical',
           layout_config = { height = 0.95 },
@@ -354,7 +374,9 @@ require('lazy').setup({
           map('gD', vim.lsp.buf.declaration, '[D]eclaration')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[r]eferences')
+          map('gr', function()
+            require('telescope.builtin').lsp_references { fname_width = 90 }
+          end, '[r]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
