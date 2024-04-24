@@ -70,7 +70,7 @@ vim.keymap.set('c', '<C-f>', '<Right>')
 vim.keymap.set('c', '<C-b>', '<Left>')
 vim.keymap.set('c', '<C-d>', '<Delete>')
 vim.keymap.set('c', '<A-f>', '<C-Right>')
-vim.keymap.set('c', '<A-b>', '<C-left>')
+vim.keymap.set('c', '<A-b>', '<C-Left>')
 
 vim.keymap.set('n', 'Y', 'y$', { desc = '[Y]ank to the end' })
 

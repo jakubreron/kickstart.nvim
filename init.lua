@@ -226,7 +226,10 @@ require('lazy').setup({
         defaults = {
           mappings = {
             i = {
-              ['<c-enter>'] = 'to_fuzzy_refine', -- this is useful
+              ['<c-enter>'] = require('telescope.actions').to_fuzzy_refine, -- this is useful
+
+              ['<C-a>'] = { '<Home>', type = 'command' },
+              ['<C-e>'] = { '<End>', type = 'command' },
 
               ['<C-j>'] = require('telescope.actions').cycle_history_next,
               ['<C-k>'] = require('telescope.actions').cycle_history_prev,
@@ -234,7 +237,7 @@ require('lazy').setup({
           },
           path_display = {
             filename_first = {
-              reverse_directories = true,
+              reverse_directories = false,
             },
           },
           scroll_strategy = 'limit',
@@ -265,6 +268,7 @@ require('lazy').setup({
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
 
+      -- NOTE: vim
       vim.keymap.set('n', '<leader>svh', builtin.help_tags, { desc = '[h]elp' })
       vim.keymap.set('n', '<leader>svk', builtin.keymaps, { desc = '[k]eymaps' })
       vim.keymap.set('n', '<leader>svc', function()
@@ -281,6 +285,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[r]ecent files' })
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[b]uffers' })
 
+      -- NOTE: git
       vim.keymap.set('n', '<leader>sgf', builtin.git_files, { desc = '[f]iles' })
       vim.keymap.set('n', '<leader>sgF', builtin.git_status, { desc = '[F]iles (changed)' })
       vim.keymap.set('n', '<leader>sgc', builtin.git_bcommits, { desc = '[c]ommit (current file)' })
@@ -358,9 +363,7 @@ require('lazy').setup({
           map('gD', vim.lsp.buf.declaration, '[D]eclaration')
 
           -- Find references for the word under your cursor.
-          map('gr', function()
-            require('telescope.builtin').lsp_references { fname_width = 90 }
-          end, '[r]eferences')
+          map('gr', require('telescope.builtin').lsp_references, '[r]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
