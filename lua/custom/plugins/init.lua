@@ -154,6 +154,7 @@ return {
         event = 'BufWinEnter *.spec.*',
       },
     },
+    version = '5.1.0',
     config = function()
       require('custom.plugins.settings.neotest').config()
     end,
