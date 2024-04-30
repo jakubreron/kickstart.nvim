@@ -3,10 +3,10 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   command = 'checktime',
 })
 
-vim.api.nvim_create_autocmd('BufRead', {
-  pattern = '*',
-  command = 'normal g\'"',
-})
+-- vim.api.nvim_create_autocmd('BufRead', {
+--   pattern = '*',
+--   command = 'normal g\'"',
+-- })
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'LspAttach' }, {
   pattern = { '.env*', '*/node_modules/*' },
