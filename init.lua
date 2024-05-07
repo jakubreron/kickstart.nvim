@@ -70,10 +70,6 @@ vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[e]rror Messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
 
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>0', { desc = 'Exit terminal mode' })
-
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'move focus to the right window' })
@@ -851,25 +847,47 @@ require('lazy').setup({
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - dil{  - [D]elete [I]nside [L]ast [{]
       -- require('mini.ai').setup { n_lines = 500 }
-      -- require('mini.animate').setup {
-      --   cursor = {
-      --     enable = true,
-      --     timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
-      --   },
-      --   scroll = {
-      --     enable = true,
-      --     timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
-      --   },
-      --   resize = {
-      --     enable = false,
-      --   },
-      --   open = {
-      --     enable = false,
-      --   },
-      --   close = {
-      --     enable = false,
-      --   },
-      -- }
+
+      require('mini.animate').setup {
+        cursor = {
+          enable = true,
+          timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
+        },
+        scroll = {
+          enable = true,
+          timing = require('mini.animate').gen_timing.linear { duration = 85, unit = 'total' },
+        },
+        resize = {
+          enable = false,
+        },
+        open = {
+          enable = false,
+        },
+        close = {
+          enable = false,
+        },
+      }
+
+      -- disable scrolling on mouse since it's bugged with the smooth scroll plugin
+      local scrolling_binds = {
+        '<ScrollWheelUp>',
+        '<S-ScrollWheelUp>',
+        '<C-ScrollWheelUp>',
+        '<ScrollWheelDown>',
+        '<S-ScrollWheelDown>',
+        '<C-ScrollWheelDown>',
+        '<ScrollWheelLeft>',
+        '<S-ScrollWheelLeft>',
+        '<C-ScrollWheelLeft>',
+        '<ScrollWheelRight>',
+        '<S-ScrollWheelRight>',
+        '<C-ScrollWheelRight>',
+      }
+
+      for i = 1, #scrolling_binds do
+        vim.keymap.set({ 'n', 'v', 'i' }, scrolling_binds[i], '<nop>')
+      end
+
       require('mini.operators').setup {
         -- Evaluate text and replace with output
         evaluate = {
