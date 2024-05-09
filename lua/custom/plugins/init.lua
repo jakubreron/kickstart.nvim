@@ -198,7 +198,6 @@ return {
     config = true,
   },
 
-  -- NOTE: uncomment when this gets fixed https://github.com/pmizio/typescript-tools.nvim/issues/226
   {
     'pmizio/typescript-tools.nvim',
     lazy = true,
