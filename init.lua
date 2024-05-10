@@ -961,6 +961,7 @@ require('lazy').setup({
         'markdown',
         'vim',
         'vimdoc',
+        'diff',
         'tsx',
         'typescript',
         'comment',
