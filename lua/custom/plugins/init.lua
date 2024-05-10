@@ -4,6 +4,15 @@ return {
   'AndrewRadev/splitjoin.vim',
 
   {
+    'kevinhwang91/nvim-bqf',
+    lazy = true,
+    event = 'QuickFixCmdPre',
+    keys = {
+      '<C-q>',
+    },
+  },
+
+  {
     'nat-418/boole.nvim',
     lazy = true,
     config = {

@@ -128,17 +128,13 @@ vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'Exit terminal mode'
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
-vim.cmd [[
-  function! QuickFixToggle()
-    if empty(filter(getwininfo(), 'v:val.quickfix'))
-      copen
-    else
-      cclose
-    endif
-  endfunction
-]]
-
-vim.keymap.set('n', '<C-q>', ':call QuickFixToggle()<CR>', { desc = 'Toggle [q]uickfix', silent = true })
+vim.keymap.set({ 'n', 'v', 'i' }, '<C-q>', function()
+  if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
+    vim.cmd [[copen]]
+  else
+    vim.cmd [[cclose]]
+  end
+end, { desc = '[q]uickfix toggle', silent = true })
 
 vim.cmd [[
   function! RemoveQFItem()
