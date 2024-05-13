@@ -53,6 +53,9 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
+-- Don't have 'o' add a comment
+vim.opt.formatoptions:remove 'o'
+
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
