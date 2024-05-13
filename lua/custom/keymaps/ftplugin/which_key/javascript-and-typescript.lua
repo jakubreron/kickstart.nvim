@@ -32,8 +32,8 @@ local M = {
       end,
       'run [l]ast',
     },
-    s = { "<cmd>lua require('neotest').run.stop()<CR>", '[s]top' },
-    t = { "<cmd>lua require('neotest').summary.toggle()<CR>", 'summary [t]ree' },
+    s = { "<cmd>lua require('neotest').run.stop()<cr>", '[s]top' },
+    t = { "<cmd>lua require('neotest').summary.toggle()<cr>", 'summary [t]ree' },
     w = { "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>", '[w]atch' },
     c = {
       function()
@@ -42,9 +42,9 @@ local M = {
       end,
       '[c]ombo: summary tree + output panel',
     },
-    a = { "<cmd>lua require('neotest').run.attach()<CR>", '[a]ttach' },
-    p = { "<cmd>lua require('neotest').output_panel.toggle()<CR>", '[p]anel toggle' },
-    o = { "<cmd>lua require('neotest').output.open({ enter = true })<CR>", '[o]utput' },
+    a = { "<cmd>lua require('neotest').run.attach()<cr>", '[a]ttach' },
+    p = { "<cmd>lua require('neotest').output_panel.toggle()<cr>", '[p]anel toggle' },
+    o = { "<cmd>lua require('neotest').output.open({ enter = true })<cr>", '[o]utput' },
   },
 }
 

@@ -7,8 +7,8 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
        return (char =~ a:pat) ? '' : char
      endfunction
 
-     iabbrev cl console.log()<Left><c-r>=Eatchar('\m\s\<bar>/')<CR>
-     iabbrev cd console.debug()<Left><c-r>=Eatchar('\m\s\<bar>/')<CR>
+     iabbrev cl console.log()<Left><c-r>=Eatchar('\m\s\<bar>/')<cr>
+     iabbrev cd console.debug()<Left><c-r>=Eatchar('\m\s\<bar>/')<cr>
    ]]
   end,
 })

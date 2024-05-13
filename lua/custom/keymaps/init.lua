@@ -36,15 +36,15 @@ if harpoon_status_ok then
   end
 end
 
-vim.keymap.set('n', 'ZQ', '<cmd>qa<CR>', { desc = 'quit all buffers' })
+vim.keymap.set('n', 'ZQ', '<cmd>qa<cr>', { desc = 'quit all buffers' })
 
-vim.keymap.set('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<CR>', { desc = '[v]ertical split definition' })
+vim.keymap.set('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<cr>', { desc = '[v]ertical split definition' })
 
-vim.keymap.set({ 'n', 'v', 'i' }, '<C-s>', '<esc><cmd>w<CR>', { desc = '[s]ave' })
+vim.keymap.set({ 'n', 'v', 'i' }, '<C-s>', '<esc><cmd>w<cr>', { desc = '[s]ave' })
 
 vim.keymap.set('n', 'p', ']p', { desc = '[p]aste' })
 
-vim.keymap.set('v', '.', '<cmd>normal .<CR>', { desc = '[d]ot command over visual block' })
+vim.keymap.set('v', '.', '<cmd>normal .<cr>', { desc = '[d]ot command over visual block' })
 
 vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[p]aste without yanking' })
 
@@ -53,9 +53,9 @@ vim.keymap.set('n', 'yoe', function()
   print(vim.o.eventignore == '' and 'Eventignore OFF' or 'Eventignore ON')
 end, { desc = '[e]ventignore' })
 
-vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<CR>', { desc = '[s]pelling toggle' })
-vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<CR>', { desc = '[p]olish' })
-vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<CR>', { desc = '[e]nglish' })
+vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<cr>', { desc = '[s]pelling toggle' })
+vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<cr>', { desc = '[p]olish' })
+vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<cr>', { desc = '[e]nglish' })
 
 vim.keymap.set('n', 'n', 'nzzzv', { silent = true })
 vim.keymap.set('n', 'N', 'Nzzzv', { silent = true })
@@ -78,34 +78,34 @@ vim.keymap.set('c', '<A-b>', '<C-Left>')
 
 vim.keymap.set('n', 'Y', 'y$', { desc = '[Y]ank to the end' })
 
-vim.keymap.set('n', '<A-h>', ':vertical resize +2<CR>', { silent = true })
-vim.keymap.set('n', '<A-j>', ':resize -2<CR>', { silent = true })
-vim.keymap.set('n', '<A-k>', ':resize +2<CR>', { silent = true })
-vim.keymap.set('n', '<A-l>', ':vertical resize -2<CR>', { silent = true })
-vim.keymap.set('n', '<C-Left>', ':vertical resize +2<CR>', { silent = true })
-vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', { silent = true })
-vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', { silent = true })
-vim.keymap.set('n', '<C-Right>', ':vertical resize -2<CR>', { silent = true })
+vim.keymap.set('n', '<A-h>', ':vertical resize +2<cr>', { silent = true })
+vim.keymap.set('n', '<A-j>', ':resize -2<cr>', { silent = true })
+vim.keymap.set('n', '<A-k>', ':resize +2<cr>', { silent = true })
+vim.keymap.set('n', '<A-l>', ':vertical resize -2<cr>', { silent = true })
+vim.keymap.set('n', '<C-Left>', ':vertical resize +2<cr>', { silent = true })
+vim.keymap.set('n', '<C-Down>', ':resize -2<cr>', { silent = true })
+vim.keymap.set('n', '<C-Up>', ':resize +2<cr>', { silent = true })
+vim.keymap.set('n', '<C-Right>', ':vertical resize -2<cr>', { silent = true })
 
 vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h')
 vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j')
 vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k')
 vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l')
 
-vim.keymap.set('n', '<leader>cs', '<C-w>s:term<CR>', { desc = '[s]plit' })
-vim.keymap.set('n', '<leader>cv', '<C-w>v:term<CR>', { desc = '[v]split' })
-vim.keymap.set('n', '<leader>ct', '<cmd>tabnew<CR><cmd>term<CR><cmd>setlocal nonumber norelativenumber<CR>', { desc = '[t]tab' })
-vim.keymap.set('n', '<leader>cs', '<cmd>silent !tmux neww tmux-sessionizer<CR>', { desc = 'tmux [s]ession' })
+vim.keymap.set('n', '<leader>cs', '<C-w>s:term<cr>', { desc = '[s]plit' })
+vim.keymap.set('n', '<leader>cv', '<C-w>v:term<cr>', { desc = '[v]split' })
+vim.keymap.set('n', '<leader>ct', '<cmd>tabnew<cr><cmd>term<cr><cmd>setlocal nonumber norelativenumber<cr>', { desc = '[t]tab' })
+vim.keymap.set('n', '<leader>cs', '<cmd>silent !tmux neww tmux-sessionizer<cr>', { desc = 'tmux [s]ession' })
 
-vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<CR>', { desc = '[n]ew' })
-vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<CR>', { desc = '[c]lose' })
-vim.keymap.set('n', '<leader>to', '<cmd>tabonly<CR>', { desc = '[o]nly' })
+vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<cr>', { desc = '[n]ew' })
+vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>', { desc = '[c]lose' })
+vim.keymap.set('n', '<leader>to', '<cmd>tabonly<cr>', { desc = '[o]nly' })
 vim.keymap.set('n', '<leader>tm', ':tabmove', { desc = '[m]ove' })
-vim.keymap.set('n', '<leader>te', ":tabedit <C-r>=expand('%:p:h')<CR>/", { desc = '[e]dit' })
+vim.keymap.set('n', '<leader>te', ":tabedit <C-r>=expand('%:p:h')<cr>/", { desc = '[e]dit' })
 
 vim.api.nvim_create_autocmd('TabLeave', {
   callback = function()
-    vim.api.nvim_set_keymap('n', '<leader><leader>', '<cmd>tabn ' .. vim.api.nvim_tabpage_get_number(0) .. '<CR>', { desc = '[ ] last tab' })
+    vim.api.nvim_set_keymap('n', '<leader><leader>', '<cmd>tabn ' .. vim.api.nvim_tabpage_get_number(0) .. '<cr>', { desc = '[ ] last tab' })
   end,
 })
 
@@ -116,8 +116,8 @@ vim.keymap.set('n', '<leader>pp', '<cmd>Lazy profile<cr>', { desc = '[p]rofile' 
 vim.keymap.set('n', '<leader>pr', '<cmd>Lazy restore<cr>', { desc = '[r]estore' })
 
 -- TODO: find something
--- vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
--- vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
+-- vim.keymap.set('n', '<C-k>', '<cmd>cnext<cr>zz')
+-- vim.keymap.set('n', '<C-j>', '<cmd>cprev<cr>zz')
 
 vim.keymap.set('n', '<leader>ru', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[u]nder cursor' })
 
@@ -125,8 +125,8 @@ vim.keymap.set('n', '<leader>ru', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'Exit terminal mode' })
 
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', 'J', ":m '>+1<cr>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<cr>gv=gv")
 
 vim.keymap.set({ 'n', 'v', 'i' }, '<C-q>', function()
   if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
