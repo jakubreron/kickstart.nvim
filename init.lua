@@ -65,11 +65,11 @@ vim.opt.sidescrolloff = 10
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>', { desc = 'go to previous [d]iagnostic message' })
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>', { desc = 'go to next [d]iagnostic message' })
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = false })<cr>', { desc = 'go to previous [d]iagnostic message' })
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>', { desc = 'go to next [d]iagnostic message' })
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[e]rror Messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
 
@@ -327,7 +327,7 @@ require('lazy').setup({
         keys = {
           {
             '<leader>lm',
-            '<cmd>Mason<CR>',
+            '<cmd>Mason<cr>',
             desc = '[m]ason',
           },
         },
@@ -859,12 +859,12 @@ require('lazy').setup({
     keys = {
       {
         ']t',
-        require('todo-comments').jump_next(),
+        "<cmd>lua require('todo-comments').jump_next()<cr>",
         desc = 'next [t]odo comment',
       },
       {
         '[t',
-        require('todo-comments').jump_prev(),
+        "<cmd>lua require('todo-comments').jump_prev()<cr>",
         desc = 'prev [t]odo comment',
       },
     },
