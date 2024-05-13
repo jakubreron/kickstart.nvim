@@ -36,7 +36,7 @@ if harpoon_status_ok then
   end
 end
 
-vim.keymap.set('n', 'ZQ', '<cmd>qa<cr>', { desc = 'quit all buffers' })
+vim.keymap.set({ 'n', 'v' }, 'ZQ', '<cmd>qa<cr>', { desc = 'quit all buffers' })
 
 vim.keymap.set('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<cr>', { desc = '[v]ertical split definition' })
 
