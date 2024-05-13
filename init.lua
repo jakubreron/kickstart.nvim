@@ -104,7 +104,14 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup {
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      }
+    end,
+  },
 
   -- Events can be normal autocommands events (`:help autocmd-events`).
   -- Then, because we use the `config` key, the configuration only runs
@@ -840,6 +847,26 @@ require('lazy').setup({
     end,
   },
 
+  -- Highlight todo, notes, etc in comments
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+    keys = {
+      {
+        ']t',
+        require('todo-comments').jump_next(),
+        desc = 'next [t]odo comment',
+      },
+      {
+        '[t',
+        require('todo-comments').jump_prev(),
+        desc = 'prev [t]odo comment',
+      },
+    },
+  },
+
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
@@ -950,6 +977,7 @@ require('lazy').setup({
       }, -- sticky scroll context
 
       -- { "nvim-treesitter/nvim-treesitter-textobjects" }, -- more movements (if, af, ic, ac, etc...)
+      { 'JoosepAlviste/nvim-ts-context-commentstring' },
     },
     opts = {
       ensure_installed = {

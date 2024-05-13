@@ -10,8 +10,8 @@ end
 
 local M = {
   f = {
-    r = { action_with_formatting 'TSToolsFileReferences', '[r]eferences' },
-    R = { action_with_formatting 'TSToolsRenameFile', '[R]ename' },
+    r = { action_with_formatting 'TSToolsRenameFile', '[r]ename' },
+    R = { action_with_formatting 'TSToolsFileReferences', '[R]eferences' },
   },
   l = {
     i = {
