@@ -34,7 +34,7 @@ M.config = function()
       ignore = false,
       show_on_dirs = true,
       show_on_open_dirs = true,
-      timeout = 200,
+      timeout = 400,
     },
     filesystem_watchers = {
       enable = true,
@@ -43,8 +43,7 @@ M.config = function()
     },
     update_focused_file = {
       enable = true,
-      debounce_delay = 15,
-      update_root = true,
+      update_root = false,
       ignore_list = {},
     },
     renderer = {

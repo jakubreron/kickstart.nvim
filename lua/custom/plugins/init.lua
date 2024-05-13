@@ -4,6 +4,15 @@ return {
   'AndrewRadev/splitjoin.vim',
 
   {
+    'kevinhwang91/nvim-bqf',
+    lazy = true,
+    event = 'QuickFixCmdPre',
+    keys = {
+      '<C-q>',
+    },
+  },
+
+  {
     'nat-418/boole.nvim',
     lazy = true,
     config = {
@@ -198,7 +207,6 @@ return {
     config = true,
   },
 
-  -- NOTE: uncomment when this gets fixed https://github.com/pmizio/typescript-tools.nvim/issues/226
   {
     'pmizio/typescript-tools.nvim',
     lazy = true,

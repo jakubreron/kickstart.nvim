@@ -121,40 +121,20 @@ vim.keymap.set('n', '<leader>pr', '<cmd>Lazy restore<cr>', { desc = '[r]estore' 
 
 vim.keymap.set('n', '<leader>ru', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[u]nder cursor' })
 
--- disable scrolling on mouse since it's bugged with the smooth scroll plugin
-local scrolling_binds = {
-  '<ScrollWheelUp>',
-  '<S-ScrollWheelUp>',
-  '<C-ScrollWheelUp>',
-  '<ScrollWheelDown>',
-  '<S-ScrollWheelDown>',
-  '<C-ScrollWheelDown>',
-  '<ScrollWheelLeft>',
-  '<S-ScrollWheelLeft>',
-  '<C-ScrollWheelLeft>',
-  '<ScrollWheelRight>',
-  '<S-ScrollWheelRight>',
-  '<C-ScrollWheelRight>',
-}
-
-for i = 1, #scrolling_binds do
-  vim.keymap.set({ 'n', 'v', 'i' }, scrolling_binds[i], '<nop>')
-end
+-- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+-- or just use <C-\><C-n> to exit terminal mode
+vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'Exit terminal mode' })
 
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
-vim.cmd [[
-  function! QuickFixToggle()
-    if empty(filter(getwininfo(), 'v:val.quickfix'))
-      copen
-    else
-      cclose
-    endif
-  endfunction
-]]
-
-vim.keymap.set('n', '<C-q>', ':call QuickFixToggle()<CR>', { desc = 'Toggle [q]uickfix', silent = true })
+vim.keymap.set({ 'n', 'v', 'i' }, '<C-q>', function()
+  if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
+    vim.cmd [[copen]]
+  else
+    vim.cmd [[cclose]]
+  end
+end, { desc = '[q]uickfix toggle', silent = true })
 
 vim.cmd [[
   function! RemoveQFItem()
