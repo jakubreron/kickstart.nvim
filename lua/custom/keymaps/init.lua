@@ -121,12 +121,7 @@ vim.keymap.set('n', '<leader>pr', '<cmd>Lazy restore<cr>', { desc = '[r]estore' 
 
 vim.keymap.set('n', '<leader>ru', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[u]nder cursor' })
 
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'Exit terminal mode' })
-
-vim.keymap.set('v', 'J', ":m '>+1<cr>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<cr>gv=gv")
 
 vim.keymap.set({ 'n', 'v', 'i' }, '<C-q>', function()
   if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
