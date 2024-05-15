@@ -346,6 +346,7 @@ require('lazy').setup({
       { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -860,6 +861,16 @@ require('lazy').setup({
         ']t',
         "<cmd>lua require('todo-comments').jump_next()<cr>",
         desc = 'next [t]odo comment',
+      },
+      {
+        '<C-t>',
+        '<cmd>TodoQuickfix<cr>',
+        desc = '[t]odo quickfix',
+      },
+      {
+        'sT',
+        '<cmd>TodoTelescope<cr>',
+        desc = '[T]odo',
       },
       {
         '[t',
