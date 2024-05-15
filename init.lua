@@ -292,8 +292,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[b]uffers' })
 
       -- NOTE: git
-      vim.keymap.set('n', '<leader>sgf', builtin.git_files, { desc = '[f]iles' })
-      vim.keymap.set('n', '<leader>sgF', builtin.git_status, { desc = '[F]iles (changed)' })
+      vim.keymap.set('n', '<leader>sgf', builtin.git_status, { desc = '[f]iles (changed)' })
       vim.keymap.set('n', '<leader>sgc', builtin.git_bcommits, { desc = '[c]ommit (current file)' })
       vim.keymap.set('n', '<leader>sgC', builtin.git_commits, { desc = '[C]ommit (all files)' })
       vim.keymap.set('n', '<leader>sgb', builtin.git_branches, { desc = '[b]ranch' })
