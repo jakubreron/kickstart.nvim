@@ -7,6 +7,7 @@ return {
     'kevinhwang91/nvim-bqf',
     lazy = true,
     event = 'QuickFixCmdPre',
+    ft = 'qf',
     keys = {
       '<C-q>',
     },
@@ -77,18 +78,18 @@ return {
     },
   },
 
-  {
-    'szw/vim-maximizer', -- maximize current window
-    lazy = true,
-    cmd = { 'MaximizerToggle' },
-    keys = {
-      {
-        '<leader>m',
-        '<cmd>MaximizerToggle!<cr>',
-        desc = '[m]aximize',
-      },
-    },
-  },
+  -- {
+  --   'szw/vim-maximizer', -- maximize current window
+  --   lazy = true,
+  --   cmd = { 'MaximizerToggle' },
+  --   keys = {
+  --     {
+  --       '<leader>m',
+  --       '<cmd>MaximizerToggle!<cr>',
+  --       desc = '[m]aximize',
+  --     },
+  --   },
+  -- },
 
   {
     'hedyhli/outline.nvim',
@@ -170,17 +171,17 @@ return {
     event = 'BufWinEnter *.spec.*',
   },
 
-  {
-    'norcalli/nvim-colorizer.lua', -- highlight the hex / rgb colors
-    lazy = true,
-    config = function()
-      require('custom.plugins.settings.colorizer').config()
-    end,
-    ft = {
-      'css',
-      'scss',
-    },
-  },
+  -- {
+  --   'norcalli/nvim-colorizer.lua', -- highlight the hex / rgb colors
+  --   lazy = true,
+  --   config = function()
+  --     require('custom.plugins.settings.colorizer').config()
+  --   end,
+  --   ft = {
+  --     'css',
+  --     'scss',
+  --   },
+  -- },
 
   {
     'windwp/nvim-spectre', -- search & replace throughout all the files (without vimgrepping)
