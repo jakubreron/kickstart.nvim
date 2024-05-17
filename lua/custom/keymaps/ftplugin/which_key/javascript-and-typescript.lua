@@ -1,9 +1,5 @@
-local console_log = "console.log('%c', 'font-size: 24px; color: skyblue;')<ESC>02f'i "
-
 local M = {
   c = {
-    L = { 'O' .. console_log, 'console.[L]og above' },
-    l = { 'o' .. console_log, 'console.[l]og below' },
     p = {
       "yiwOconst t0 = performance.now();<ESC>oconst t1 = performance.now();<ESC>oconsole.log(`%c <ESC>pa call took ${t1 - t0} milliseconds`, 'font-size: 24px; color: green;');<ESC>dkp",
       '[p]erformance console.log',

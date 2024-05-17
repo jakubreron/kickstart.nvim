@@ -1,14 +1,15 @@
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  pattern = { '*.js', '*.ts', '*.vue', '*.jsx', '*.tsx' },
-  callback = function()
-    vim.cmd [[
-     function! Eatchar(pat)
-       let char = nr2char(getchar(0))
-       return (char =~ a:pat) ? '' : char
-     endfunction
+vim.cmd [[
+  iabbrev PP PERF:<ESC>gccA
+  iabbrev HH HACK:<ESC>gccA
+  iabbrev TT TODO: @Jakub<ESC>gccA
+  iabbrev NN NOTE:<ESC>gccA
+  iabbrev WW WARNING:<ESC>gccA
+  iabbrev FF FIX:<ESC>gccA
 
-     iabbrev cl console.log()<Left><c-r>=Eatchar('\m\s\<bar>/')<cr>
-     iabbrev cd console.debug()<Left><c-r>=Eatchar('\m\s\<bar>/')<cr>
-   ]]
-  end,
-})
+  iabbrev rakuetn Rakuten
+  iabbrev rakuent Rakuten
+  iabbrev rakuten Rakuten
+  iabbrev cilent client
+  iabbrev dont don't
+  iabbrev cant can't
+]]
