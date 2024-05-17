@@ -268,7 +268,7 @@ return {
 
   {
     'ramilito/winbar.nvim',
-    event = 'VimEnter', -- Alternatively, BufReadPre if we don't care about the empty file when starting with 'nvim'
+    event = 'BufReadPre', -- Alternatively, BufReadPre if we don't care about the empty file when starting with 'nvim'
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('winbar').setup {
@@ -280,26 +280,34 @@ return {
     end,
   },
 
-  -- {
-  --   'stevearc/oil.nvim',
-  --   lazy = true,
-  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  --   config = function()
-  --     require('oil').setup {
-  --       columns = {
-  --         'icon',
-  --         'size',
-  --       },
-  --     }
-  --   end,
-  --   keys = {
-  --     {
-  --       '<leader>e',
-  --       '<cmd>Oil<cr>',
-  --       desc = '[e]xplorer',
-  --     },
-  --   },
-  -- },
+  {
+    'stevearc/oil.nvim',
+    lazy = true,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('oil').setup {
+        columns = {
+          'icon',
+          'size',
+        },
+        keymaps = {
+          ['<C-h>'] = false,
+        },
+      }
+    end,
+    keys = {
+      {
+        '-',
+        '<cmd>Oil<cr>',
+        desc = '[-] explorer',
+      },
+      {
+        '<leader>-',
+        '<cmd>Oil<cr>',
+        desc = '[-] explorer (floating window)',
+      },
+    },
+  },
 
   {
     'nvim-tree/nvim-tree.lua',

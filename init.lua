@@ -861,7 +861,7 @@ require('lazy').setup({
         desc = '[t]odo quickfix',
       },
       {
-        'sT',
+        '<leader>sT',
         '<cmd>TodoTelescope<cr>',
         desc = '[T]odo',
       },
