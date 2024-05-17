@@ -266,6 +266,27 @@ return {
     end,
   },
 
+  -- {
+  --   'stevearc/oil.nvim',
+  --   lazy = true,
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   config = function()
+  --     require('oil').setup {
+  --       columns = {
+  --         'icon',
+  --         'size',
+  --       },
+  --     }
+  --   end,
+  --   keys = {
+  --     {
+  --       '<leader>e',
+  --       '<cmd>Oil<cr>',
+  --       desc = '[e]xplorer',
+  --     },
+  --   },
+  -- },
+
   {
     'nvim-tree/nvim-tree.lua',
     version = '*',
