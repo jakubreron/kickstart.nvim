@@ -18,7 +18,6 @@ M.config = function()
 
       vim.keymap.set('n', 'l', api.node.open.edit, opts 'Open')
       vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts 'Close')
-      vim.keymap.set('n', 'C', api.tree.change_root_to_node, opts 'C')
     end,
     sync_root_with_cwd = true,
     respect_buf_cwd = true,
@@ -42,7 +41,7 @@ M.config = function()
       ignore_dirs = {},
     },
     update_focused_file = {
-      enable = true,
+      enable = false,
       update_root = false,
       ignore_list = {},
     },

@@ -282,6 +282,11 @@ return {
         '<cmd>NvimTreeToggle<cr>',
         desc = '[e]xplorer',
       },
+      {
+        '-',
+        '<cmd>NvimTreeFindFile<CR>',
+        desc = '[-] select current file',
+      },
     },
     cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus', 'NvimTreeFindFileToggle' },
     event = 'User DirOpened',
