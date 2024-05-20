@@ -292,6 +292,12 @@ return {
         },
         keymaps = {
           ['<C-h>'] = false,
+          ['<C-v>'] = require('oil.actions').select_vsplit,
+          ['<C-s>'] = false,
+          ['<C-x>'] = require('oil.actions').select_split,
+        },
+        view_options = {
+          show_hidden = true,
         },
       }
     end,
@@ -321,12 +327,12 @@ return {
     end,
     keys = {
       {
-        '<leader>e',
+        '<leader>ee',
         '<cmd>NvimTreeToggle<cr>',
         desc = '[e]xplorer',
       },
       {
-        '-',
+        '<leader>ec',
         '<cmd>NvimTreeFindFile<CR>',
         desc = '[-] select current file',
       },
