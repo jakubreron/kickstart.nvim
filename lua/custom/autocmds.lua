@@ -8,11 +8,25 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
 --   command = 'normal g\'"',
 -- })
 
+-- NOTE: performance settings
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'LspAttach' }, {
-  pattern = { '.env*', '*/node_modules/*' },
+  pattern = { '*/node_modules/*' },
   callback = function(args)
     vim.diagnostic.disable(args.buf)
     vim.lsp.stop_client(args.buf)
+
+    local clients = vim.lsp.get_active_clients { bufnr = args.buf }
+    for _, client in ipairs(clients) do
+      vim.lsp.buf_detach_client(args.buf, client.id)
+    end
+
+    vim.api.nvim_buf_set_option(args.buf, 'formatexpr', '')
+
+    vim.cmd 'setlocal noundofile'
+    vim.cmd 'setlocal noautoindent'
+    vim.cmd 'setlocal nosmartindent'
+    vim.cmd 'setlocal norelativenumber'
+    vim.cmd 'setlocal undolevels=10'
   end,
 })
 
