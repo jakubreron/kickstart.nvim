@@ -327,14 +327,9 @@ return {
     end,
     keys = {
       {
-        '<leader>ee',
+        '<leader>e',
         '<cmd>NvimTreeToggle<cr>',
         desc = '[e]xplorer',
-      },
-      {
-        '<leader>ec',
-        '<cmd>NvimTreeFindFile<CR>',
-        desc = '[-] select current file',
       },
     },
     cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus', 'NvimTreeFindFileToggle' },
