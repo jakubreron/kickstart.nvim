@@ -23,7 +23,9 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'LspAttach' }, {
 
     local clients = vim.lsp.get_active_clients { bufnr = args.buf }
     for _, client in ipairs(clients) do
-      vim.lsp.buf_detach_client(args.buf, client.id)
+      if vim.lsp.buf_is_attached(args.buf, client.id) then
+        vim.lsp.buf_detach_client(args.buf, client.id)
+      end
     end
 
     vim.cmd 'setlocal noundofile'
