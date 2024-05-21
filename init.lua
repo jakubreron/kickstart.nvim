@@ -592,6 +592,8 @@ require('lazy').setup({
       },
     },
     config = function()
+      -- NOTE: RFB eslint-lsp (it's not a formatter, it provides a command for formatting),
+      -- NOTE: Singularity = prettierd
       local prettier_paths = { 'singularity' }
       local js_ts_formatters_callback = function(bufnr)
         vim.cmd 'silent! EslintFixAll' -- NOTE: always run eslint lsp
@@ -628,9 +630,6 @@ require('lazy').setup({
           --
           -- You can use a sub-list to tell conform to run *until* a formatter
           -- is found.
-
-          -- NOTE: RFB = eslint_d or eslint-lsp (just `eslint`),
-          -- NOTE: Singularity = prettierd
 
           javascript = js_ts_formatters_callback,
           javascriptreact = js_ts_formatters_callback,
