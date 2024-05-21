@@ -1,6 +1,11 @@
--- NOTE: reload the buffer if it doesn't come from node_modules (performance)
+vim.api.nvim_create_autocmd('BufRead', {
+  pattern = '*',
+  command = 'normal g\'"',
+})
+
+-- NOTE: reload the buffer if it doesn't come from node_modules
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
-  pattern = { '*' },
+  pattern = '*',
   callback = function()
     local bufname = vim.fn.expand '<afile>'
     if not string.match(bufname, 'node_modules') then
@@ -9,32 +14,16 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   end,
 })
 
-vim.api.nvim_create_autocmd('BufRead', {
-  pattern = '*',
-  command = 'normal g\'"',
-})
-
 -- NOTE: performance settings
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'LspAttach' }, {
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { '*/node_modules/*' },
   callback = function(args)
     vim.diagnostic.disable(args.buf)
-    vim.lsp.stop_client(args.buf)
-
-    local clients = vim.lsp.get_active_clients { bufnr = args.buf }
-    for _, client in ipairs(clients) do
-      if vim.lsp.buf_is_attached(args.buf, client.id) then
-        vim.lsp.buf_detach_client(args.buf, client.id)
-      end
-    end
 
     vim.cmd 'setlocal noundofile'
     vim.cmd 'setlocal noautoindent'
     vim.cmd 'setlocal nosmartindent'
-    vim.cmd 'setlocal norelativenumber'
     vim.cmd 'setlocal undolevels=10'
-
-    vim.api.nvim_buf_set_option(args.buf, 'formatexpr', '')
   end,
 })
 
