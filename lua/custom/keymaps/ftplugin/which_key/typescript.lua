@@ -11,7 +11,6 @@ end
 local M = {
   f = {
     r = { action_with_formatting 'TSToolsRenameFile', '[r]ename' },
-    R = { action_with_formatting 'TSToolsFileReferences', '[R]eferences' },
   },
   l = {
     i = {
@@ -28,10 +27,5 @@ local M = {
     },
   },
 }
-
-vim.keymap.set('n', 'gd', '<cmd>TSToolsGoToSourceDefinition<cr>', {
-  desc = '[g]oto [d]efiniton',
-  buffer = vim.api.nvim_get_current_buf(),
-})
 
 return M
