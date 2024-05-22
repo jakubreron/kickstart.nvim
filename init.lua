@@ -586,9 +586,9 @@ require('lazy').setup({
         desc = '[f]ormat buffer',
       },
       {
-        '<leader>fF',
+        '<leader>fa',
         '<cmd>ConformInfo<cr>',
-        desc = 'attached [F]ormatters',
+        desc = '[a]ttached formatters',
       },
     },
     config = function()
