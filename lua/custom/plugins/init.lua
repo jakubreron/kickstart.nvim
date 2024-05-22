@@ -110,6 +110,21 @@ return {
   },
 
   {
+    'mbbill/undotree',
+    lazy = true,
+    cmd = {
+      'UndotreeToggle',
+    },
+    keys = {
+      {
+        '<leader>fu',
+        '<cmd>UndotreeToggle<cr>',
+        desc = '[u]undotree',
+      },
+    },
+  },
+
+  {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
