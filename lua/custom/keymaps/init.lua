@@ -1,41 +1,3 @@
-local harpoon_status_ok, harpoon = pcall(require, 'harpoon')
-
-if harpoon_status_ok then
-  -- REQUIRED
-  harpoon:setup()
-  -- REQUIRED
-
-  vim.keymap.set('n', '<C-f>', function()
-    harpoon.ui:toggle_quick_menu(harpoon:list())
-  end, {
-    desc = 'toggle harpoon quick menu',
-  })
-
-  vim.keymap.set('n', '<C-b>', function()
-    harpoon:list():add()
-  end, {
-    desc = 'add file to harpoon',
-  })
-
-  vim.keymap.set('n', ']h', function()
-    harpoon:list():next()
-  end, {
-    desc = 'next [h]arpoon file',
-  })
-
-  vim.keymap.set('n', '[h', function()
-    harpoon:list():prev()
-  end, {
-    desc = 'prev [h]arpoon file',
-  })
-
-  for i = 1, 6 do
-    vim.keymap.set('n', '<leader>' .. i, function()
-      harpoon:list():select(i)
-    end, { desc = '[' .. i .. '] mark' })
-  end
-end
-
 vim.keymap.set({ 'n', 'v' }, 'ZQ', '<cmd>qa<cr>', { desc = 'quit all buffers' })
 
 vim.keymap.set('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<cr>', { desc = '[v]ertical split definition' })
@@ -115,10 +77,6 @@ vim.keymap.set('n', '<leader>ps', '<cmd>Lazy sync<cr>', { desc = '[s]ync' })
 vim.keymap.set('n', '<leader>pc', '<cmd>Lazy clean<cr>', { desc = '[c]lean' })
 vim.keymap.set('n', '<leader>pp', '<cmd>Lazy profile<cr>', { desc = '[p]rofile' })
 vim.keymap.set('n', '<leader>pr', '<cmd>Lazy restore<cr>', { desc = '[r]estore' })
-
--- TODO: find something
--- vim.keymap.set('n', '<C-k>', '<cmd>cnext<cr>zz')
--- vim.keymap.set('n', '<C-j>', '<cmd>cprev<cr>zz')
 
 vim.keymap.set('n', '<leader>ru', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[u]nder cursor' })
 

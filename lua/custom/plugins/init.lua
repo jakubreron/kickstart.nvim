@@ -109,15 +109,48 @@ return {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {
-      settings = {
-        save_on_toggle = true,
-        sync_on_ui_close = true,
-        key = function()
-          return vim.loop.cwd()
-        end,
-      },
-    },
+    config = function()
+      local harpoon = require 'harpoon'
+      harpoon:setup {
+        settings = {
+          save_on_toggle = true,
+          sync_on_ui_close = true,
+          key = function()
+            return vim.loop.cwd()
+          end,
+        },
+      }
+
+      vim.keymap.set('n', '<C-f>', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, {
+        desc = 'toggle harpoon quick menu',
+      })
+
+      vim.keymap.set('n', '<C-b>', function()
+        harpoon:list():add()
+      end, {
+        desc = 'add file to harpoon',
+      })
+
+      vim.keymap.set('n', ']h', function()
+        harpoon:list():next()
+      end, {
+        desc = 'next [h]arpoon file',
+      })
+
+      vim.keymap.set('n', '[h', function()
+        harpoon:list():prev()
+      end, {
+        desc = 'prev [h]arpoon file',
+      })
+
+      for i = 1, 6 do
+        vim.keymap.set('n', '<leader>' .. i, function()
+          harpoon:list():select(i)
+        end, { desc = '[' .. i .. '] mark' })
+      end
+    end,
   },
 
   {
@@ -292,6 +325,7 @@ return {
         },
         keymaps = {
           ['<C-h>'] = false,
+          ['<C-l>'] = false,
           ['<C-v>'] = require('oil.actions').select_vsplit,
           ['<C-s>'] = false,
           ['<C-x>'] = require('oil.actions').select_split,
