@@ -20,7 +20,7 @@ return {
   {
     'nat-418/boole.nvim',
     lazy = true,
-    config = {
+    opts = {
       mappings = {
         increment = '<C-a>',
         decrement = '<C-x>',
