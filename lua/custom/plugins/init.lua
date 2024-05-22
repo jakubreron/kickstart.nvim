@@ -1,3 +1,10 @@
+local neotest_events = {
+  'BufWinEnter *.spec.ts',
+  'BufWinEnter *.spec.js',
+  'BufWinEnter *.spec.tsx',
+  'BufWinEnter *.spec.jsx',
+}
+
 return {
   'tpope/vim-repeat', -- better "."
   'tpope/vim-unimpaired', -- additional mappings
@@ -8,9 +15,6 @@ return {
     lazy = true,
     event = 'QuickFixCmdPre',
     ft = 'qf',
-    keys = {
-      '<C-q>',
-    },
   },
 
   {
@@ -39,11 +43,11 @@ return {
     },
   },
 
-  {
-    'sangdol/mintabline.vim', -- tabs with numbers & icons
-    lazy = true,
-    event = 'TabEnter',
-  },
+  -- {
+  --   'sangdol/mintabline.vim', -- tabs with numbers & icons
+  --   lazy = true,
+  --   event = 'TabEnter',
+  -- },
 
   {
     'tpope/vim-surround', -- surround movement
@@ -190,18 +194,19 @@ return {
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
-      'antoinemadec/FixCursorHold.nvim',
-      'nvim-treesitter/nvim-treesitter',
       {
         'haydenmeade/neotest-jest',
-        event = 'BufWinEnter *.spec.*',
+        event = neotest_events,
       },
     },
     version = '5.1.0',
     config = function()
       require('custom.plugins.settings.neotest').config()
     end,
-    event = 'BufWinEnter *.spec.*',
+    event = neotest_events,
+    keys = {
+      '<leader>u',
+    },
   },
 
   -- {
@@ -367,7 +372,6 @@ return {
       },
     },
     cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus', 'NvimTreeFindFileToggle' },
-    event = 'User DirOpened',
   },
 
   {
