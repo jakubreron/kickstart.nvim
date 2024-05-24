@@ -64,8 +64,10 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = false })<cr>', { desc = 'go to previous [d]iagnostic message' })
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>', { desc = 'go to next [d]iagnostic message' })
+-- NOTE: default since nvim 0.10.0
+-- vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = false })<cr>', { desc = 'go to previous [d]iagnostic message' })
+-- vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>', { desc = 'go to next [d]iagnostic message' })
+
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[e]rror Messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
 
@@ -364,16 +366,17 @@ require('lazy').setup({
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gI', require('telescope.builtin').lsp_implementations, '[I]mplementation')
 
-          map('gl', function()
-            local float = vim.diagnostic.config().float
-
-            if float then
-              local config = type(float) == 'table' and float or {}
-              config.scope = 'line'
-
-              vim.diagnostic.open_float(config)
-            end
-          end, '[l]ine Diagnostics')
+          -- NOTE: defaults to <c-w>d, <c-w><c-d> since nvim 0.10.0
+          -- map('gl', function()
+          --   local float = vim.diagnostic.config().float
+          --
+          --   if float then
+          --     local config = type(float) == 'table' and float or {}
+          --     config.scope = 'line'
+          --
+          --     vim.diagnostic.open_float(config)
+          --   end
+          -- end, '[l]ine Diagnostics')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
@@ -401,7 +404,8 @@ require('lazy').setup({
           map('<leader>lI', '<cmd>LspInfo<cr>', '[I]nfo')
 
           -- hover with lsp instead of manpages
-          map('K', vim.lsp.buf.hover, '[K] Hover')
+          -- NOTE: default since nvim 0.10.0
+          -- map('K', vim.lsp.buf.hover, '[K] Hover')
           map('H', vim.lsp.buf.signature_help, 'Signature [H]elp')
 
           map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
