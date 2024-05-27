@@ -13,9 +13,6 @@ M.config = function()
         enable = true,
         timing = mini_animate.gen_timing.linear { duration = 85, unit = 'total' },
       },
-      -- scroll = {
-      --   enable = false,
-      -- },
       scroll = {
         enable = true,
         timing = require('mini.animate').gen_timing.linear { duration = 50, unit = 'total' },
