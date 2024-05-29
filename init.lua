@@ -63,12 +63,6 @@ vim.opt.sidescrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>')
 
--- Diagnostic keymaps
--- NOTE: default since nvim 0.10.0
--- vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = false })<cr>', { desc = 'go to previous [d]iagnostic message' })
--- vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>', { desc = 'go to next [d]iagnostic message' })
-
-vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[e]rror Messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
 
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'move focus to the left window' })
@@ -97,18 +91,6 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- Use `opts = {}` to force a plugin to be loaded.
-  --  This is equivalent to:
-  --    require('Comment').setup({})
-
-  -- "gc" to comment visual regions/lines
-  {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup {
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      }
-    end,
-  },
 
   -- Events can be normal autocommands events (`:help autocmd-events`).
   -- Then, because we use the `config` key, the configuration only runs
@@ -132,7 +114,6 @@ require('lazy').setup({
             g = false, -- bindings for prefixed with g
           },
         },
-        operators = { gc = 'Comments' },
         window = {
           border = 'single',
         },
@@ -176,7 +157,6 @@ require('lazy').setup({
 
         ['gz'] = { name = '[z]Z titlecase', _ = 'which_key_ignore' },
         ['gc'] = { name = '[c]omment', _ = 'which_key_ignore' },
-        ['gb'] = { name = '[b]lock comment', _ = 'which_key_ignore' },
         ['gJ'] = { name = '[J]oin', _ = 'which_key_ignore' },
         ['gS'] = { name = '[S]plit', _ = 'which_key_ignore' },
         ['yo'] = { name = 't[o]ggle', _ = 'which_key_ignore' },
@@ -366,18 +346,6 @@ require('lazy').setup({
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gI', require('telescope.builtin').lsp_implementations, '[I]mplementation')
 
-          -- NOTE: defaults to <c-w>d, <c-w><c-d> since nvim 0.10.0
-          -- map('gl', function()
-          --   local float = vim.diagnostic.config().float
-          --
-          --   if float then
-          --     local config = type(float) == 'table' and float or {}
-          --     config.scope = 'line'
-          --
-          --     vim.diagnostic.open_float(config)
-          --   end
-          -- end, '[l]ine Diagnostics')
-
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
@@ -404,8 +372,6 @@ require('lazy').setup({
           map('<leader>lI', '<cmd>LspInfo<cr>', '[I]nfo')
 
           -- hover with lsp instead of manpages
-          -- NOTE: default since nvim 0.10.0
-          -- map('K', vim.lsp.buf.hover, '[K] Hover')
           map('H', vim.lsp.buf.signature_help, 'Signature [H]elp')
 
           map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
@@ -421,7 +387,7 @@ require('lazy').setup({
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-          if client and client.server_capabilities.documentHighlightProvider then
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -444,10 +410,9 @@ require('lazy').setup({
             })
           end
 
-          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            -- Toggle inlay hints
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>lh', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, 'inlay [h]ints toggle')
           end
 
@@ -733,20 +698,8 @@ require('lazy').setup({
           ['<C-d>'] = cmp.mapping.scroll_docs(-4),
           ['<C-u>'] = cmp.mapping.scroll_docs(4),
 
-          -- Accept ([y]es) the completion.
-          --  This will auto-import if your LSP supports it.
-          --  This will expand snippets if the LSP sent a snippet.
           ['<C-y>'] = cmp.mapping.confirm { select = true },
 
-          -- If you prefer more traditional completion keymaps,
-          -- you can uncomment the following lines
-          --['<cr>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
-          -- Manually trigger a completion from nvim-cmp.
-          --  Generally you don't need this, because nvim-cmp will display
-          --  completions whenever it has completion options available.
           ['<C-Space>'] = cmp.mapping.complete {},
 
           -- Think of <c-l> as moving to the right of your snippet expansion.
@@ -893,7 +846,6 @@ require('lazy').setup({
       }, -- sticky scroll context
 
       -- { "nvim-treesitter/nvim-treesitter-textobjects" }, -- more movements (if, af, ic, ac, etc...)
-      { 'JoosepAlviste/nvim-ts-context-commentstring' },
     },
     opts = {
       ensure_installed = {
@@ -922,20 +874,6 @@ require('lazy').setup({
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-        config = {
-          -- Languages that have a single comment style
-          typescript = '// %s',
-          css = '/* %s */',
-          scss = '/* %s */',
-          html = '<!-- %s -->',
-          svelte = '<!-- %s -->',
-          vue = '<!-- %s -->',
-          json = '',
-        },
-      },
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
