@@ -333,34 +333,36 @@ require('lazy').setup({
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = '' .. desc })
           end
 
+          local builtin = require 'telescope.builtin'
+
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[d]efinition')
+          map('gd', builtin.lsp_definitions, '[d]efinition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[D]eclaration')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[r]eferences')
+          map('gr', builtin.lsp_references, '[r]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', require('telescope.builtin').lsp_implementations, '[I]mplementation')
+          map('gI', builtin.lsp_implementations, '[I]mplementation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[t]ype Definition')
+          map('<leader>lt', builtin.lsp_type_definitions, '[t]ype Definition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>lsd', require('telescope.builtin').lsp_document_symbols, '[d]ocument')
+          map('<leader>lsd', builtin.lsp_document_symbols, '[d]ocument')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>lsw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[w]orkspace')
+          map('<leader>lsw', builtin.lsp_dynamic_workspace_symbols, '[w]orkspace')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
@@ -462,11 +464,18 @@ require('lazy').setup({
         stylelint_lsp = {},
         html = {},
         eslint = {},
-        tsserver = {},
+        tsserver = {
+          server_capabilities = {
+            documentFormattingProvider = false,
+          },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
           -- capabilities = {},
+          server_capabilities = {
+            semanticTokensProvider = vim.NIL,
+          },
           settings = {
             Lua = {
               completion = {
