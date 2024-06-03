@@ -22,9 +22,11 @@ vim.filetype.add {
 }
 
 vim.diagnostic.config {
+  underline = true,
   virtual_text = false,
   float = {
+    show_header = true,
     border = 'rounded',
-    source = 'always',
+    source = 'if_many',
   },
 }
