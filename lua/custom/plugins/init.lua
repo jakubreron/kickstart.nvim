@@ -27,7 +27,7 @@ return {
       },
       -- User defined loops
       additions = {
-        -- { 'Foo', 'Bar', ' },
+        { 'child', 'parent' },
         -- { 'tic', 'tac', 'toe' },
       },
       allow_caps_additions = {
