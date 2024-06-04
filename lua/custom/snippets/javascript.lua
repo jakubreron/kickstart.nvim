@@ -8,6 +8,55 @@ local snippets = function()
     luasnip.snippet('clo', fmt('console.log({{ {} }}){}', { i(1), i(0) })),
     luasnip.snippet('cls', fmt("console.log('{}'){}", { i(1), i(0) })),
     luasnip.snippet('clb', fmt("console.log('%c {}', 'font-size: 24px; color: skyblue;'){}", { i(1), i(0) })),
+
+    -- NOTE: unit tests snippets
+    luasnip.snippet('ucl', fmt('console.log(screen.debug({})){}', { i(1), i(0) })),
+    luasnip.snippet(
+      'ube',
+      fmt(
+        [[
+        beforeEach(() => {{
+          {}
+        }})
+        ]],
+        { i(1) }
+      )
+    ),
+
+    luasnip.snippet(
+      'uae',
+      fmt(
+        [[
+        afterEach(() => {{
+          {}
+        }})
+        ]],
+        { i(1) }
+      )
+    ),
+
+    luasnip.snippet(
+      'ud',
+      fmt(
+        [[
+        describe('{}', () => {{
+          {}
+        }})
+        ]],
+        { i(1), i(0) }
+      )
+    ),
+    luasnip.snippet(
+      'ui',
+      fmt(
+        [[
+        test('should {}', () => {{
+          {}
+        }})
+        ]],
+        { i(1), i(0) }
+      )
+    ),
   }
 end
 
