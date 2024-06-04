@@ -853,7 +853,7 @@ require('lazy').setup({
       {
         'nvim-treesitter/nvim-treesitter-context',
         opts = {
-          max_lines = 8, -- How many lines the window should span. Values
+          max_lines = 4, -- How many lines the window should span. Values
         },
       }, -- sticky scroll context
 
