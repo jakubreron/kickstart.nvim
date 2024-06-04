@@ -211,10 +211,12 @@ return {
       'nvim-lua/plenary.nvim',
       {
         'haydenmeade/neotest-jest',
+        lazy = true,
         event = neotest_events,
       },
     },
-    version = '5.1.0',
+    -- NOTE: this version was working for everything, rollback if something is broken after commenting it
+    -- version = '5.1.0',
     config = function()
       require('custom.plugins.settings.neotest').config()
     end,
