@@ -580,6 +580,7 @@ require('lazy').setup({
       -- NOTE: Singularity = prettierd
       local prettier_paths = { 'singularity' }
       local js_ts_formatters_callback = function(bufnr)
+        -- TODO: @Jakub run eslint only if buffer was changed
         vim.cmd 'silent! EslintFixAll' -- NOTE: always run eslint lsp
 
         for i = 1, #prettier_paths do
