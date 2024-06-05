@@ -28,6 +28,7 @@ return {
       -- User defined loops
       additions = {
         { 'child', 'parent' },
+        { 'toBeTruthy', 'toBeFalsy' },
         -- { 'tic', 'tac', 'toe' },
       },
       allow_caps_additions = {
