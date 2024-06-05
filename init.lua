@@ -288,7 +288,7 @@ require('lazy').setup({
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
-    -- TODO: @Jakub remove it after fixes
+    -- TODO: @Jakub remove it after fixes to eslint
     pin = true,
     commit = '38de86f82efd9ba0881203767d6a8e1815abca28',
     dependencies = {
