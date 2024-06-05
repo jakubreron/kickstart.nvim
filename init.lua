@@ -579,14 +579,22 @@ require('lazy').setup({
       -- NOTE: RFB eslint-lsp (it's not a formatter, it provides a command for formatting),
       -- NOTE: Singularity = prettierd
       local prettier_paths = { 'singularity' }
-      local js_ts_formatters_callback = function(bufnr)
-        -- TODO: @Jakub run eslint only if buffer was changed
-        vim.cmd 'silent! EslintFixAll' -- NOTE: always run eslint lsp
 
-        for i = 1, #prettier_paths do
-          if string.find(vim.api.nvim_buf_get_name(bufnr), prettier_paths[i]) then
-            return { 'prettierd' } -- NOTE: but run prettier for some projects as well
-          else
+      local js_ts_formatters_callback = function(bufnr)
+        local buf_modified = vim.api.nvim_get_option_value('modified', { buf = bufnr })
+
+        if not buf_modified then
+          return {}
+        end
+
+        if buf_modified then
+          vim.cmd 'silent! EslintFixAll' -- NOTE: always run eslint lsp
+
+          for i = 1, #prettier_paths do
+            if string.find(vim.api.nvim_buf_get_name(bufnr), prettier_paths[i]) then
+              return { 'prettierd' } -- NOTE: but run prettier for some projects as well
+            end
+
             return {}
           end
         end
