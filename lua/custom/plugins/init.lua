@@ -27,7 +27,8 @@ return {
       },
       -- User defined loops
       additions = {
-        -- { 'Foo', 'Bar', ' },
+        { 'child', 'parent' },
+        { 'toBeTruthy', 'toBeFalsy' },
         -- { 'tic', 'tac', 'toe' },
       },
       allow_caps_additions = {
@@ -211,10 +212,12 @@ return {
       'nvim-lua/plenary.nvim',
       {
         'haydenmeade/neotest-jest',
+        lazy = true,
         event = neotest_events,
       },
     },
-    version = '5.1.0',
+    -- NOTE: this version was working for everything, rollback if something is broken after commenting it
+    -- version = '5.1.0',
     config = function()
       require('custom.plugins.settings.neotest').config()
     end,
@@ -264,13 +267,29 @@ return {
   {
     'pmizio/typescript-tools.nvim',
     lazy = true,
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     ft = {
       'javascript',
       'typescript',
       'typescriptreact',
     },
     config = true,
+  },
+
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    lazy = true,
+    ft = 'typescriptreact',
+    config = function()
+      require('ts_context_commentstring').setup {
+        enable_autocmd = false,
+      }
+
+      local get_option = vim.filetype.get_option
+      vim.filetype.get_option = function(filetype, option)
+        return option == 'commentstring' and require('ts_context_commentstring.internal').calculate_commentstring() or get_option(filetype, option)
+      end
+    end,
   },
 
   -- co — choose ours

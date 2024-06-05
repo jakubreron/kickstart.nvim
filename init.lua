@@ -63,12 +63,6 @@ vim.opt.sidescrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>')
 
--- Diagnostic keymaps
--- NOTE: default since nvim 0.10.0
--- vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = false })<cr>', { desc = 'go to previous [d]iagnostic message' })
--- vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>', { desc = 'go to next [d]iagnostic message' })
-
-vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = '[e]rror Messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
 
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'move focus to the left window' })
@@ -84,8 +78,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -97,27 +89,14 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- Use `opts = {}` to force a plugin to be loaded.
-  --  This is equivalent to:
-  --    require('Comment').setup({})
 
-  -- "gc" to comment visual regions/lines
-  {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup {
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      }
-    end,
-  },
-
-  -- Events can be normal autocommands events (`:help autocmd-events`).
-  -- Then, because we use the `config` key, the configuration only runs
+  -- Because we use the `config` key, the configuration only runs
   -- after the plugin has been loaded:
   --  config = function() ... end
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    event = 'VimEnter',
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {
         -- ignore_missing = true,
@@ -132,7 +111,6 @@ require('lazy').setup({
             g = false, -- bindings for prefixed with g
           },
         },
-        operators = { gc = 'Comments' },
         window = {
           border = 'single',
         },
@@ -176,7 +154,6 @@ require('lazy').setup({
 
         ['gz'] = { name = '[z]Z titlecase', _ = 'which_key_ignore' },
         ['gc'] = { name = '[c]omment', _ = 'which_key_ignore' },
-        ['gb'] = { name = '[b]lock comment', _ = 'which_key_ignore' },
         ['gJ'] = { name = '[J]oin', _ = 'which_key_ignore' },
         ['gS'] = { name = '[S]plit', _ = 'which_key_ignore' },
         ['yo'] = { name = 't[o]ggle', _ = 'which_key_ignore' },
@@ -189,7 +166,7 @@ require('lazy').setup({
     end,
   },
 
-  { -- Fuzzy Finder (files, lsp, etc)
+  {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
     branch = 'master',
@@ -216,9 +193,6 @@ require('lazy').setup({
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
-      -- Two important keymaps to use while in Telescope are:
-      --  - Insert mode: <c-/>
-      --  - Normal mode: ?
       require('telescope').setup {
         defaults = {
           mappings = {
@@ -270,6 +244,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>svc', function()
         builtin.colorscheme { enable_preview = true }
       end, { desc = '[c]olorscheme' })
+      vim.keymap.set('n', '<leader>svn', function()
+        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      end, { desc = '[n]eovim files' })
 
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[f]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]elect telescope' })
@@ -290,19 +267,12 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] fuzzily search in current buffer' })
 
-      -- It's also possible to pass additional configuration options.
-      --  See `:help telescope.builtin.live_grep()` for information about particular keys
       vim.keymap.set('n', '<leader>s/', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
       end, { desc = '[/] in open files' })
-
-      -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[n]eovim files' })
     end,
   },
 
@@ -341,55 +311,40 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
-          -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-          -- to define small helper and utility functions so you don't have to repeat yourself.
-          --
-          -- In this case, we create a function that lets us more easily define mappings specific
-          -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = '' .. desc })
           end
 
+          local builtin = require 'telescope.builtin'
+
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[d]efinition')
+          map('gd', builtin.lsp_definitions, '[d]efinition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[D]eclaration')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[r]eferences')
+          map('gr', builtin.lsp_references, '[r]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', require('telescope.builtin').lsp_implementations, '[I]mplementation')
-
-          -- NOTE: defaults to <c-w>d, <c-w><c-d> since nvim 0.10.0
-          -- map('gl', function()
-          --   local float = vim.diagnostic.config().float
-          --
-          --   if float then
-          --     local config = type(float) == 'table' and float or {}
-          --     config.scope = 'line'
-          --
-          --     vim.diagnostic.open_float(config)
-          --   end
-          -- end, '[l]ine Diagnostics')
+          map('gI', builtin.lsp_implementations, '[I]mplementation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>lt', require('telescope.builtin').lsp_type_definitions, '[t]ype Definition')
+          map('<leader>lt', builtin.lsp_type_definitions, '[t]ype Definition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>lsd', require('telescope.builtin').lsp_document_symbols, '[d]ocument')
+          map('<leader>lsd', builtin.lsp_document_symbols, '[d]ocument')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>lsw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[w]orkspace')
+          map('<leader>lsw', builtin.lsp_dynamic_workspace_symbols, '[w]orkspace')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
@@ -404,15 +359,9 @@ require('lazy').setup({
           map('<leader>lI', '<cmd>LspInfo<cr>', '[I]nfo')
 
           -- hover with lsp instead of manpages
-          -- NOTE: default since nvim 0.10.0
-          -- map('K', vim.lsp.buf.hover, '[K] Hover')
           map('H', vim.lsp.buf.signature_help, 'Signature [H]elp')
 
           map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
-
-          -- Opens a popup that displays documentation about the word under your cursor
-          --  See `:help K` for why this keymap.
-          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -421,7 +370,7 @@ require('lazy').setup({
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-          if client and client.server_capabilities.documentHighlightProvider then
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -444,10 +393,9 @@ require('lazy').setup({
             })
           end
 
-          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            -- Toggle inlay hints
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>lh', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, 'inlay [h]ints toggle')
           end
 
@@ -487,18 +435,30 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local html_css_filetypes = { 'css', 'html', 'scss', 'sass', 'less' }
       local servers = {
-        emmet_language_server = {},
+        emmet_language_server = {
+          filetypes = html_css_filetypes,
+        },
         jsonls = {},
         markdown_oxide = {},
-        stylelint_lsp = {},
+        stylelint_lsp = {
+          filetypes = html_css_filetypes,
+        },
         html = {},
         eslint = {},
-        tsserver = {},
+        tsserver = {
+          server_capabilities = {
+            documentFormattingProvider = false,
+          },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
           -- capabilities = {},
+          server_capabilities = {
+            semanticTokensProvider = vim.NIL,
+          },
           settings = {
             Lua = {
               completion = {
@@ -512,11 +472,6 @@ require('lazy').setup({
       }
 
       -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu.
       require('mason').setup {
         ui = {
           border = 'rounded',
@@ -597,13 +552,22 @@ require('lazy').setup({
       -- NOTE: RFB eslint-lsp (it's not a formatter, it provides a command for formatting),
       -- NOTE: Singularity = prettierd
       local prettier_paths = { 'singularity' }
-      local js_ts_formatters_callback = function(bufnr)
-        vim.cmd 'silent! EslintFixAll' -- NOTE: always run eslint lsp
 
-        for i = 1, #prettier_paths do
-          if string.find(vim.api.nvim_buf_get_name(bufnr), prettier_paths[i]) then
-            return { 'prettierd' } -- NOTE: but run prettier for some projects as well
-          else
+      local js_ts_formatters_callback = function(bufnr)
+        local buf_modified = vim.api.nvim_get_option_value('modified', { buf = bufnr })
+
+        if not buf_modified then
+          return {}
+        end
+
+        if buf_modified then
+          vim.cmd 'silent! EslintFixAll' -- NOTE: always run eslint lsp
+
+          for i = 1, #prettier_paths do
+            if string.find(vim.api.nvim_buf_get_name(bufnr), prettier_paths[i]) then
+              return { 'prettierd' } -- NOTE: but run prettier for some projects as well
+            end
+
             return {}
           end
         end
@@ -733,20 +697,8 @@ require('lazy').setup({
           ['<C-d>'] = cmp.mapping.scroll_docs(-4),
           ['<C-u>'] = cmp.mapping.scroll_docs(4),
 
-          -- Accept ([y]es) the completion.
-          --  This will auto-import if your LSP supports it.
-          --  This will expand snippets if the LSP sent a snippet.
           ['<C-y>'] = cmp.mapping.confirm { select = true },
 
-          -- If you prefer more traditional completion keymaps,
-          -- you can uncomment the following lines
-          --['<cr>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
-          -- Manually trigger a completion from nvim-cmp.
-          --  Generally you don't need this, because nvim-cmp will display
-          --  completions whenever it has completion options available.
           ['<C-Space>'] = cmp.mapping.complete {},
 
           -- Think of <c-l> as moving to the right of your snippet expansion.
@@ -858,11 +810,6 @@ require('lazy').setup({
         desc = 'next [t]odo comment',
       },
       {
-        '<C-t>',
-        '<cmd>TodoQuickfix<cr>',
-        desc = '[t]odo quickfix',
-      },
-      {
         '<leader>sT',
         '<cmd>TodoTelescope<cr>',
         desc = '[T]odo',
@@ -875,7 +822,7 @@ require('lazy').setup({
     },
   },
 
-  { -- Collection of various small independent plugins/modules
+  {
     'echasnovski/mini.nvim',
     config = function()
       require('custom.plugins.settings.mini').config()
@@ -888,12 +835,11 @@ require('lazy').setup({
       {
         'nvim-treesitter/nvim-treesitter-context',
         opts = {
-          max_lines = 8, -- How many lines the window should span. Values
+          max_lines = 4, -- How many lines the window should span. Values
         },
       }, -- sticky scroll context
 
       -- { "nvim-treesitter/nvim-treesitter-textobjects" }, -- more movements (if, af, ic, ac, etc...)
-      { 'JoosepAlviste/nvim-ts-context-commentstring' },
     },
     opts = {
       ensure_installed = {
@@ -920,22 +866,7 @@ require('lazy').setup({
         'hyprlang',
         'regex',
       },
-      -- Autoinstall languages that are not installed
       auto_install = true,
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-        config = {
-          -- Languages that have a single comment style
-          typescript = '// %s',
-          css = '/* %s */',
-          scss = '/* %s */',
-          html = '<!-- %s -->',
-          svelte = '<!-- %s -->',
-          vue = '<!-- %s -->',
-          json = '',
-        },
-      },
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
@@ -947,8 +878,6 @@ require('lazy').setup({
       indent = { enable = true, disable = { 'ruby' } },
     },
     config = function(_, opts)
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
       -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields

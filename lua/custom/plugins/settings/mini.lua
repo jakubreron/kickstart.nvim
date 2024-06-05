@@ -14,9 +14,12 @@ M.config = function()
         timing = mini_animate.gen_timing.linear { duration = 85, unit = 'total' },
       },
       scroll = {
-        enable = true,
-        timing = require('mini.animate').gen_timing.linear { duration = 50, unit = 'total' },
+        enable = false,
       },
+      -- scroll = {
+      --   enable = true,
+      --   timing = require('mini.animate').gen_timing.linear { duration = 75, unit = 'total' },
+      -- },
       resize = {
         enable = false,
       },
@@ -29,24 +32,24 @@ M.config = function()
     }
 
     -- disable scrolling on mouse since it's bugged with the smooth scroll plugin
-    local scrolling_binds = {
-      '<ScrollWheelUp>',
-      '<S-ScrollWheelUp>',
-      '<C-ScrollWheelUp>',
-      '<ScrollWheelDown>',
-      '<S-ScrollWheelDown>',
-      '<C-ScrollWheelDown>',
-      '<ScrollWheelLeft>',
-      '<S-ScrollWheelLeft>',
-      '<C-ScrollWheelLeft>',
-      '<ScrollWheelRight>',
-      '<S-ScrollWheelRight>',
-      '<C-ScrollWheelRight>',
-    }
-
-    for i = 1, #scrolling_binds do
-      vim.keymap.set({ 'n', 'v', 'i' }, scrolling_binds[i], '<nop>')
-    end
+    -- local scrolling_binds = {
+    --   '<ScrollWheelUp>',
+    --   '<S-ScrollWheelUp>',
+    --   '<C-ScrollWheelUp>',
+    --   '<ScrollWheelDown>',
+    --   '<S-ScrollWheelDown>',
+    --   '<C-ScrollWheelDown>',
+    --   '<ScrollWheelLeft>',
+    --   '<S-ScrollWheelLeft>',
+    --   '<C-ScrollWheelLeft>',
+    --   '<ScrollWheelRight>',
+    --   '<S-ScrollWheelRight>',
+    --   '<C-ScrollWheelRight>',
+    -- }
+    --
+    -- for i = 1, #scrolling_binds do
+    --   vim.keymap.set({ 'n', 'v', 'i' }, scrolling_binds[i], '<nop>')
+    -- end
   end
 
   local mini_operators_status_ok, mini_operators = pcall(require, 'mini.operators')
