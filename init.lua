@@ -457,11 +457,16 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local html_css_filetypes = { 'css', 'html', 'scss', 'sass', 'less' }
       local servers = {
-        emmet_language_server = {},
+        emmet_language_server = {
+          filetypes = html_css_filetypes,
+        },
         jsonls = {},
         markdown_oxide = {},
-        stylelint_lsp = {},
+        stylelint_lsp = {
+          filetypes = html_css_filetypes,
+        },
         html = {},
         eslint = {},
         tsserver = {
