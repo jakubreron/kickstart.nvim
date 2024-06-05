@@ -78,8 +78,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -92,14 +90,13 @@ require('lazy').setup({
 
   -- Use `opts = {}` to force a plugin to be loaded.
 
-  -- Events can be normal autocommands events (`:help autocmd-events`).
-  -- Then, because we use the `config` key, the configuration only runs
+  -- Because we use the `config` key, the configuration only runs
   -- after the plugin has been loaded:
   --  config = function() ... end
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    event = 'VimEnter',
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {
         -- ignore_missing = true,
@@ -169,7 +166,7 @@ require('lazy').setup({
     end,
   },
 
-  { -- Fuzzy Finder (files, lsp, etc)
+  {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
     branch = 'master',
@@ -196,9 +193,6 @@ require('lazy').setup({
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
-      -- Two important keymaps to use while in Telescope are:
-      --  - Insert mode: <c-/>
-      --  - Normal mode: ?
       require('telescope').setup {
         defaults = {
           mappings = {
@@ -250,6 +244,9 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>svc', function()
         builtin.colorscheme { enable_preview = true }
       end, { desc = '[c]olorscheme' })
+      vim.keymap.set('n', '<leader>svn', function()
+        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      end, { desc = '[n]eovim files' })
 
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[f]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]elect telescope' })
@@ -270,19 +267,12 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] fuzzily search in current buffer' })
 
-      -- It's also possible to pass additional configuration options.
-      --  See `:help telescope.builtin.live_grep()` for information about particular keys
       vim.keymap.set('n', '<leader>s/', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
       end, { desc = '[/] in open files' })
-
-      -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[n]eovim files' })
     end,
   },
 
@@ -321,11 +311,6 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
-          -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-          -- to define small helper and utility functions so you don't have to repeat yourself.
-          --
-          -- In this case, we create a function that lets us more easily define mappings specific
-          -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = '' .. desc })
           end
@@ -377,10 +362,6 @@ require('lazy').setup({
           map('H', vim.lsp.buf.signature_help, 'Signature [H]elp')
 
           map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
-
-          -- Opens a popup that displays documentation about the word under your cursor
-          --  See `:help K` for why this keymap.
-          -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -491,11 +472,6 @@ require('lazy').setup({
       }
 
       -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu.
       require('mason').setup {
         ui = {
           border = 'rounded',
@@ -834,11 +810,6 @@ require('lazy').setup({
         desc = 'next [t]odo comment',
       },
       {
-        '<C-t>',
-        '<cmd>TodoQuickfix<cr>',
-        desc = '[t]odo quickfix',
-      },
-      {
         '<leader>sT',
         '<cmd>TodoTelescope<cr>',
         desc = '[T]odo',
@@ -851,7 +822,7 @@ require('lazy').setup({
     },
   },
 
-  { -- Collection of various small independent plugins/modules
+  {
     'echasnovski/mini.nvim',
     config = function()
       require('custom.plugins.settings.mini').config()
@@ -895,7 +866,6 @@ require('lazy').setup({
         'hyprlang',
         'regex',
       },
-      -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
         enable = true,
@@ -908,8 +878,6 @@ require('lazy').setup({
       indent = { enable = true, disable = { 'ruby' } },
     },
     config = function(_, opts)
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
       -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
