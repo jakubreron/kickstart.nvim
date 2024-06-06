@@ -358,6 +358,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('oil').setup {
+        default_file_explorer = true,
         columns = {
           'icon',
           'size',
@@ -382,31 +383,31 @@ return {
       },
       {
         '<leader>-',
-        '<cmd>Oil<cr>',
+        '<cmd>Oil --float<cr>',
         desc = '[-] explorer (floating window)',
       },
     },
   },
 
-  {
-    'nvim-tree/nvim-tree.lua',
-    version = '*',
-    lazy = true,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require('custom.plugins.settings.nvimtree').config()
-    end,
-    keys = {
-      {
-        '<leader>e',
-        '<cmd>NvimTreeToggle<cr>',
-        desc = '[e]xplorer',
-      },
-    },
-    cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus', 'NvimTreeFindFileToggle' },
-  },
+  -- {
+  --   'nvim-tree/nvim-tree.lua',
+  --   version = '*',
+  --   lazy = true,
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons',
+  --   },
+  --   config = function()
+  --     require('custom.plugins.settings.nvimtree').config()
+  --   end,
+  --   keys = {
+  --     {
+  --       '<leader>e',
+  --       '<cmd>NvimTreeToggle<cr>',
+  --       desc = '[e]xplorer',
+  --     },
+  --   },
+  --   cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus', 'NvimTreeFindFileToggle' },
+  -- },
 
   {
     'nvim-lualine/lualine.nvim',
