@@ -4,10 +4,14 @@ local fmt = require('luasnip.extras.fmt').fmt
 
 local snippets = function()
   return {
+    -- NOTE: console logs
     luasnip.snippet('cl', fmt('console.log({}){}', { i(1), i(0) })),
     luasnip.snippet('clo', fmt('console.log({{ {} }}){}', { i(1), i(0) })),
     luasnip.snippet('cls', fmt("console.log('{}'){}", { i(1), i(0) })),
     luasnip.snippet('clb', fmt("console.log('%c {}', 'font-size: 24px; color: skyblue;'){}", { i(1), i(0) })),
+
+    -- NOTE: variables
+    luasnip.snippet('cd', fmt('const {{ {} }} = {}', { i(1), i(0) })),
 
     -- NOTE: unit tests snippets
     luasnip.snippet('ucl', fmt('console.log(screen.debug({})){}', { i(1), i(0) })),
