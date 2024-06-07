@@ -7,6 +7,7 @@ vim.opt.writebackup = false -- if a file is being edited by another program (or 
 vim.opt.lazyredraw = true -- Don't redraw while executing macros (good performance config)
 vim.opt.colorcolumn = '80'
 vim.opt.laststatus = 3
+vim.opt.wrap = false
 -- vim.opt.winbar = '  %t' -- file title
 
 vim.opt.spelllang:append 'cjk' -- disable spellchecking for asian characters (VIM algorithm does not support it)
