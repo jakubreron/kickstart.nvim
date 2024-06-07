@@ -210,8 +210,13 @@ return {
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
+      -- {
+      --   'haydenmeade/neotest-jest',
+      --   lazy = true,
+      --   event = neotest_events,
+      -- },
       {
-        'haydenmeade/neotest-jest',
+        'marilari88/neotest-vitest',
         lazy = true,
         event = neotest_events,
       },

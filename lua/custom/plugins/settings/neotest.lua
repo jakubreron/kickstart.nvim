@@ -52,7 +52,9 @@ M.config = function()
     },
 
     adapters = {
-      require 'neotest-jest' {},
+      -- require 'neotest-jest' {},
+      -- TODO: @Jakub run with coverage
+      require 'neotest-vitest' {},
     },
   }
 

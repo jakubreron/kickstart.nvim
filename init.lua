@@ -437,9 +437,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local html_css_filetypes = { 'css', 'html', 'scss', 'sass', 'less' }
       local servers = {
-        emmet_language_server = {
-          filetypes = html_css_filetypes,
-        },
+        emmet_language_server = {},
         jsonls = {},
         markdown_oxide = {},
         stylelint_lsp = {
