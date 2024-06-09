@@ -6,7 +6,7 @@ M.config = function()
     return
   end
 
-  colorizer.setup({ 'css', 'scss', 'html', 'javascript' }, {
+  colorizer.setup({ 'css', 'scss', 'sass', 'less', 'html' }, {
     RGB = true, -- #RGB hex codes
     RRGGBB = true, -- #RRGGBB hex codes
     RRGGBBAA = true, -- #RRGGBBAA hex codes
