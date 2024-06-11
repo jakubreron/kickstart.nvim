@@ -1,5 +1,3 @@
-vim.opt_local.shiftwidth = 2
-
 local normal_javascript_typescript_mappings = require 'custom.keymaps.ftplugin.normal.javascript-and-typescript'
 local current_buf = vim.api.nvim_get_current_buf()
 

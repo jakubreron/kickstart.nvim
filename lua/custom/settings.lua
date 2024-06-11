@@ -1,4 +1,7 @@
 -- vim.opt.dictionary = '/usr/share/dict/words' -- ctrl-x ctrl-k word suggestion
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
 vim.opt.backup = false -- creates a backup file
 vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
 vim.opt.swapfile = false -- creates a swapfile
