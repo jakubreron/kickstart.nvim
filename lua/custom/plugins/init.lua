@@ -372,14 +372,18 @@ return {
           'size',
         },
         keymaps = {
-          ['<C-h>'] = false,
-          ['<C-l>'] = false,
+          ['<C-l>'] = false, -- refresh
+          ['<C-h>'] = false, -- horizontal split
+          ['<C-s>'] = false, -- vertical split
           ['<C-v>'] = require('oil.actions').select_vsplit,
-          ['<C-s>'] = false,
           ['<C-x>'] = require('oil.actions').select_split,
         },
         view_options = {
           show_hidden = true,
+        },
+        lsp_file_methods = {
+          timeout_ms = 5000,
+          autosave_changes = true,
         },
       }
     end,
