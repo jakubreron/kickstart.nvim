@@ -25,11 +25,10 @@ return {
         increment = '<C-a>',
         decrement = '<C-x>',
       },
-      -- User defined loops
       additions = {
         { 'child', 'parent' },
         { 'toBeTruthy', 'toBeFalsy' },
-        -- { 'tic', 'tac', 'toe' },
+        { 'toBeEnabled', 'toBeDisabled' },
       },
       allow_caps_additions = {
         { 'enable', 'disable' },
