@@ -257,6 +257,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[l]ast resume' })
       vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[r]ecent files' })
       vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[b]uffers' })
+      vim.keymap.set('n', '<leader>su', builtin.grep_string, { desc = 'word [u]nder string' })
 
       -- NOTE: git
       vim.keymap.set('n', '<leader>sgf', builtin.git_status, { desc = '[f]iles (changed)' })
