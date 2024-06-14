@@ -6,6 +6,8 @@ vim.cmd [[
   iabbrev WW WARNING:<ESC>gccA
   iabbrev FF FIX:<ESC>gccA
 
+  iabbrev tsi @ts-ignore<ESC>gcc
+
   iabbrev rakuetn Rakuten
   iabbrev rakuent Rakuten
   iabbrev rakuten Rakuten
