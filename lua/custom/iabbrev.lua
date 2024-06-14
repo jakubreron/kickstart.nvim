@@ -12,6 +12,4 @@ vim.cmd [[
   iabbrev rakuent Rakuten
   iabbrev rakuten Rakuten
   iabbrev cilent client
-  iabbrev dont don't
-  iabbrev cant can't
 ]]
