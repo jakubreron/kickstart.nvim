@@ -5,16 +5,16 @@ local fmt = require('luasnip.extras.fmt').fmt
 local snippets = function()
   return {
     -- NOTE: console logs
-    luasnip.snippet('cl', fmt('console.log({}){}', { i(1), i(0) })),
-    luasnip.snippet('clo', fmt('console.log({{ {} }}){}', { i(1), i(0) })),
-    luasnip.snippet('cls', fmt("console.log('{}'){}", { i(1), i(0) })),
-    luasnip.snippet('clb', fmt("console.log('%c {}', 'font-size: 24px; color: skyblue;'){}", { i(1), i(0) })),
+    luasnip.snippet('cl', fmt('console.log({}){}', { i(1), i(2) })),
+    luasnip.snippet('clo', fmt('console.log({{ {} }}){}', { i(1), i(2) })),
+    luasnip.snippet('cls', fmt("console.log('{}'){}", { i(1), i(2) })),
+    luasnip.snippet('clb', fmt("console.log('%c {}', 'font-size: 24px; color: skyblue;'){}", { i(1), i(2) })),
 
     -- NOTE: variables
-    luasnip.snippet('cd', fmt('const {{ {} }} = {}', { i(1), i(0) })),
+    luasnip.snippet('cd', fmt('const {{ {} }} = {}', { i(1), i(2) })),
 
     -- NOTE: unit tests snippets
-    luasnip.snippet('ucl', fmt('console.log(screen.debug({})){}', { i(1), i(0) })),
+    luasnip.snippet('ucl', fmt('console.log(screen.debug({})){}', { i(1), i(2) })),
     luasnip.snippet(
       'ube',
       fmt(
@@ -47,9 +47,21 @@ local snippets = function()
           {}
         }})
         ]],
-        { i(1), i(0) }
+        { i(1), i(2) }
       )
     ),
+    luasnip.snippet(
+      'ude',
+      fmt(
+        [[
+        describe.each({})('{}', ({}) => {{
+          {}
+        }})
+        ]],
+        { i(1), i(2), i(3), i(4) }
+      )
+    ),
+
     luasnip.snippet(
       'ui',
       fmt(
@@ -58,7 +70,18 @@ local snippets = function()
           {}
         }})
         ]],
-        { i(1), i(0) }
+        { i(1), i(2) }
+      )
+    ),
+    luasnip.snippet(
+      'uie',
+      fmt(
+        [[
+        test.each({})('should {}', ({}) => {{
+          {}
+        }})
+        ]],
+        { i(1), i(2), i(3), i(4) }
       )
     ),
   }
