@@ -82,13 +82,15 @@ vim.keymap.set('n', '<leader>ru', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 
 vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'Exit terminal mode' })
 
-vim.keymap.set({ 'n', 'v', 'i' }, '<C-q>', function()
+local function quickfix_toggle()
   if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
     vim.cmd [[copen]]
   else
     vim.cmd [[cclose]]
   end
-end, { desc = '[q]uickfix toggle', silent = true })
+end
+
+vim.keymap.set({ 'n', 'v', 'i' }, '<C-q>', quickfix_toggle, { desc = '[q]uickfix toggle', silent = true })
 
 vim.cmd [[
   function! RemoveQFItem()
