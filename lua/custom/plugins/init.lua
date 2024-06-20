@@ -1,10 +1,3 @@
-local neotest_events = {
-  'BufWinEnter *.spec.ts',
-  'BufWinEnter *.spec.js',
-  'BufWinEnter *.spec.tsx',
-  'BufWinEnter *.spec.jsx',
-}
-
 return {
   'tpope/vim-repeat', -- better "."
   'tpope/vim-unimpaired', -- additional mappings
@@ -81,19 +74,6 @@ return {
       'gzz',
     },
   },
-
-  -- {
-  --   'szw/vim-maximizer', -- maximize current window
-  --   lazy = true,
-  --   cmd = { 'MaximizerToggle' },
-  --   keys = {
-  --     {
-  --       '<leader>m',
-  --       '<cmd>MaximizerToggle!<cr>',
-  --       desc = '[m]aximize',
-  --     },
-  --   },
-  -- },
 
   {
     'hedyhli/outline.nvim',
@@ -193,7 +173,7 @@ return {
 
   {
     'tpope/vim-obsession', -- save the session
-    lazy = false, -- do not lazyload it since it can be pre-enabled with nvim -S
+    lazy = true,
     cmd = { 'Obsession' },
     keys = {
       { '<leader>ot', '<cmd>Obsession<cr>', desc = '[t]rack session' },
@@ -201,6 +181,7 @@ return {
       { '<leader>os', '<cmd>source Session.vim<cr>', desc = '[s]ource session' },
       { '<leader>oS', ':source Session-', desc = '[S]ource custom session' },
     },
+    event = 'SessionLoadPost',
   },
 
   {
@@ -209,23 +190,12 @@ return {
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
-      -- {
-      --   'haydenmeade/neotest-jest',
-      --   lazy = true,
-      --   event = neotest_events,
-      -- },
-      {
-        'marilari88/neotest-vitest',
-        lazy = true,
-        event = neotest_events,
-      },
+      -- 'haydenmeade/neotest-jest',
+      'marilari88/neotest-vitest',
     },
-    -- NOTE: this version was working for everything, rollback if something is broken after commenting it
-    -- version = '5.1.0',
     config = function()
       require('custom.plugins.settings.neotest').config()
     end,
-    event = neotest_events,
     keys = {
       '<leader>u',
     },
@@ -312,21 +282,21 @@ return {
       vim.api.nvim_create_autocmd('User', {
         pattern = 'GitConflictDetected',
         callback = function()
-          vim.keymap.set('n', '<C-q>', '<cmd>GitConflictListQf<cr>', { desc = 'Conflicts quicklist' })
           vim.notify('Conflict detected in ' .. vim.fn.expand '<afile>')
-          require('conform').setup { format_on_save = false }
+
+          require('conform').setup { format_on_save = nil }
         end,
       })
 
       vim.api.nvim_create_autocmd('User', {
         pattern = 'GitConflictResolved',
         callback = function()
-          vim.keymap.set('n', '<C-q>', '<C-v>')
           vim.notify('Conflict resolved in ' .. vim.fn.expand '<afile>')
+
           require('conform').setup {
             format_on_save = {
               timeout_ms = 500,
-              lsp_fallback = false,
+              lsp_format = 'never',
             },
           }
         end,

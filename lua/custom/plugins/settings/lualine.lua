@@ -1,12 +1,16 @@
 local M = {}
 
-local obsession_status_icons = { '', '' }
-
 M.config = function()
   local status_ok, lualine = pcall(require, 'lualine')
   if not status_ok then
     return
   end
+
+  local obsession_status_icons = { '', '' }
+  local obsession_status_colors = {
+    tracking = '#7fff00',
+    not_tracking = '#ff6955',
+  }
 
   lualine.setup {
     style = 'default',
@@ -24,19 +28,29 @@ M.config = function()
         {
           '',
           type = 'stl',
-          color = { fg = '#7fff00' },
+          color = { fg = obsession_status_colors.tracking },
           cond = function()
-            local status = vim.api.nvim_call_function('ObsessionStatus', obsession_status_icons)
-            return status == obsession_status_icons[1]
+            local obsession_status_ok, obsession_status = pcall(vim.api.nvim_call_function, 'ObsessionStatus', obsession_status_icons)
+
+            if not obsession_status_ok then
+              return false
+            end
+
+            return obsession_status == obsession_status_icons[1]
           end,
         },
         {
           '',
           type = 'stl',
-          color = { fg = '#ff6955' },
+          color = { fg = obsession_status_colors.not_tracking },
           cond = function()
-            local status = vim.api.nvim_call_function('ObsessionStatus', obsession_status_icons)
-            return status == obsession_status_icons[2] or status == nil or status == ''
+            local obsession_status_ok, obsession_status = pcall(vim.api.nvim_call_function, 'ObsessionStatus', obsession_status_icons)
+
+            if not obsession_status_ok then
+              return true
+            end
+
+            return obsession_status == obsession_status_icons[2] or obsession_status == nil or obsession_status == ''
           end,
         },
         'filename',
