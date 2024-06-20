@@ -11,6 +11,7 @@ vim.opt.lazyredraw = true -- Don't redraw while executing macros (good performan
 vim.opt.colorcolumn = '80'
 vim.opt.laststatus = 3
 vim.opt.wrap = false
+vim.opt.jumpoptions = 'stack,view' -- preserve the jump position on the screen (if I jumped from "zb" position, I should go back there, instead of to "zz")
 -- vim.opt.winbar = '  %t' -- file title
 
 vim.opt.spelllang:append 'cjk' -- disable spellchecking for asian characters (VIM algorithm does not support it)
