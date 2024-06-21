@@ -202,6 +202,7 @@ return {
   {
     'nvim-neotest/neotest', -- run tests directly from the file
     lazy = true,
+    event = 'BufWinEnter *.spec.*',
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
@@ -211,9 +212,6 @@ return {
     config = function()
       require('custom.plugins.settings.neotest').config()
     end,
-    keys = {
-      '<leader>u',
-    },
   },
 
   {
