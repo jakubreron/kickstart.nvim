@@ -423,7 +423,8 @@ return {
       'LazyGitFilterCurrentFile',
     },
     keys = {
-      { '<leader>gll', '<cmd>LazyGitCurrentFile<cr>', desc = '[l]azyit' },
+      { '<leader>gl', desc = '[l]azygit' },
+      { '<leader>gll', '<cmd>LazyGitCurrentFile<cr>', desc = '[l]azygit' },
       { '<leader>gls', '<cmd>lua require("telescope").extensions.lazygit.lazygit()<cr>', desc = '[s]earch repos' },
       { '<leader>glc', '<cmd>LazyGitFilterCurrentFile<cr>', desc = '[c]heckout commit (current file)' },
       { '<leader>glC', '<cmd>LazyGitFilter<cr>', desc = '[C]heckout commit' },

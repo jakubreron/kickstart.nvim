@@ -134,7 +134,6 @@ require('lazy').setup({
         ['<leader>f'] = { name = '[f]ile', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = 'vim[w]iki', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[d]iagnostic', _ = 'which_key_ignore' },
-        ['<leader>e'] = { name = '[e]xplorer', _ = 'which_key_ignore' },
 
         -- NOTE: mini.operators
         ['g='] = { name = '[=]evaluate', _ = 'which_key_ignore' },
