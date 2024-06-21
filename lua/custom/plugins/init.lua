@@ -264,6 +264,7 @@ return {
       'javascript',
       'typescript',
       'typescriptreact',
+      'vue',
     },
     config = true,
   },
@@ -271,7 +272,7 @@ return {
   {
     'JoosepAlviste/nvim-ts-context-commentstring',
     lazy = true,
-    ft = 'typescriptreact',
+    ft = { 'typescriptreact', 'vue' },
     config = function()
       require('ts_context_commentstring').setup {
         enable_autocmd = false,
@@ -284,12 +285,6 @@ return {
     end,
   },
 
-  -- co — choose ours
-  -- ct — choose theirs
-  -- cb — choose both
-  -- c0 — choose none
-  -- ]x — move to previous conflict
-  -- [x — move to next conflict
   {
     'akinsho/git-conflict.nvim',
     version = '*',
@@ -346,8 +341,9 @@ return {
 
   {
     'stevearc/oil.nvim',
-    lazy = true,
+    lazy = false, -- needed to hijack netrw
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    ft = 'netrw',
     config = function()
       require('oil').setup {
         default_file_explorer = true,
@@ -371,6 +367,9 @@ return {
         },
       }
     end,
+    cmd = {
+      'Oil',
+    },
     keys = {
       {
         '-',
@@ -426,10 +425,10 @@ return {
       'LazyGitFilterCurrentFile',
     },
     keys = {
-      { '<leader>gg', '<cmd>LazyGitCurrentFile<cr>', desc = 'lazy[g]it' },
-      { '<leader>gs', '<cmd>lua require("telescope").extensions.lazygit.lazygit()<cr>', desc = 'lazygit [s]earch' },
-      -- { '<leader>gc', '<cmd>LazyGitFilterCurrentFile<cr>', desc = '[c]heckout commit (current file)' },
-      -- { '<leader>gC', '<cmd>LazyGitFilter<cr>', desc = '[C]heckout commit' },
+      { '<leader>gll', '<cmd>LazyGitCurrentFile<cr>', desc = '[l]azyit' },
+      { '<leader>gls', '<cmd>lua require("telescope").extensions.lazygit.lazygit()<cr>', desc = '[s]earch repos' },
+      { '<leader>glc', '<cmd>LazyGitFilterCurrentFile<cr>', desc = '[c]heckout commit (current file)' },
+      { '<leader>glC', '<cmd>LazyGitFilter<cr>', desc = '[C]heckout commit' },
     },
     config = function()
       require('telescope').load_extension 'lazygit'
