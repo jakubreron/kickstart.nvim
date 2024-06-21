@@ -108,6 +108,7 @@ return {
 
   {
     'ThePrimeagen/harpoon',
+    lazy = true,
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
@@ -152,6 +153,18 @@ return {
         end, { desc = '[' .. i .. '] mark' })
       end
     end,
+    keys = {
+      '<C-f>',
+      '<C-b>',
+      ']h',
+      '[h',
+      '<leader>1',
+      '<leader>2',
+      '<leader>3',
+      '<leader>4',
+      '<leader>5',
+      '<leader>6',
+    },
   },
 
   {
