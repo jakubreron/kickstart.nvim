@@ -71,10 +71,10 @@ vim.api.nvim_create_autocmd('TabLeave', {
   end,
 })
 
-vim.keymap.set('n', '<leader>pl', '<cmd>Lazy<cr>', { desc = '[l]azy' })
+vim.keymap.set('n', '<leader>ph', '<cmd>Lazy<cr>', { desc = '[h]ome' })
 vim.keymap.set('n', '<leader>pi', '<cmd>Lazy install<cr>', { desc = '[i]nstall' })
 vim.keymap.set('n', '<leader>ps', '<cmd>Lazy sync<cr>', { desc = '[s]ync' })
-vim.keymap.set('n', '<leader>pc', '<cmd>Lazy clean<cr>', { desc = '[c]lean' })
+vim.keymap.set('n', '<leader>px', '<cmd>Lazy clean<cr>', { desc = '[x] clean' })
 vim.keymap.set('n', '<leader>pp', '<cmd>Lazy profile<cr>', { desc = '[p]rofile' })
 vim.keymap.set('n', '<leader>pr', '<cmd>Lazy restore<cr>', { desc = '[r]estore' })
 
