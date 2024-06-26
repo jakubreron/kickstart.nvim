@@ -96,7 +96,10 @@ require('lazy').setup({
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VimEnter',
+    lazy = true,
+    keys = {
+      '<leader>',
+    },
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {
         -- ignore_missing = true,
@@ -127,7 +130,12 @@ require('lazy').setup({
         ['<leader>sg'] = { name = '[g]it', _ = 'which_key_ignore' },
 
         ['<leader>l'] = { name = '[l]sp', _ = 'which_key_ignore' },
+        ['<leader>li'] = { name = '[i]mports', _ = 'which_key_ignore' },
+        ['<leader>lo'] = { name = '[o]rganize', _ = 'which_key_ignore' },
         ['<leader>ls'] = { name = '[s]ymbols', _ = 'which_key_ignore' },
+        ['<leader>ln'] = { name = '[n]pm', _ = 'which_key_ignore' },
+
+        ['<leader>u'] = { name = '[u]nit tests', _ = 'which_key_ignore' },
 
         ['<leader>p'] = { name = '[p]ackages', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[t]ab', _ = 'which_key_ignore' },
