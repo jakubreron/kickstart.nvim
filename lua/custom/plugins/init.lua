@@ -1,8 +1,17 @@
 return {
   { import = 'custom.plugins.colorschemes' },
 
-  'tpope/vim-repeat', -- better "."
-  'tpope/vim-unimpaired', -- additional mappings
+
+  {
+    'tpope/vim-repeat',
+    event = 'VeryLazy',
+  }, -- better "."
+
+  {
+    'tpope/vim-unimpaired',
+    event = 'VeryLazy',
+  }, -- additional mappings
+
   'AndrewRadev/splitjoin.vim',
 
   {
