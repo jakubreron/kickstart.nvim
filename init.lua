@@ -175,7 +175,8 @@ require('lazy').setup({
 
   {
     'nvim-telescope/telescope.nvim',
-    event = 'VimEnter',
+    lazy = true,
+    event = 'VeryLazy',
     branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -764,10 +765,13 @@ require('lazy').setup({
 
   {
     'echasnovski/mini.nvim',
+    lazy = true,
+    event = 'VeryLazy',
     config = function()
       require('custom.plugins.settings.mini').config()
     end,
   },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
