@@ -1,6 +1,20 @@
 return {
   { import = 'custom.plugins.colorschemes' },
 
+  {
+    'folke/zen-mode.nvim',
+    lazy = true,
+    cmd = {
+      'ZenMode',
+    },
+    keys = {
+      {
+        '<leader>z',
+        '<cmd>ZenMode<cr>',
+        desc = '[z]en mode',
+      },
+    },
+  },
 
   {
     'tpope/vim-repeat',
