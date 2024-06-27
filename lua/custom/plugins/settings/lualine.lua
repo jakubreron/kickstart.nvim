@@ -55,7 +55,11 @@ M.config = function()
         },
         'filename',
         function()
-          return require('package-info').get_status()
+          if string.find(vim.fn.expand '%:p', 'package.json') ~= nil then
+            return require('package-info').get_status()
+          else
+            return ''
+          end
         end,
       },
       lualine_x = { 'encoding', 'fileformat', 'filetype' },

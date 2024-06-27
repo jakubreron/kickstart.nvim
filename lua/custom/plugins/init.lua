@@ -291,7 +291,7 @@ return {
     'vuki656/package-info.nvim', -- check if the package info is up to date
     lazy = true,
     dependencies = 'MunifTanjim/nui.nvim',
-    event = 'BufWinEnter package.json',
+    event = 'BufRead package.json',
     config = true,
   },
 
@@ -312,7 +312,6 @@ return {
     'folke/ts-comments.nvim',
     lazy = true,
     ft = { 'typescriptreact', 'vue' },
-    event = 'VeryLazy',
   },
 
   {
