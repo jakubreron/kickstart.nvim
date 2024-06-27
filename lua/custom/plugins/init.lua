@@ -414,26 +414,6 @@ return {
     },
   },
 
-  -- {
-  --   'nvim-tree/nvim-tree.lua',
-  --   version = '*',
-  --   lazy = true,
-  --   dependencies = {
-  --     'nvim-tree/nvim-web-devicons',
-  --   },
-  --   config = function()
-  --     require('custom.plugins.settings.nvimtree').config()
-  --   end,
-  --   keys = {
-  --     {
-  --       '<leader>e',
-  --       '<cmd>NvimTreeToggle<cr>',
-  --       desc = '[e]xplorer',
-  --     },
-  --   },
-  --   cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus', 'NvimTreeFindFileToggle' },
-  -- },
-
   {
     'nvim-lualine/lualine.nvim',
     lazy = false,
