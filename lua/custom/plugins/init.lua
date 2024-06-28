@@ -247,7 +247,8 @@ return {
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
-      -- 'haydenmeade/neotest-jest',
+
+      'haydenmeade/neotest-jest',
       'marilari88/neotest-vitest',
     },
     config = function()
@@ -310,8 +311,7 @@ return {
 
   {
     'folke/ts-comments.nvim',
-    lazy = true,
-    ft = { 'typescriptreact', 'vue' },
+    opts = {},
   },
 
   {

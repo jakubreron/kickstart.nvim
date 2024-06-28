@@ -6,6 +6,13 @@ M.config = function()
     return
   end
 
+  local function get_vitest_adapter()
+    -- NOTE: it was being attached to monorepo that contains both jest and vitest
+    if not string.match(vim.fn.expand '%:p', vim.g.monorepo_name) then
+      return require 'neotest-vitest' {}
+    end
+  end
+
   neotest.setup {
     jump = {
       enabled = true,
@@ -52,9 +59,8 @@ M.config = function()
     },
 
     adapters = {
-      -- require 'neotest-jest' {},
-      -- TODO: @Jakub run with coverage
-      require 'neotest-vitest' {},
+      require 'neotest-jest' {},
+      get_vitest_adapter(),
     },
   }
 

@@ -5,6 +5,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.g.have_nerd_font = true
+vim.g.monorepo_name = 'singularity'
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -557,27 +558,22 @@ require('lazy').setup({
       },
     },
     config = function()
-      -- NOTE: RFB eslint-lsp (it's not a formatter, it provides a command for formatting),
-      -- NOTE: Singularity = prettierd
-      local prettier_paths = { 'singularity' }
+      -- eslint-lsp is not a formatter, so we cannot return it, but it provides a command for formatting,
+      local prettier_paths = { vim.g.monorepo_name }
 
       local js_ts_formatters_callback = function(bufnr)
         local buf_modified = vim.api.nvim_get_option_value('modified', { buf = bufnr })
 
-        if not buf_modified then
-          return {}
+        if buf_modified then
+          vim.cmd 'silent! EslintFixAll'
         end
 
-        if buf_modified then
-          vim.cmd 'silent! EslintFixAll' -- NOTE: always run eslint lsp
-
-          for i = 1, #prettier_paths do
-            if string.find(vim.api.nvim_buf_get_name(bufnr), prettier_paths[i]) then
-              return { 'prettierd' } -- NOTE: but run prettier for some projects as well
-            end
-
-            return {}
+        for i = 1, #prettier_paths do
+          if string.find(vim.api.nvim_buf_get_name(bufnr), prettier_paths[i]) then
+            return { 'prettierd' }
           end
+
+          return {}
         end
       end
 
