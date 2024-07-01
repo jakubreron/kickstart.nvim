@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'markdown', 'text' },
+  pattern = { 'markdown', 'text', 'vimwiki' },
   callback = function()
     vim.cmd 'setlocal spell'
   end,
