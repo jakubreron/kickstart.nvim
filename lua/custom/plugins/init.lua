@@ -16,11 +16,13 @@ return {
     },
   },
 
+  -- TODO: @Jakub remove after migrating to mini
   {
     'tpope/vim-repeat',
     event = 'VeryLazy',
   }, -- better "."
 
+  -- TODO: @Jakub migrate to mini
   {
     'tpope/vim-unimpaired',
     event = 'VeryLazy',
@@ -84,20 +86,6 @@ return {
   --   lazy = true,
   --   event = 'TabEnter',
   -- },
-
-  {
-    'tpope/vim-surround', -- surround movement
-    lazy = true,
-    keys = {
-      'ys',
-      'ds',
-      'cs',
-      {
-        'S',
-        mode = 'v',
-      },
-    },
-  },
 
   {
     'vimwiki/vimwiki',

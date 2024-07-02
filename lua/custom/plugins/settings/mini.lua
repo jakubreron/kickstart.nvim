@@ -1,10 +1,33 @@
 local M = {}
 
 M.config = function()
-  -- Examples:
-  --  - yinq - [Y]ank [I]nside [N]ext [']quote
-  --  - dil{  - [D]elete [I]nside [L]ast [{]
-  -- require('mini.ai').setup { n_lines = 500 }
+  local mini_surround_status_ok, mini_surround = pcall(require, 'mini.surround')
+  if mini_surround_status_ok then
+    mini_surround.setup {
+      -- mappings = {
+      --   add = 'sa', -- Add surrounding in Normal and Visual modes
+      --   delete = 'sd', -- Delete surrounding
+      --   find = 'sf', -- Find surrounding (to the right)
+      --   find_left = 'sF', -- Find surrounding (to the left)
+      --   highlight = 'sh', -- Highlight surrounding
+      --   replace = 'sr', -- Replace surrounding
+      --   update_n_lines = 'sn', -- Update `n_lines`
+      --
+      --   -- add = 'ys', -- Add surrounding in Normal and Visual modes
+      --   -- delete = 'ds', -- Delete surrounding
+      --   -- find = ']S', -- Find surrounding (to the right)
+      --   -- find_left = '[S', -- Find surrounding (to the left)
+      --   -- -- highlight = 'sh', -- Highlight surrounding
+      --   -- replace = 'cs', -- Replace surrounding
+      --
+      --   suffix_last = 'l', -- Suffix to search with "prev" method
+      --   suffix_next = 'n', -- Suffix to search with "next" method
+      -- },
+
+      -- Number of lines within which surrounding is searched
+      n_lines = 50,
+    }
+  end
 
   local mini_animate_status_ok, mini_animate = pcall(require, 'mini.animate')
   if mini_animate_status_ok then
