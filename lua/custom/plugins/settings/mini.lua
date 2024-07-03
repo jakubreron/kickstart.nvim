@@ -1,6 +1,36 @@
 local M = {}
 
 M.config = function()
+  local mini_bracketed_status_ok, mini_bracketed = pcall(require, 'mini.bracketed')
+  if mini_bracketed_status_ok then
+    mini_bracketed.setup {
+      buffer = { suffix = 'b', options = {} },
+
+      -- TODO: @Jakub  add comment bind
+      comment = { suffix = '', options = {} },
+
+      -- TODO: @Jakub check if it conflicts with neotest
+      conflict = { suffix = '', options = {} },
+
+      diagnostic = { suffix = 'd', options = {} },
+      file = { suffix = 'f', options = {} },
+      indent = { suffix = 'i', options = {} },
+      jump = { suffix = 'j', options = {} },
+      location = { suffix = 'l', options = {} },
+      oldfile = { suffix = 'o', options = {} },
+      quickfix = { suffix = 'q', options = {} },
+
+      -- TODO: @Jakub check
+      treesitter = { suffix = '', options = {} },
+
+      -- TODO: @Jakub check
+      undo = { suffix = '', options = {} },
+
+      window = { suffix = 'w', options = {} },
+      yank = { suffix = 'y', options = {} },
+    }
+  end
+
   local mini_surround_status_ok, mini_surround = pcall(require, 'mini.surround')
   if mini_surround_status_ok then
     mini_surround.setup {

@@ -16,18 +16,6 @@ return {
     },
   },
 
-  -- TODO: @Jakub remove after migrating to mini
-  {
-    'tpope/vim-repeat',
-    event = 'VeryLazy',
-  }, -- better "."
-
-  -- TODO: @Jakub migrate to mini
-  {
-    'tpope/vim-unimpaired',
-    event = 'VeryLazy',
-  }, -- additional mappings
-
   {
     'Wansmer/treesj',
     lazy = true,
