@@ -101,9 +101,7 @@ require('lazy').setup({
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     lazy = true,
-    keys = {
-      '<leader>',
-    },
+    keys = { '<leader>', '<c-r>', '"', "'", '`', 'c', 'v', 'g' },
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {
         -- ignore_missing = true,
