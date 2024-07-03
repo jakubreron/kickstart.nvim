@@ -5,13 +5,8 @@ M.config = function()
   if mini_bracketed_status_ok then
     mini_bracketed.setup {
       buffer = { suffix = 'b', options = {} },
-
-      -- TODO: @Jakub  add comment bind
-      comment = { suffix = '', options = {} },
-
-      -- TODO: @Jakub check if it conflicts with neotest
-      conflict = { suffix = '', options = {} },
-
+      comment = { suffix = '/', options = {} },
+      conflict = { suffix = 'x', options = {} },
       diagnostic = { suffix = 'd', options = {} },
       file = { suffix = 'f', options = {} },
       indent = { suffix = 'i', options = {} },
@@ -22,7 +17,6 @@ M.config = function()
 
       -- TODO: @Jakub check
       treesitter = { suffix = '', options = {} },
-
       -- TODO: @Jakub check
       undo = { suffix = '', options = {} },
 
