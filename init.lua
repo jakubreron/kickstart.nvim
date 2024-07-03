@@ -807,6 +807,7 @@ require('lazy').setup({
         'toml',
         'hyprlang',
         'regex',
+        'query',
       },
       auto_install = true,
       highlight = {
