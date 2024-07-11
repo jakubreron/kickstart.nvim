@@ -7,7 +7,6 @@ M.config = function()
       buffer = { suffix = 'b', options = {} },
       comment = { suffix = '/', options = {} },
       conflict = { suffix = 'x', options = {} },
-      diagnostic = { suffix = 'd', options = {} },
       file = { suffix = 'f', options = {} },
       indent = { suffix = 'i', options = {} },
       jump = { suffix = 'j', options = {} },
@@ -28,25 +27,20 @@ M.config = function()
   local mini_surround_status_ok, mini_surround = pcall(require, 'mini.surround')
   if mini_surround_status_ok then
     mini_surround.setup {
-      -- mappings = {
-      --   add = 'sa', -- Add surrounding in Normal and Visual modes
-      --   delete = 'sd', -- Delete surrounding
-      --   find = 'sf', -- Find surrounding (to the right)
-      --   find_left = 'sF', -- Find surrounding (to the left)
-      --   highlight = 'sh', -- Highlight surrounding
-      --   replace = 'sr', -- Replace surrounding
-      --   update_n_lines = 'sn', -- Update `n_lines`
-      --
-      --   -- add = 'ys', -- Add surrounding in Normal and Visual modes
-      --   -- delete = 'ds', -- Delete surrounding
-      --   -- find = ']S', -- Find surrounding (to the right)
-      --   -- find_left = '[S', -- Find surrounding (to the left)
-      --   -- -- highlight = 'sh', -- Highlight surrounding
-      --   -- replace = 'cs', -- Replace surrounding
-      --
-      --   suffix_last = 'l', -- Suffix to search with "prev" method
-      --   suffix_next = 'n', -- Suffix to search with "next" method
-      -- },
+      -- I liked tpope bindings more
+      mappings = {
+        add = 'ys', -- Add surrounding in Normal and Visual modes
+        delete = 'ds', -- Delete surrounding
+        find = ']s', -- Find surrounding (to the right)
+        find_left = '[s', -- Find surrounding (to the left)
+        replace = 'cs', -- Replace surrounding
+        suffix_last = 'l', -- Suffix to search with "prev" method
+        suffix_next = 'n', -- Suffix to search with "next" method
+
+        -- unused / unnecessary
+        update_n_lines = '', -- Update `n_lines`
+        highlight = '', -- Highlight surrounding
+      },
 
       -- Number of lines within which surrounding is searched
       n_lines = 50,
