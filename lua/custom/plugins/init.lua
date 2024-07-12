@@ -17,16 +17,6 @@ return {
   },
 
   {
-    'tpope/vim-repeat',
-    event = 'VeryLazy',
-  }, -- better "."
-
-  {
-    'tpope/vim-unimpaired',
-    event = 'VeryLazy',
-  }, -- additional mappings
-
-  {
     'Wansmer/treesj',
     lazy = true,
     keys = {
@@ -84,20 +74,6 @@ return {
   --   lazy = true,
   --   event = 'TabEnter',
   -- },
-
-  {
-    'tpope/vim-surround', -- surround movement
-    lazy = true,
-    keys = {
-      'ys',
-      'ds',
-      'cs',
-      {
-        'S',
-        mode = 'v',
-      },
-    },
-  },
 
   {
     'vimwiki/vimwiki',
@@ -247,7 +223,8 @@ return {
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
-      -- 'haydenmeade/neotest-jest',
+
+      'haydenmeade/neotest-jest',
       'marilari88/neotest-vitest',
     },
     config = function()
@@ -310,8 +287,7 @@ return {
 
   {
     'folke/ts-comments.nvim',
-    lazy = true,
-    ft = { 'typescriptreact', 'vue' },
+    opts = {},
   },
 
   {

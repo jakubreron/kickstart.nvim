@@ -1,10 +1,56 @@
 local M = {}
 
 M.config = function()
-  -- Examples:
-  --  - yinq - [Y]ank [I]nside [N]ext [']quote
-  --  - dil{  - [D]elete [I]nside [L]ast [{]
-  -- require('mini.ai').setup { n_lines = 500 }
+  local mini_ai_status_ok, mini_ai = pcall(require, 'mini.ai')
+  if mini_ai_status_ok then
+    mini_ai.setup { n_lines = 500 }
+  end
+
+  local mini_bracketed_status_ok, mini_bracketed = pcall(require, 'mini.bracketed')
+  if mini_bracketed_status_ok then
+    mini_bracketed.setup {
+      buffer = { suffix = 'b', options = {} },
+      comment = { suffix = '/', options = {} },
+      conflict = { suffix = 'x', options = {} },
+      file = { suffix = 'f', options = {} },
+      indent = { suffix = 'i', options = {} },
+      jump = { suffix = 'j', options = {} },
+      location = { suffix = 'l', options = {} },
+      oldfile = { suffix = 'o', options = {} },
+      quickfix = { suffix = 'q', options = {} },
+
+      -- TODO: @Jakub check
+      treesitter = { suffix = '', options = {} },
+      -- TODO: @Jakub check
+      undo = { suffix = '', options = {} },
+
+      window = { suffix = 'w', options = {} },
+      yank = { suffix = 'y', options = {} },
+    }
+  end
+
+  local mini_surround_status_ok, mini_surround = pcall(require, 'mini.surround')
+  if mini_surround_status_ok then
+    mini_surround.setup {
+      -- I liked tpope bindings more
+      mappings = {
+        add = 'ys', -- Add surrounding in Normal and Visual modes
+        delete = 'ds', -- Delete surrounding
+        find = ']s', -- Find surrounding (to the right)
+        find_left = '[s', -- Find surrounding (to the left)
+        replace = 'cs', -- Replace surrounding
+        suffix_last = 'l', -- Suffix to search with "prev" method
+        suffix_next = 'n', -- Suffix to search with "next" method
+
+        -- unused / unnecessary
+        update_n_lines = '', -- Update `n_lines`
+        highlight = '', -- Highlight surrounding
+      },
+
+      -- Number of lines within which surrounding is searched
+      n_lines = 50,
+    }
+  end
 
   local mini_animate_status_ok, mini_animate = pcall(require, 'mini.animate')
   if mini_animate_status_ok then
