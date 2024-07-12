@@ -1,6 +1,11 @@
 local M = {}
 
 M.config = function()
+  local mini_ai_status_ok, mini_ai = pcall(require, 'mini.ai')
+  if mini_ai_status_ok then
+    mini_ai.setup { n_lines = 500 }
+  end
+
   local mini_bracketed_status_ok, mini_bracketed = pcall(require, 'mini.bracketed')
   if mini_bracketed_status_ok then
     mini_bracketed.setup {
