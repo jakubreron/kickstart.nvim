@@ -384,8 +384,6 @@ return {
           ['<C-l>'] = false, -- refresh
           ['<C-h>'] = false, -- horizontal split
           ['<C-s>'] = false, -- vertical split
-          ['<C-v>'] = require('oil.actions').select_vsplit,
-          ['<C-x>'] = require('oil.actions').select_split,
         },
         view_options = {
           show_hidden = true,
