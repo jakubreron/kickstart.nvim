@@ -123,55 +123,51 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').add {
-        ['<leader>c'] = { group = '[c]onsole', _ = 'which_key_ignore' },
-        ['<leader>r'] = { group = '[r]eplace', _ = 'which_key_ignore' },
-        ['<leader>o'] = { group = '[o]bsession', _ = 'which_key_ignore' },
+        { '<leader>g', desc = '[g]it', mode = { 'v', 'n' }, icon = '' },
 
-        ['<leader>s'] = { group = '[s]earch', _ = 'which_key_ignore' },
-        ['<leader>sv'] = { group = '[v]im', _ = 'which_key_ignore' },
-        ['<leader>sg'] = { group = '[g]it', _ = 'which_key_ignore' },
+        { '<leader>c', desc = '[c]onsole', icon = '' },
+        { '<leader>r', desc = '[r]eplace', icon = '󰛔' },
+        { '<leader>o', desc = '[o]bsession', icon = '' },
 
-        ['<leader>l'] = { group = '[l]sp', _ = 'which_key_ignore' },
-        ['<leader>li'] = { group = '[i]mports', _ = 'which_key_ignore' },
-        ['<leader>lo'] = { group = '[o]rganize', _ = 'which_key_ignore' },
-        ['<leader>ls'] = { group = '[s]ymbols', _ = 'which_key_ignore' },
-        ['<leader>ln'] = { group = '[n]pm', _ = 'which_key_ignore' },
+        { '<leader>s', desc = '[s]earch', icon = '' },
+        { '<leader>sv', desc = '[v]im', icon = '' },
+        { '<leader>sg', desc = '[g]it', icon = '' },
 
-        ['<leader>u'] = { group = '[u]nit tests', _ = 'which_key_ignore' },
+        { '<leader>l', desc = '[l]sp', icon = '' },
+        { '<leader>li', desc = '[i]mports', icon = '󰋺' },
+        { '<leader>lo', desc = '[o]rganize', icon = '󰒺' },
+        { '<leader>ls', desc = '[s]ymbols', icon = '󱔁' },
+        { '<leader>ln', desc = '[n]pm', icon = '' },
 
-        ['<leader>p'] = { group = '[p]ackages', _ = 'which_key_ignore' },
-        ['<leader>t'] = { group = '[t]ab', _ = 'which_key_ignore' },
-        ['<leader>f'] = { group = '[f]ile', _ = 'which_key_ignore' },
-        ['<leader>w'] = { group = 'vim[w]iki', _ = 'which_key_ignore' },
-        ['<leader>d'] = { group = '[d]iagnostic', _ = 'which_key_ignore' },
+        { '<leader>u', desc = '[u]nit tests', icon = '󰙨' },
+
+        { '<leader>p', desc = '[p]ackages', icon = '' },
+        { '<leader>t', desc = '[t]ab', icon = '󰓩' },
+        { '<leader>f', desc = '[f]ile', icon = '' },
+        { '<leader>w', desc = 'vim[w]iki', icon = '󰖬' },
+        { '<leader>d', desc = '[d]iagnostic', icon = '' },
 
         -- NOTE: mini.operators
-        ['g='] = { group = '[=]evaluate', _ = 'which_key_ignore' },
-        ['g=='] = { group = '[=]evaluate current line', _ = 'which_key_ignore' },
+        { 'g=', desc = '[=]evaluate', icon = '' },
+        { 'g==', desc = '[=]evaluate current line', icon = '' },
 
-        ['gs'] = { group = '[s]wap text', _ = 'which_key_ignore' },
-        ['gss'] = { group = '[s]wap current line', _ = 'which_key_ignore' },
+        { 'gs', desc = '[s]wap text', icon = '' },
+        { 'gss', desc = '[s]wap current line', icon = '' },
 
-        ['ga'] = { group = '[a]rrange text', _ = 'which_key_ignore' },
-        ['gaa'] = { group = '[a]rrange current line', _ = 'which_key_ignore' },
+        { 'ga', desc = '[a]rrange text', icon = '' },
+        { 'gaa', desc = '[a]rrange current line', icon = '' },
 
-        ['gx'] = { group = 'e[x]change text', _ = 'which_key_ignore' },
-        ['gxx'] = { group = 'e[x]change current line', _ = 'which_key_ignore' },
+        { 'gx', desc = 'e[x]change text', icon = '' },
+        { 'gxx', desc = 'e[x]change current line', icon = '' },
 
-        ['gm'] = { group = '[m]ultiply text', _ = 'which_key_ignore' },
-        ['gmm'] = { group = '[m]ultiply current line', _ = 'which_key_ignore' },
+        { 'gm', desc = '[m]ultiply text', icon = '' },
+        { 'gmm', desc = '[m]ultiply current line', icon = '' },
 
-        ['gz'] = { group = '[z]Z titlecase', _ = 'which_key_ignore' },
-        ['gc'] = { group = '[c]omment', _ = 'which_key_ignore' },
-        ['gJ'] = { group = '[J]oin', _ = 'which_key_ignore' },
-        ['gS'] = { group = '[S]plit', _ = 'which_key_ignore' },
-        ['yo'] = { group = 't[o]ggle', _ = 'which_key_ignore' },
-        ['yos'] = { group = '[s]pelling', _ = 'which_key_ignore' },
+        { 'gz', desc = '[z]Z titlecase', icon = '' },
+        { 'gc', desc = '[c]omment', icon = '' },
+        { 'gJ', desc = '[J]oin', icon = '󰃻' },
+        { 'gS', desc = '[S]plit', icon = '󰃻' },
       }
-      -- visual mode
-      require('which-key').add({
-        ['<leader>g'] = { '[g]it' },
-      }, { mode = { 'v', 'n' } })
     end,
   },
 
