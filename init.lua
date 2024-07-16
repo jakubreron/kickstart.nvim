@@ -116,60 +116,60 @@ require('lazy').setup({
             g = false, -- bindings for prefixed with g
           },
         },
-        window = {
+        win = {
           border = 'single',
         },
       }
 
       -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[c]onsole', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[r]eplace', _ = 'which_key_ignore' },
-        ['<leader>o'] = { name = '[o]bsession', _ = 'which_key_ignore' },
+      require('which-key').add {
+        ['<leader>c'] = { group = '[c]onsole', _ = 'which_key_ignore' },
+        ['<leader>r'] = { group = '[r]eplace', _ = 'which_key_ignore' },
+        ['<leader>o'] = { group = '[o]bsession', _ = 'which_key_ignore' },
 
-        ['<leader>s'] = { name = '[s]earch', _ = 'which_key_ignore' },
-        ['<leader>sv'] = { name = '[v]im', _ = 'which_key_ignore' },
-        ['<leader>sg'] = { name = '[g]it', _ = 'which_key_ignore' },
+        ['<leader>s'] = { group = '[s]earch', _ = 'which_key_ignore' },
+        ['<leader>sv'] = { group = '[v]im', _ = 'which_key_ignore' },
+        ['<leader>sg'] = { group = '[g]it', _ = 'which_key_ignore' },
 
-        ['<leader>l'] = { name = '[l]sp', _ = 'which_key_ignore' },
-        ['<leader>li'] = { name = '[i]mports', _ = 'which_key_ignore' },
-        ['<leader>lo'] = { name = '[o]rganize', _ = 'which_key_ignore' },
-        ['<leader>ls'] = { name = '[s]ymbols', _ = 'which_key_ignore' },
-        ['<leader>ln'] = { name = '[n]pm', _ = 'which_key_ignore' },
+        ['<leader>l'] = { group = '[l]sp', _ = 'which_key_ignore' },
+        ['<leader>li'] = { group = '[i]mports', _ = 'which_key_ignore' },
+        ['<leader>lo'] = { group = '[o]rganize', _ = 'which_key_ignore' },
+        ['<leader>ls'] = { group = '[s]ymbols', _ = 'which_key_ignore' },
+        ['<leader>ln'] = { group = '[n]pm', _ = 'which_key_ignore' },
 
-        ['<leader>u'] = { name = '[u]nit tests', _ = 'which_key_ignore' },
+        ['<leader>u'] = { group = '[u]nit tests', _ = 'which_key_ignore' },
 
-        ['<leader>p'] = { name = '[p]ackages', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[t]ab', _ = 'which_key_ignore' },
-        ['<leader>f'] = { name = '[f]ile', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = 'vim[w]iki', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[d]iagnostic', _ = 'which_key_ignore' },
+        ['<leader>p'] = { group = '[p]ackages', _ = 'which_key_ignore' },
+        ['<leader>t'] = { group = '[t]ab', _ = 'which_key_ignore' },
+        ['<leader>f'] = { group = '[f]ile', _ = 'which_key_ignore' },
+        ['<leader>w'] = { group = 'vim[w]iki', _ = 'which_key_ignore' },
+        ['<leader>d'] = { group = '[d]iagnostic', _ = 'which_key_ignore' },
 
         -- NOTE: mini.operators
-        ['g='] = { name = '[=]evaluate', _ = 'which_key_ignore' },
-        ['g=='] = { name = '[=]evaluate current line', _ = 'which_key_ignore' },
+        ['g='] = { group = '[=]evaluate', _ = 'which_key_ignore' },
+        ['g=='] = { group = '[=]evaluate current line', _ = 'which_key_ignore' },
 
-        ['gs'] = { name = '[s]wap text', _ = 'which_key_ignore' },
-        ['gss'] = { name = '[s]wap current line', _ = 'which_key_ignore' },
+        ['gs'] = { group = '[s]wap text', _ = 'which_key_ignore' },
+        ['gss'] = { group = '[s]wap current line', _ = 'which_key_ignore' },
 
-        ['ga'] = { name = '[a]rrange text', _ = 'which_key_ignore' },
-        ['gaa'] = { name = '[a]rrange current line', _ = 'which_key_ignore' },
+        ['ga'] = { group = '[a]rrange text', _ = 'which_key_ignore' },
+        ['gaa'] = { group = '[a]rrange current line', _ = 'which_key_ignore' },
 
-        ['gx'] = { name = 'e[x]change text', _ = 'which_key_ignore' },
-        ['gxx'] = { name = 'e[x]change current line', _ = 'which_key_ignore' },
+        ['gx'] = { group = 'e[x]change text', _ = 'which_key_ignore' },
+        ['gxx'] = { group = 'e[x]change current line', _ = 'which_key_ignore' },
 
-        ['gm'] = { name = '[m]ultiply text', _ = 'which_key_ignore' },
-        ['gmm'] = { name = '[m]ultiply current line', _ = 'which_key_ignore' },
+        ['gm'] = { group = '[m]ultiply text', _ = 'which_key_ignore' },
+        ['gmm'] = { group = '[m]ultiply current line', _ = 'which_key_ignore' },
 
-        ['gz'] = { name = '[z]Z titlecase', _ = 'which_key_ignore' },
-        ['gc'] = { name = '[c]omment', _ = 'which_key_ignore' },
-        ['gJ'] = { name = '[J]oin', _ = 'which_key_ignore' },
-        ['gS'] = { name = '[S]plit', _ = 'which_key_ignore' },
-        ['yo'] = { name = 't[o]ggle', _ = 'which_key_ignore' },
-        ['yos'] = { name = '[s]pelling', _ = 'which_key_ignore' },
+        ['gz'] = { group = '[z]Z titlecase', _ = 'which_key_ignore' },
+        ['gc'] = { group = '[c]omment', _ = 'which_key_ignore' },
+        ['gJ'] = { group = '[J]oin', _ = 'which_key_ignore' },
+        ['gS'] = { group = '[S]plit', _ = 'which_key_ignore' },
+        ['yo'] = { group = 't[o]ggle', _ = 'which_key_ignore' },
+        ['yos'] = { group = '[s]pelling', _ = 'which_key_ignore' },
       }
       -- visual mode
-      require('which-key').register({
+      require('which-key').add({
         ['<leader>g'] = { '[g]it' },
       }, { mode = { 'v', 'n' } })
     end,
