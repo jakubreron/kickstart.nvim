@@ -360,8 +360,6 @@ return {
           ['<C-l>'] = false, -- refresh
           ['<C-h>'] = false, -- horizontal split
           ['<C-s>'] = false, -- vertical split
-          ['<C-w><C-v>'] = require('oil.actions').select_vsplit,
-          ['<C-w><C-s>'] = require('oil.actions').select_split,
         },
         view_options = {
           show_hidden = true,
