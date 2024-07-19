@@ -108,6 +108,7 @@ require('lazy').setup({
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {
         -- ignore_missing = true,
+        icons = { mappings = false },
         plugins = {
           presets = {
             operators = false, -- adds help for operators like d, y, ...
