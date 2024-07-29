@@ -20,8 +20,12 @@ vim.opt.showmode = false
 vim.opt.cpt = ''
 
 -- Sync clipboard between OS and Neovim.
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
-vim.opt.clipboard = 'unnamedplus'
+--  See `:help 'clipboard'`
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -63,9 +67,9 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 
--- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>')
+-- Clear highlights on search when pressing <Esc> in normal mode
+--  See `:help hlsearch`
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
 
@@ -297,7 +301,22 @@ require('lazy').setup({
     end,
   },
 
-  { -- LSP Configuration & Plugins
+  -- LSP Plugins
+  {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+  { 'Bilal2453/luvit-meta', lazy = true },
+  {
+    -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
@@ -321,20 +340,6 @@ require('lazy').setup({
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
-
-      -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-      -- used for completion, annotations and signatures of Neovim apis
-      {
-        'folke/lazydev.nvim',
-        ft = 'lua',
-        opts = {
-          library = {
-            -- Load luvit types when the `vim.uv` word is found
-            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-          },
-        },
-      },
-      { 'Bilal2453/luvit-meta', lazy = true },
     },
     config = function()
       require('lspconfig.ui.windows').default_options.border = 'rounded'
