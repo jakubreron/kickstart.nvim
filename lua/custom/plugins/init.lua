@@ -397,25 +397,42 @@ return {
     event = 'VimEnter',
   },
 
+  -- TODO: @Jakub try to lazy load
   {
-    'kdheepak/lazygit.nvim',
-    lazy = true,
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
-    },
-    keys = {
-      { '<leader>gl', desc = '[l]azygit' },
-      { '<leader>gll', '<cmd>LazyGitCurrentFile<cr>', desc = '[l]azygit' },
-      { '<leader>gls', '<cmd>lua require("telescope").extensions.lazygit.lazygit()<cr>', desc = '[s]earch repos' },
-      { '<leader>glc', '<cmd>LazyGitFilterCurrentFile<cr>', desc = '[c]heckout commit (current file)' },
-      { '<leader>glC', '<cmd>LazyGitFilter<cr>', desc = '[C]heckout commit' },
-    },
+    'akinsho/toggleterm.nvim',
+    version = '*',
     config = function()
-      require('telescope').load_extension 'lazygit'
+      local term = nil
+
+      local function lg_toggle()
+        local Terminal = require('toggleterm.terminal').Terminal
+
+        local size = 90
+        local direction = 'float'
+
+        if not term then
+          term = Terminal:new {
+            cmd = 'lazygit',
+            hidden = true,
+            on_exit = function()
+              term = nil
+            end,
+          }
+          if term then
+            term:toggle(size, direction)
+
+            vim.cmd 'set ft=lazygit'
+            vim.keymap.set('t', 'q', function()
+              term:toggle(size, direction)
+            end, { buffer = true })
+          end
+        else
+          term:toggle(size, direction)
+        end
+      end
+
+      vim.api.nvim_create_user_command('LazyGitToggle', lg_toggle, {})
+      vim.keymap.set('n', '<leader>gl', '<cmd>LazyGitToggle<cr>i', { desc = '[l]azygit toggle' })
     end,
   },
 }
