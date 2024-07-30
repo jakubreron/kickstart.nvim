@@ -8,8 +8,8 @@ vim.cmd [[
 
   iabbrev tsi @ts-ignore<ESC>gcc
 
-  iabbrev rakuetn Rakuten
-  iabbrev rakuent Rakuten
-  iabbrev rakuten Rakuten
+  iabbrev rakuetn rakuten
+  iabbrev rakuent rakuten
+  iabbrev rakuten rakuten
   iabbrev cilent client
 ]]
