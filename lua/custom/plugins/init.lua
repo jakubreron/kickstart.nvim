@@ -397,17 +397,18 @@ return {
     event = 'VimEnter',
   },
 
-  -- TODO: @Jakub try to lazy load
   {
     'akinsho/toggleterm.nvim',
     version = '*',
+    lazy = true,
+    keys = '<leader>gl',
     config = function()
       local term = nil
 
       local function lg_toggle()
         local Terminal = require('toggleterm.terminal').Terminal
 
-        local size = 90
+        local size = 95
         local direction = 'float'
 
         if not term then
