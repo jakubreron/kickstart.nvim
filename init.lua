@@ -340,6 +340,9 @@ require('lazy').setup({
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
+
+      -- Allows extra capabilities provided by nvim-cmp
+      'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
       require('lspconfig.ui.windows').default_options.border = 'rounded'
@@ -851,8 +854,8 @@ require('lazy').setup({
       indent = { enable = true, disable = { 'ruby' } },
     },
     config = function(_, opts)
-      -- Prefer git instead of curl in order to improve connectivity in some environments
-      require('nvim-treesitter.install').prefer_git = true
+      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+
       ---@diagnostic disable-next-line: missing-fields
       -- require('nvim-treesitter.configs').setup(opts)
 
