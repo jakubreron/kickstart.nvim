@@ -69,11 +69,11 @@ return {
     },
   },
 
-  -- {
-  --   'sangdol/mintabline.vim', -- tabs with numbers & icons
-  --   lazy = true,
-  --   event = 'TabEnter',
-  -- },
+  {
+    'sangdol/mintabline.vim', -- tabs with numbers & icons
+    lazy = true,
+    event = 'TabEnter',
+  },
 
   {
     'vimwiki/vimwiki',
@@ -130,6 +130,7 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local harpoon = require 'harpoon'
+
       harpoon:setup {
         settings = {
           save_on_toggle = true,
@@ -152,16 +153,16 @@ return {
         desc = 'add file to harpoon',
       })
 
-      vim.keymap.set('n', ']h', function()
+      vim.keymap.set('n', '] ', function()
         harpoon:list():next()
       end, {
-        desc = 'next [h]arpoon file',
+        desc = '[ ] next harpoon file',
       })
 
-      vim.keymap.set('n', '[h', function()
+      vim.keymap.set('n', '[ ', function()
         harpoon:list():prev()
       end, {
-        desc = 'prev [h]arpoon file',
+        desc = '[ ] prev harpoon file',
       })
 
       for i = 1, 6 do
@@ -171,16 +172,16 @@ return {
       end
     end,
     keys = {
-      '<C-f>',
-      '<C-b>',
-      ']h',
-      '[h',
-      '<leader>1',
-      '<leader>2',
-      '<leader>3',
-      '<leader>4',
-      '<leader>5',
-      '<leader>6',
+      { '<C-f>', desc = 'toggle harpoon quick menu' },
+      { '<C-b>', desc = 'add file to harpoon' },
+      { '] ', desc = '[ ] next harpoon file' },
+      { '[ ', desc = '[ ] prev harpoon file' },
+      { '<leader>1', desc = '[1] mark' },
+      { '<leader>2', desc = '[2] mark' },
+      { '<leader>3', desc = '[3] mark' },
+      { '<leader>4', desc = '[4] mark' },
+      { '<leader>5', desc = '[5] mark' },
+      { '<leader>6', desc = '[6] mark' },
     },
   },
 

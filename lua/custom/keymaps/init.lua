@@ -23,8 +23,8 @@ vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<cr>', { desc = '[s]pelling tog
 vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<cr>', { desc = '[p]olish' })
 vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<cr>', { desc = '[e]nglish' })
 
-vim.keymap.set('n', '[ ', "<cmd>call append(line('.') - 1, repeat([''], v:count1))<cr>", { desc = '[O] blank space up' })
-vim.keymap.set('n', '] ', "<cmd>call append(line('.'),     repeat([''], v:count1))<cr>", { desc = '[o] blank space down' })
+vim.keymap.set('n', 'gO', "<cmd>call append(line('.') - 1, repeat([''], v:count1))<cr>", { desc = '[O] blank space up' })
+vim.keymap.set('n', 'go', "<cmd>call append(line('.'),     repeat([''], v:count1))<cr>", { desc = '[o] blank space down' })
 
 -- NOTE: center search matches
 vim.keymap.set('n', 'n', 'nzzzv', { silent = true })
