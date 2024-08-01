@@ -129,47 +129,7 @@ return {
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      local harpoon = require 'harpoon'
-
-      harpoon:setup {
-        settings = {
-          save_on_toggle = true,
-          sync_on_ui_close = true,
-          key = function()
-            return vim.loop.cwd()
-          end,
-        },
-      }
-
-      vim.keymap.set('n', '<C-f>', function()
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-      end, {
-        desc = 'toggle harpoon quick menu',
-      })
-
-      vim.keymap.set('n', '<C-b>', function()
-        harpoon:list():add()
-      end, {
-        desc = 'add file to harpoon',
-      })
-
-      vim.keymap.set('n', '] ', function()
-        harpoon:list():next()
-      end, {
-        desc = '[ ] next harpoon file',
-      })
-
-      vim.keymap.set('n', '[ ', function()
-        harpoon:list():prev()
-      end, {
-        desc = '[ ] prev harpoon file',
-      })
-
-      for i = 1, 6 do
-        vim.keymap.set('n', '<leader>' .. i, function()
-          harpoon:list():select(i)
-        end, { desc = '[' .. i .. '] mark' })
-      end
+      require 'custom.plugins.settings.harpoon'
     end,
     keys = {
       { '<C-f>', desc = 'toggle harpoon quick menu' },
@@ -229,7 +189,7 @@ return {
       'marilari88/neotest-vitest',
     },
     config = function()
-      require('custom.plugins.settings.neotest').config()
+      require 'custom.plugins.settings.neotest'
     end,
   },
 
@@ -237,7 +197,7 @@ return {
     'norcalli/nvim-colorizer.lua', -- highlight the hex / rgb colors
     lazy = true,
     config = function()
-      require('custom.plugins.settings.colorizer').config()
+      require 'custom.plugins.settings.colorizer'
     end,
     ft = {
       'css',
@@ -294,40 +254,18 @@ return {
   {
     'akinsho/git-conflict.nvim',
     version = '*',
+    opts = {
+      default_mappings = true, -- disable buffer local mapping created by this plugin
+      default_commands = true, -- disable commands created by this plugin
+      disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
+      list_opener = 'copen', -- command or function to open the conflicts list
+      highlights = { -- They must have background color, otherwise the default color will be used
+        incoming = 'DiffAdd',
+        current = 'DiffText',
+      },
+    },
     config = function()
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'GitConflictDetected',
-        callback = function()
-          vim.notify('Conflict detected in ' .. vim.fn.expand '<afile>')
-
-          require('conform').setup { format_on_save = nil }
-        end,
-      })
-
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'GitConflictResolved',
-        callback = function()
-          vim.notify('Conflict resolved in ' .. vim.fn.expand '<afile>')
-
-          require('conform').setup {
-            format_on_save = {
-              timeout_ms = 500,
-              lsp_format = 'never',
-            },
-          }
-        end,
-      })
-
-      require('git-conflict').setup {
-        default_mappings = true, -- disable buffer local mapping created by this plugin
-        default_commands = true, -- disable commands created by this plugin
-        disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
-        list_opener = 'copen', -- command or function to open the conflicts list
-        highlights = { -- They must have background color, otherwise the default color will be used
-          incoming = 'DiffAdd',
-          current = 'DiffText',
-        },
-      }
+      require 'custom.plugins.settings.git-conflict'
     end,
   },
 
@@ -335,14 +273,11 @@ return {
     'ramilito/winbar.nvim',
     event = 'BufReadPre', -- Alternatively, BufReadPre if we don't care about the empty file when starting with 'nvim'
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('winbar').setup {
-        -- your configuration comes here, for example:
-        icons = true,
-        diagnostics = true,
-        buf_modified = true,
-      }
-    end,
+    opts = {
+      icons = true,
+      diagnostics = true,
+      buf_modified = true,
+    },
   },
 
   {
@@ -350,27 +285,25 @@ return {
     lazy = false, -- needed to hijack netrw
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     ft = 'netrw',
-    config = function()
-      require('oil').setup {
-        default_file_explorer = true,
-        columns = {
-          'icon',
-          'size',
-        },
-        keymaps = {
-          ['<C-l>'] = false, -- refresh
-          ['<C-h>'] = false, -- horizontal split
-          ['<C-s>'] = false, -- vertical split
-        },
-        view_options = {
-          show_hidden = true,
-        },
-        lsp_file_methods = {
-          timeout_ms = 5000,
-          autosave_changes = true,
-        },
-      }
-    end,
+    opts = {
+      default_file_explorer = true,
+      columns = {
+        'icon',
+        'size',
+      },
+      keymaps = {
+        ['<C-l>'] = false, -- refresh
+        ['<C-h>'] = false, -- horizontal split
+        ['<C-s>'] = false, -- vertical split
+      },
+      view_options = {
+        show_hidden = true,
+      },
+      lsp_file_methods = {
+        timeout_ms = 5000,
+        autosave_changes = true,
+      },
+    },
     cmd = {
       'Oil',
     },
@@ -393,7 +326,7 @@ return {
     lazy = false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require('custom.plugins.settings.lualine').config()
+      require 'custom.plugins.settings.lualine'
     end,
     event = 'VimEnter',
   },
@@ -402,39 +335,15 @@ return {
     'akinsho/toggleterm.nvim',
     version = '*',
     lazy = true,
-    keys = '<leader>gl',
+    keys = {
+      {
+        '<leader>gl',
+        '<cmd>LazyGitToggle<cr>i',
+        desc = '[l]azygit toggle',
+      },
+    },
     config = function()
-      local term = nil
-
-      local function lg_toggle()
-        local Terminal = require('toggleterm.terminal').Terminal
-
-        local size = 95
-        local direction = 'float'
-
-        if not term then
-          term = Terminal:new {
-            cmd = 'lazygit',
-            hidden = true,
-            on_exit = function()
-              term = nil
-            end,
-          }
-          if term then
-            term:toggle(size, direction)
-
-            vim.cmd 'set ft=lazygit'
-            vim.keymap.set('t', 'q', function()
-              term:toggle(size, direction)
-            end, { buffer = true })
-          end
-        else
-          term:toggle(size, direction)
-        end
-      end
-
-      vim.api.nvim_create_user_command('LazyGitToggle', lg_toggle, {})
-      vim.keymap.set('n', '<leader>gl', '<cmd>LazyGitToggle<cr>i', { desc = '[l]azygit toggle' })
+      require 'custom.plugins.settings.toggleterm'
     end,
   },
 }

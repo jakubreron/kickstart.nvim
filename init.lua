@@ -100,21 +100,9 @@ require('lazy').setup({
   -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- Use `opts = {}` to force a plugin to be loaded.
+  -- `opts = {}` is the same as calling `require('plugin').setup({})`
 
-  -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
-  --
-  -- This is often very useful to both group configuration, as well as handle
-  -- lazy loading plugins that don't need to be loaded immediately at startup.
-  --
-  -- For example, in the following configuration, we use:
-  --  event = 'VimEnter'
-  --
-  -- which loads which-key before all the UI elements are loaded. Events can be
-  -- normal autocommands events (`:help autocmd-events`).
-  --
-  -- Then, because we use the `config` key, the configuration only runs
-  -- after the plugin has been loaded:
-  --  config = function() ... end
+  -- with the the `config` key, the configuration only runs
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
@@ -140,7 +128,6 @@ require('lazy').setup({
         },
       }
 
-      -- Document existing key chains
       require('which-key').add {
         { '<leader>g', desc = '[g]it', mode = { 'v', 'n' }, icon = '' },
 
@@ -192,6 +179,7 @@ require('lazy').setup({
 
   {
     'nvim-telescope/telescope.nvim',
+    lazy = true,
     event = 'VeryLazy',
     branch = 'master',
     dependencies = {
@@ -210,50 +198,11 @@ require('lazy').setup({
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
-
-      -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
-      require('telescope').setup {
-        defaults = {
-          mappings = {
-            i = {
-              ['<c-enter>'] = require('telescope.actions').to_fuzzy_refine, -- this is useful
-
-              ['<C-a>'] = { '<Home>', type = 'command' },
-              ['<C-e>'] = { '<End>', type = 'command' },
-
-              ['<C-j>'] = require('telescope.actions').cycle_history_next,
-              ['<C-k>'] = require('telescope.actions').cycle_history_prev,
-            },
-          },
-          path_display = {
-            filename_first = {
-              reverse_directories = false,
-            },
-          },
-          scroll_strategy = 'limit',
-          layout_strategy = 'vertical',
-          layout_config = { height = 0.95 },
-        },
-        extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-          },
-          live_grep_args = {
-            auto_quoting = true,
-            mappings = {
-              i = {
-                ['<C-g>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob ' },
-                ['<C-s>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob *.spec.*' },
-              },
-            },
-          },
-        },
-      }
+      require 'custom.plugins.settings.telescope'
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
@@ -338,8 +287,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', config = true },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -771,7 +719,7 @@ require('lazy').setup({
   -- Highlight todo, notes, etc in comments
   {
     'folke/todo-comments.nvim',
-    event = 'VimEnter',
+    event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
     keys = {
@@ -798,7 +746,7 @@ require('lazy').setup({
     lazy = true,
     event = 'VeryLazy',
     config = function()
-      require('custom.plugins.settings.mini').config()
+      require 'custom.plugins.settings.mini'
     end,
   },
 
