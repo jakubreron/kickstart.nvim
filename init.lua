@@ -108,16 +108,14 @@ require('lazy').setup({
     'folke/which-key.nvim',
     lazy = true,
     keys = { '<leader>', '<c-r>', '"', "'", '`', 'c', 'v', 'g' },
+    opts = {},
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup {
-        -- ignore_missing = true,
-        icons = { mappings = false },
         plugins = {
           presets = {
             operators = false, -- adds help for operators like d, y, ...
             motions = false, -- adds help for motions
             text_objects = false, -- help for text objects triggered after entering an operator
-            windows = false, -- default bindings on <c-w>
             nav = false, -- misc bindings to work with windows
             z = true, -- bindings for folds, spelling and others prefixed with z
             g = false, -- bindings for prefixed with g
@@ -154,25 +152,25 @@ require('lazy').setup({
         { '<leader>d', desc = '[d]iagnostic', icon = '' },
 
         -- NOTE: mini.operators
-        { 'g=', desc = '[=]evaluate', icon = '' },
-        { 'g==', desc = '[=]evaluate current line', icon = '' },
+        { 'g=', desc = '[=]evaluate', icon = '' },
+        { 'g==', desc = '[=]evaluate current line', icon = '' },
 
-        { 'gs', desc = '[s]wap text', icon = '' },
-        { 'gss', desc = '[s]wap current line', icon = '' },
+        { 'gs', desc = '[s]wap text', icon = '' },
+        { 'gss', desc = '[s]wap current line', icon = '' },
 
-        { 'ga', desc = '[a]rrange text', icon = '' },
-        { 'gaa', desc = '[a]rrange current line', icon = '' },
+        { 'ga', desc = '[a]rrange text', icon = '󰖽' },
+        { 'gaa', desc = '[a]rrange current line', icon = '󰖽' },
 
-        { 'gx', desc = 'e[x]change text', icon = '' },
-        { 'gxx', desc = 'e[x]change current line', icon = '' },
+        { 'gx', desc = 'e[x]change text', icon = '' },
+        { 'gxx', desc = 'e[x]change current line', icon = '' },
 
-        { 'gm', desc = '[m]ultiply text', icon = '' },
-        { 'gmm', desc = '[m]ultiply current line', icon = '' },
+        { 'gm', desc = '[m]ultiply text', icon = '' },
+        { 'gmm', desc = '[m]ultiply current line', icon = '' },
 
         { 'gz', desc = '[z]Z titlecase', icon = '' },
         { 'gc', desc = '[c]omment', icon = '' },
-        { 'gJ', desc = '[J]oin', icon = '󰃻' },
-        { 'gS', desc = '[S]plit', icon = '󰃻' },
+        { 'gJ', desc = '[J]oin', icon = '󰦦' },
+        { 'gS', desc = '[S]plit', icon = '󰦦' },
       }
     end,
   },
