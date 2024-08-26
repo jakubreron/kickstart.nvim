@@ -194,7 +194,7 @@ return {
   },
 
   {
-    'windwp/nvim-spectre', -- search & replace throughout all the files (without vimgrepping)
+    'nvim-pack/nvim-spectre', -- search & replace throughout all the files (without vimgrepping)
     lazy = true,
     keys = {
       {
