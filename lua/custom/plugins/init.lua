@@ -194,21 +194,6 @@ return {
   },
 
   {
-    'norcalli/nvim-colorizer.lua', -- highlight the hex / rgb colors
-    lazy = true,
-    config = function()
-      require 'custom.plugins.settings.colorizer'
-    end,
-    ft = {
-      'css',
-      'scss',
-      'sass',
-      'less',
-      'html',
-    },
-  },
-
-  {
     'windwp/nvim-spectre', -- search & replace throughout all the files (without vimgrepping)
     lazy = true,
     keys = {
