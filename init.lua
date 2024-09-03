@@ -720,31 +720,6 @@ require('lazy').setup({
     end,
   },
 
-  -- Highlight todo, notes, etc in comments
-  {
-    'folke/todo-comments.nvim',
-    event = 'VeryLazy',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false },
-    keys = {
-      {
-        ']t',
-        "<cmd>lua require('todo-comments').jump_next()<cr>",
-        desc = 'next [t]odo comment',
-      },
-      {
-        '<leader>sT',
-        '<cmd>TodoTelescope<cr>',
-        desc = '[T]odo',
-      },
-      {
-        '[t',
-        "<cmd>lua require('todo-comments').jump_prev()<cr>",
-        desc = 'prev [t]odo comment',
-      },
-    },
-  },
-
   {
     'echasnovski/mini.nvim',
     lazy = true,
