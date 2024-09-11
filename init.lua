@@ -436,7 +436,7 @@ require('lazy').setup({
         },
         html = {},
         eslint = {},
-        tsserver = {
+        ts_ls = {
           server_capabilities = {
             documentFormattingProvider = false,
           },
@@ -506,9 +506,9 @@ require('lazy').setup({
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
+            -- certain features of an LSP (for example, turning off formatting for ts_ls)
 
-            if server_name == 'tsserver' then
+            if server_name == 'ts_ls' then
               return
             end
 
