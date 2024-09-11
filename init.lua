@@ -97,14 +97,12 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
   -- Use `opts = {}` to force a plugin to be loaded.
   -- `opts = {}` is the same as calling `require('plugin').setup({})`
 
   -- with the the `config` key, the configuration only runs
 
-  { -- Useful plugin to show you pending keybinds.
+  {
     'folke/which-key.nvim',
     lazy = true,
     keys = { '<leader>', '<c-r>', '"', "'", '`', 'c', 'v', 'g' },
@@ -140,7 +138,6 @@ require('lazy').setup({
         { '<leader>l', desc = '[l]sp', icon = '' },
         { '<leader>li', desc = '[i]mports', icon = '󰋺' },
         { '<leader>lo', desc = '[o]rganize', icon = '󰒺' },
-        { '<leader>ls', desc = '[s]ymbols', icon = '󱔁' },
         { '<leader>ln', desc = '[n]pm', icon = '' },
 
         { '<leader>u', desc = '[u]nit tests', icon = '󰙨' },
@@ -296,11 +293,6 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
-          -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-          -- to define small helper and utility functions so you don't have to repeat yourself.
-          --
-          -- In this case, we create a function that lets us more easily define mappings specific
-          -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -331,28 +323,19 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>lsd', builtin.lsp_document_symbols, '[d]ocument')
-
+          map('<leader>ls', builtin.lsp_document_symbols, '[s]ymbols (file)')
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>lsw', builtin.lsp_dynamic_workspace_symbols, '[w]orkspace')
+          map('<leader>lS', builtin.lsp_dynamic_workspace_symbols, '[S]ymbols (workspace)')
 
-          -- Rename the variable under your cursor.
-          --  Most Language Servers support renaming across files, etc.
-          -- TODO: save all files after renaming
           map('<leader>lr', vim.lsp.buf.rename, '[r]ename')
-
-          -- Execute a code action, usually your cursor needs to be on top of an error
-          -- or a suggestion from your LSP for this to activate.
           map('<leader>la', vim.lsp.buf.code_action, '[a]ction', { 'n', 'x' })
 
-          -- Info about attached servers
-          map('<leader>lI', '<cmd>LspInfo<cr>', '[I]nfo')
+          map('<leader>l_i', '<cmd>LspInfo<cr>', '[i]nfo')
+          map('<leader>l_r', '<cmd>LspRestart<cr>', '[r]estart')
 
           -- hover with lsp instead of manpages
-          map('H', vim.lsp.buf.signature_help, 'Signature [H]elp')
-
-          map('<leader>l_', '<cmd>LspRestart<cr>', '[_]Restart')
+          map('H', vim.lsp.buf.signature_help, 'signature [H]elp')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -388,24 +371,6 @@ require('lazy').setup({
             map('<leader>lh', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, 'inlay [h]ints toggle')
-          end
-
-          -- add border to all hover actions
-          local border = {
-            { '╭', 'FloatBorder' },
-            { '─', 'FloatBorder' },
-            { '╮', 'FloatBorder' },
-            { '│', 'FloatBorder' },
-            { '╯', 'FloatBorder' },
-            { '─', 'FloatBorder' },
-            { '╰', 'FloatBorder' },
-            { '│', 'FloatBorder' },
-          }
-          local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-          function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-            opts = opts or {}
-            opts.border = opts.border or border
-            return orig_util_open_floating_preview(contents, syntax, opts, ...)
           end
         end,
       })
