@@ -99,32 +99,30 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Use `opts = {}` to force a plugin to be loaded.
   -- `opts = {}` is the same as calling `require('plugin').setup({})`
-
-  -- with the the `config` key, the configuration only runs
-
+  -- with the `config` key, the configuration only runs after the plugin has been loaded:
+  -- config = function() ... end
   {
     'folke/which-key.nvim',
     lazy = true,
     keys = { '<leader>', '<c-r>', '"', "'", '`', 'c', 'v', 'g' },
-    opts = {},
-    config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup {
-        plugins = {
-          presets = {
-            operators = false, -- adds help for operators like d, y, ...
-            motions = false, -- adds help for motions
-            text_objects = false, -- help for text objects triggered after entering an operator
-            nav = false, -- misc bindings to work with windows
-            z = true, -- bindings for folds, spelling and others prefixed with z
-            g = false, -- bindings for prefixed with g
-          },
+    opts = {
+      plugins = {
+        presets = {
+          operators = false, -- adds help for operators like d, y, ...
+          motions = false, -- adds help for motions
+          text_objects = false, -- help for text objects triggered after entering an operator
+          nav = false, -- misc bindings to work with windows
+          z = true, -- bindings for folds, spelling and others prefixed with z
+          g = false, -- bindings for prefixed with g
         },
-        win = {
-          border = 'single',
-        },
-      }
-
-      require('which-key').add {
+      },
+      icons = {
+        mappings = vim.g.have_nerd_font,
+      },
+      win = {
+        border = 'single',
+      },
+      spec = {
         { '<leader>g', desc = '[g]it', mode = { 'v', 'n' }, icon = '' },
 
         { '<leader>c', desc = '[c]onsole', icon = '' },
@@ -168,8 +166,8 @@ require('lazy').setup({
         { 'gc', desc = '[c]omment', icon = '' },
         { 'gJ', desc = '[J]oin', icon = '󰦦' },
         { 'gS', desc = '[S]plit', icon = '󰦦' },
-      }
-    end,
+      },
+    },
   },
 
   {
