@@ -128,6 +128,7 @@ require('lazy').setup({
         { '<leader>r', desc = '[r]eplace', icon = '󰛔' },
         { '<leader>o', desc = '[o]bsession', icon = '' },
         { '<leader>l', desc = '[l]sp', icon = '' },
+        { '<leader>l_', desc = '[_]actions', icon = '' },
         { '<leader>p', desc = '[p]ackages', icon = '' },
         { '<leader>t', desc = '[t]ab', icon = '󰓩' },
         { '<leader>f', desc = '[f]ile', icon = '' },
@@ -264,7 +265,7 @@ require('lazy').setup({
         callback = function(event)
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
           end
 
           local builtin = require 'telescope.builtin'
