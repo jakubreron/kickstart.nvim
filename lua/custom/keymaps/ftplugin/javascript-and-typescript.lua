@@ -20,6 +20,9 @@ Mappings.config = function(bufnr)
     }
   )
 
+  require('which-key').add {
+    { '<leader>u', desc = '[u]nit tests', icon = '󰙨' },
+  }
   vim.keymap.set('n', '<leader>ur', function()
     vim.cmd "lua require('neotest').output_panel.clear()"
     vim.cmd "lua require('neotest').run.run()"

@@ -124,48 +124,19 @@ require('lazy').setup({
       },
       spec = {
         { '<leader>g', desc = '[g]it', mode = { 'v', 'n' }, icon = '' },
-
         { '<leader>c', desc = '[c]onsole', icon = '' },
         { '<leader>r', desc = '[r]eplace', icon = '󰛔' },
         { '<leader>o', desc = '[o]bsession', icon = '' },
-
-        { '<leader>s', desc = '[s]earch', icon = '' },
-        { '<leader>sv', desc = '[v]im', icon = '' },
-        { '<leader>sg', desc = '[g]it', icon = '' },
-
         { '<leader>l', desc = '[l]sp', icon = '' },
-        { '<leader>li', desc = '[i]mports', icon = '󰋺' },
-        { '<leader>lo', desc = '[o]rganize', icon = '󰒺' },
-        { '<leader>ln', desc = '[n]pm', icon = '' },
-
-        { '<leader>u', desc = '[u]nit tests', icon = '󰙨' },
-
         { '<leader>p', desc = '[p]ackages', icon = '' },
         { '<leader>t', desc = '[t]ab', icon = '󰓩' },
         { '<leader>f', desc = '[f]ile', icon = '' },
         { '<leader>w', desc = 'vim[w]iki', icon = '󰖬' },
         { '<leader>d', desc = '[d]iagnostic', icon = '' },
 
-        -- NOTE: mini.operators
-        { 'g=', desc = '[=]evaluate', icon = '' },
-        { 'g==', desc = '[=]evaluate current line', icon = '' },
-
-        { 'gs', desc = '[s]wap text', icon = '' },
-        { 'gss', desc = '[s]wap current line', icon = '' },
-
-        { 'ga', desc = '[a]rrange text', icon = '󰖽' },
-        { 'gaa', desc = '[a]rrange current line', icon = '󰖽' },
-
-        { 'gx', desc = 'e[x]change text', icon = '' },
-        { 'gxx', desc = 'e[x]change current line', icon = '' },
-
-        { 'gm', desc = '[m]ultiply text', icon = '' },
-        { 'gmm', desc = '[m]ultiply current line', icon = '' },
-
-        { 'gz', desc = '[z]Z titlecase', icon = '' },
-        { 'gc', desc = '[c]omment', icon = '' },
-        { 'gJ', desc = '[J]oin', icon = '󰦦' },
-        { 'gS', desc = '[S]plit', icon = '󰦦' },
+        { '<leader>s', desc = '[s]earch', icon = '' },
+        { '<leader>sv', desc = '[v]im', icon = '' },
+        { '<leader>sg', desc = '[g]it', icon = '' },
       },
     },
   },

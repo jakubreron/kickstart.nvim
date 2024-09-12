@@ -26,6 +26,11 @@ Mappings.config = function(bufnr)
     buffer = bufnr,
   })
 
+  require('which-key').add {
+    { '<leader>li', desc = '[i]mports', icon = '󰋺' },
+    { '<leader>lo', desc = '[o]rganize', icon = '󰒺' },
+  }
+
   vim.keymap.set('n', '<leader>lio', action_with_formatting 'TSToolsOrganizeImports', {
     desc = '[o]rganize',
     buffer = bufnr,

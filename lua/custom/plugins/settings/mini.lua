@@ -147,6 +147,23 @@ if mini_operators_status_ok then
       func = nil,
     },
   }
+
+  require('which-key').add {
+    { 'g=', desc = '[=]evaluate', icon = '' },
+    { 'g==', desc = '[=]evaluate current line', icon = '' },
+
+    { 'gs', desc = '[s]wap text', icon = '' },
+    { 'gss', desc = '[s]wap current line', icon = '' },
+
+    { 'ga', desc = '[a]rrange text', icon = '󰖽' },
+    { 'gaa', desc = '[a]rrange current line', icon = '󰖽' },
+
+    { 'gx', desc = 'e[x]change text', icon = '' },
+    { 'gxx', desc = 'e[x]change current line', icon = '' },
+
+    { 'gm', desc = '[m]ultiply text', icon = '' },
+    { 'gmm', desc = '[m]ultiply current line', icon = '' },
+  }
 end
 
 -- local statusline = require 'mini.statusline'

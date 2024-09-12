@@ -92,6 +92,13 @@ return {
       'gz',
       'gzz',
     },
+    config = function()
+      require('which-key').add {
+        { 'gz', desc = '[z]Z titlecase', icon = '' },
+        { 'gJ', desc = '[J]oin', icon = '󰦦' },
+        { 'gS', desc = '[S]plit', icon = '󰦦' },
+      }
+    end,
   },
 
   {

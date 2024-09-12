@@ -1,6 +1,10 @@
 if string.find(vim.fn.expand '%:p', 'package.json') ~= nil then
   local current_buf = vim.api.nvim_get_current_buf()
 
+  require('which-key').add {
+    { '<leader>ln', desc = '[n]pm', icon = '' },
+  }
+
   vim.keymap.set('n', '<leader>lna', '<cmd>lua require("package-info").install()<cr>', {
     buffer = current_buf,
     desc = '[A]dd',
