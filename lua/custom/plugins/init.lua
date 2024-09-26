@@ -2,6 +2,20 @@ return {
   { import = 'custom.plugins.colorschemes' },
 
   {
+    'windwp/nvim-ts-autotag',
+    lazy = true,
+    opts = {
+      opts = {
+        -- Defaults
+        enable_close = true, -- Auto close tags
+        enable_rename = true, -- Auto rename pairs of tags
+        enable_close_on_slash = false, -- Auto close on trailing </
+      },
+    },
+    event = { 'BufReadPre', 'BufNewFile', 'VeryLazy' },
+  },
+
+  {
     'folke/zen-mode.nvim',
     lazy = true,
     cmd = {
