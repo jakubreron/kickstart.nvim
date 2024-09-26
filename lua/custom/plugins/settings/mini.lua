@@ -61,7 +61,7 @@ if mini_surround_status_ok then
     },
 
     -- Number of lines within which surrounding is searched
-    n_lines = 50,
+    n_lines = 500,
   }
 end
 
