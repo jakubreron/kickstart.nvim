@@ -1,12 +1,12 @@
 vim.cmd [[
-  iabbrev PP PERF:<ESC>gccA
-  iabbrev HH HACK:<ESC>gccA
-  iabbrev TT TODO: @Jakub<ESC>gccA
-  iabbrev NN NOTE:<ESC>gccA
-  iabbrev WW WARNING:<ESC>gccA
-  iabbrev FF FIX:<ESC>gccA
+  iabbrev PP PERF:<ESC>gcc$Fba
+  iabbrev HH HACK:<ESC>gcc$Fba
+  iabbrev TT TODO: @Jakub<ESC>gcc$Fba
+  iabbrev NN NOTE:<ESC>gcc$Fba
+  iabbrev WW WARNING:<ESC>gcc$Fba
+  iabbrev FF FIX:<ESC>gcc$Fba
 
-  iabbrev CSSP content: ''; display: block; position: absolute; top: 0; right: 0;
+  iabbrev CSSP content: '';<ESC>odisplay: block;<ESC>oposition: absolute;<ESC>otop: 0;<ESC>oright: 0;<ESC>o
   
   iabbrev iR import * as React from 'react'<ESC>xa
 
