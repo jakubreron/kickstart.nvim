@@ -14,6 +14,11 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   end,
 })
 
+-- NOTE: resize windows on tmux resize
+vim.api.nvim_create_autocmd({ 'VimResized' }, {
+  command = 'wincmd =',
+})
+
 -- NOTE: performance settings
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { '*/node_modules/*' },
