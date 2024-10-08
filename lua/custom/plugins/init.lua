@@ -289,12 +289,14 @@ return {
 
   {
     'ramilito/winbar.nvim',
-    event = 'BufReadPre', -- Alternatively, BufReadPre if we don't care about the empty file when starting with 'nvim'
+    event = 'VimEnter', -- Alternatively, BufReadPre if we don't care about the empty file when starting with 'nvim'
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       icons = true,
       diagnostics = true,
       buf_modified = true,
+      buf_modified_symbol = '●',
+      dir_levels = 2,
     },
   },
 
