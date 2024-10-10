@@ -259,6 +259,8 @@ require('lazy').setup({
           notification = {
             window = {
               border = 'rounded',
+              x_padding = 0,
+              y_padding = 0,
             },
           },
         },
