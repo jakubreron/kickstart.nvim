@@ -373,25 +373,8 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local html_css_filetypes = { 'css', 'html', 'scss', 'sass', 'less' }
       local servers = {
-        emmet_language_server = {},
-        jsonls = {},
-        markdown_oxide = {},
-        stylelint_lsp = {
-          filetypes = html_css_filetypes,
-        },
-        html = {},
-        eslint = {},
-        ts_ls = {
-          server_capabilities = {
-            documentFormattingProvider = false,
-          },
-        },
         lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
           server_capabilities = {
             semanticTokensProvider = vim.NIL,
           },
@@ -403,6 +386,11 @@ require('lazy').setup({
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               diagnostics = { disable = { 'missing-fields' } },
             },
+          },
+        },
+        ts_ls = {
+          server_capabilities = {
+            documentFormattingProvider = false,
           },
         },
       }
@@ -419,20 +407,22 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         -- NOTE: LSP
-        'lua-language-server', -- lua
-        'typescript-language-server', -- ts/js
-        'emmet-language-server', -- html
-        'json-lsp', -- json
+        'lua-language-server',
+        'typescript-language-server',
+        'emmet-language-server',
+        'json-lsp',
         'markdown-oxide', -- markdown, vimwiki
-        'stylelint-lsp', -- styles
-        'html-lsp', -- html
-        'eslint-lsp', -- js/ts
+        'stylelint-lsp',
+        'html-lsp',
+        'css-lsp',
+        'css_variables',
+        'eslint-lsp',
 
         -- NOTE: linters
         -- ''
 
         -- NOTE: formatters
-        'stylua', -- lua
+        'stylua',
         'prettier', -- only json because prettierd is bugged
         'prettierd', -- html, yaml, json, etc
 
