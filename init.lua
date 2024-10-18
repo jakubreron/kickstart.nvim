@@ -415,7 +415,7 @@ require('lazy').setup({
         'stylelint-lsp',
         'html-lsp',
         'css-lsp',
-        'css_variables',
+        -- 'css_variables',
         'eslint-lsp',
 
         -- NOTE: linters

@@ -29,6 +29,14 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     vim.cmd 'setlocal noautoindent'
     vim.cmd 'setlocal nosmartindent'
     vim.cmd 'setlocal undolevels=10'
+    vim.cmd 'setlocal syntax=off'
+    vim.cmd 'setlocal nofoldenable'
+    vim.cmd 'setlocal buftype=nowrite'
+    vim.cmd 'setlocal bufhidden=unload'
+
+    vim.cmd 'TSBufDisable incremental_selection'
+    vim.cmd 'TSBufDisable indent'
+    vim.cmd 'TSBufDisable autotag'
   end,
 })
 
