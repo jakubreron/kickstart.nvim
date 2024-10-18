@@ -69,6 +69,7 @@ return {
         { 'child', 'parent' },
         { 'toBeTruthy', 'toBeFalsy' },
         { 'toBeEnabled', 'toBeDisabled' },
+        { 'left', 'center', 'right' },
       },
       allow_caps_additions = {
         { 'enable', 'disable' },
