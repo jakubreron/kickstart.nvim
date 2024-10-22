@@ -70,6 +70,7 @@ return {
         { 'toBeTruthy', 'toBeFalsy' },
         { 'toBeEnabled', 'toBeDisabled' },
         { 'left', 'center', 'right' },
+        { 'light', 'dark' },
       },
       allow_caps_additions = {
         { 'enable', 'disable' },

@@ -12,6 +12,10 @@ vim.keymap.set('v', '<leader>p', '"_dP', { desc = '[p]aste without yanking' })
 
 vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'exit terminal mode' })
 
+-- NOTE: Stay in visual mode when indenting
+vim.keymap.set('v', '<', '<gv', { desc = 'Shift left <<<' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Shift right >>>' })
+
 -- NOTE: toggle
 vim.keymap.set('n', 'yoe', function()
   vim.cmd('set eventignore=' .. (vim.o.eventignore == '' and 'all' or ''))
