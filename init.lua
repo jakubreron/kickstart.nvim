@@ -409,7 +409,7 @@ require('lazy').setup({
         -- NOTE: LSP
         'lua-language-server',
         'typescript-language-server',
-        'emmet-language-server',
+        -- 'emmet-language-server',
         'json-lsp',
         'markdown-oxide', -- markdown, vimwiki
         'stylelint-lsp',
@@ -731,7 +731,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
 
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
