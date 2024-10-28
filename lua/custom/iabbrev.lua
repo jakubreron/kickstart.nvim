@@ -11,6 +11,7 @@ vim.cmd [[
   iabbrev iR import * as React from 'react'<ESC>a
 
   iabbrev tsi @ts-ignore<ESC>gcc
+  iabbrev esi eslint-disable<ESC>gcc
 
   iabbrev rakuetn rakuten
   iabbrev rakuent rakuten
