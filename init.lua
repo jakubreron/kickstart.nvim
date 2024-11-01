@@ -484,6 +484,7 @@ require('lazy').setup({
         'lua-language-server',
         'typescript-language-server',
         'emmet-language-server',
+        'bash-language-server',
         'json-lsp',
         'markdown-oxide', -- markdown, vimwiki
         'stylelint-lsp',
