@@ -1,167 +1,86 @@
-local mini_ai_status_ok, mini_ai = pcall(require, 'mini.ai')
-if mini_ai_status_ok then
-  mini_ai.setup { n_lines = 500 }
-end
+require('mini.ai').setup { n_lines = 500 }
 
-local mini_bracketed_status_ok, mini_bracketed = pcall(require, 'mini.bracketed')
-if mini_bracketed_status_ok then
-  mini_bracketed.setup {
-    buffer = { suffix = 'b', options = {} },
-    comment = { suffix = '/', options = {} },
-    conflict = { suffix = 'x', options = {} },
-    file = { suffix = 'f', options = {} },
-    indent = { suffix = 'i', options = {} },
-    jump = { suffix = 'j', options = {} },
-    location = { suffix = 'l', options = {} },
-    oldfile = { suffix = 'o', options = {} },
-    quickfix = { suffix = 'q', options = {} },
+require('mini.bracketed').setup {
+  comment = { suffix = '/', options = {} },
 
-    -- TODO: @Jakub check
-    treesitter = { suffix = '', options = {} },
-    -- TODO: @Jakub check
-    undo = { suffix = '', options = {} },
-    -- TODO: @Jakub check
-    window = { suffix = '', options = {} },
-    -- TODO: @Jakub check
-    yank = { suffix = '', options = {} },
-  }
-end
+  treesitter = { suffix = '', options = {} },
+  undo = { suffix = '', options = {} },
+  window = { suffix = '', options = {} },
+  yank = { suffix = '', options = {} },
+}
 
-local hipatterns_status_ok, hipatterns = pcall(require, 'mini.hipatterns')
-if hipatterns_status_ok then
-  hipatterns.setup {
-    highlighters = {
-      -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-      fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-      hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-      todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-      note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+local hipatterns = require 'mini.hipatterns'
+hipatterns.setup {
+  highlighters = {
+    -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+    fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+    hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+    todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+    note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
 
-      -- Highlight hex color strings (`#rrggbb`) using that color
-      hex_color = hipatterns.gen_highlighter.hex_color(),
-    },
-  }
-end
+    -- Highlight hex color strings (`#rrggbb`) using that color
+    hex_color = hipatterns.gen_highlighter.hex_color(),
+  },
+}
 
-local mini_surround_status_ok, mini_surround = pcall(require, 'mini.surround')
-if mini_surround_status_ok then
-  mini_surround.setup {
-    -- I liked tpope bindings more
-    mappings = {
-      add = 'ys', -- Add surrounding in Normal and Visual modes
-      delete = 'ds', -- Delete surrounding
-      find = ']s', -- Find surrounding (to the right)
-      find_left = '[s', -- Find surrounding (to the left)
-      replace = 'cs', -- Replace surrounding
-      suffix_last = 'l', -- Suffix to search with "prev" method
-      suffix_next = 'n', -- Suffix to search with "next" method
+require('mini.surround').setup {
+  -- I liked tpope bindings more
+  mappings = {
+    add = 'ys', -- Add surrounding in Normal and Visual modes
+    delete = 'ds', -- Delete surrounding
+    find = ']s', -- Find surrounding (to the right)
+    find_left = '[s', -- Find surrounding (to the left)
+    replace = 'cs', -- Replace surrounding
 
-      -- unused / unnecessary
-      update_n_lines = '', -- Update `n_lines`
-      highlight = '', -- Highlight surrounding
-    },
+    -- unused / unnecessary
+    update_n_lines = '', -- Update `n_lines`
+    highlight = '', -- Highlight surrounding
+  },
 
-    -- Number of lines within which surrounding is searched
-    n_lines = 500,
-  }
-end
+  -- Number of lines within which surrounding is searched
+  n_lines = 500,
+}
 
--- local mini_animate_status_ok, mini_animate = pcall(require, 'mini.animate')
--- if mini_animate_status_ok then
---   mini_animate.setup {
---     cursor = {
---       enable = true,
---       timing = mini_animate.gen_timing.linear { duration = 85, unit = 'total' },
---     },
---     scroll = {
---       enable = false,
---     },
---     -- scroll = {
---     --   enable = true,
---     --   timing = require('mini.animate').gen_timing.linear { duration = 75, unit = 'total' },
---     -- },
---     resize = {
---       enable = false,
---     },
---     open = {
---       enable = false,
---     },
---     close = {
---       enable = false,
---     },
---   }
---
---   -- disable scrolling on mouse since it's bugged with the smooth scroll plugin
---   -- local scrolling_binds = {
---   --   '<ScrollWheelUp>',
---   --   '<S-ScrollWheelUp>',
---   --   '<C-ScrollWheelUp>',
---   --   '<ScrollWheelDown>',
---   --   '<S-ScrollWheelDown>',
---   --   '<C-ScrollWheelDown>',
---   --   '<ScrollWheelLeft>',
---   --   '<S-ScrollWheelLeft>',
---   --   '<C-ScrollWheelLeft>',
---   --   '<ScrollWheelRight>',
---   --   '<S-ScrollWheelRight>',
---   --   '<C-ScrollWheelRight>',
---   -- }
---   --
---   -- for i = 1, #scrolling_binds do
---   --   vim.keymap.set({ 'n', 'v', 'i' }, scrolling_binds[i], '<nop>')
---   -- end
--- end
+require('mini.operators').setup {
+  -- Evaluate text and replace with output
+  evaluate = {
+    prefix = 'g=',
+  },
 
-local mini_operators_status_ok, mini_operators = pcall(require, 'mini.operators')
-if mini_operators_status_ok then
-  mini_operators.setup {
-    -- Evaluate text and replace with output
-    evaluate = {
-      prefix = 'g=',
-    },
+  -- [a]rrange text regions
+  exchange = {
+    prefix = 'ga',
+    reindent_linewise = true, -- Whether to reindent new text to match previous indent
+  },
 
-    -- [a]rrange text regions
-    exchange = {
-      prefix = 'ga',
-      reindent_linewise = true, -- Whether to reindent new text to match previous indent
-    },
+  -- [m]ultiply (duplicate) text
+  multiply = {
+    prefix = 'gm',
+    func = nil, -- Function which can modify text before multiplying
+  },
 
-    -- [m]ultiply (duplicate) text
-    multiply = {
-      prefix = 'gm',
-      func = nil, -- Function which can modify text before multiplying
-    },
+  -- [s]wap text with register
+  replace = {
+    prefix = 'gs',
+    reindent_linewise = true, -- Whether to reindent new text to match previous indent
+  },
 
-    -- [s]wap text with register
-    replace = {
-      prefix = 'gs',
-      reindent_linewise = true, -- Whether to reindent new text to match previous indent
-    },
+  sort = { prefix = '' },
+}
 
-    -- [s]ort text
-    sort = {
-      prefix = '',
-      func = nil, -- Function which does the sort
-    },
-  }
+require('which-key').add {
+  { 'g=', desc = '[=]evaluate', icon = '' },
+  { 'g==', desc = '[=]evaluate current line', icon = '' },
 
-  require('which-key').add {
-    { 'g=', desc = '[=]evaluate', icon = '' },
-    { 'g==', desc = '[=]evaluate current line', icon = '' },
+  { 'ga', desc = 'exch[a]nge text', icon = '' },
+  { 'gaa', desc = 'exch[a]nge current line', icon = '' },
 
-    { 'ga', desc = 'exch[a]nge text', icon = '' },
-    { 'gaa', desc = 'exch[a]nge current line', icon = '' },
+  { 'gm', desc = '[m]ultiply text', icon = '' },
+  { 'gmm', desc = '[m]ultiply current line', icon = '' },
 
-    { 'gm', desc = '[m]ultiply text', icon = '' },
-    { 'gmm', desc = '[m]ultiply current line', icon = '' },
-
-    { 'gs', desc = '[s]wap text', icon = '' },
-    { 'gss', desc = '[s]wap current line', icon = '' },
-
-    -- { 'gs', desc = '[s]ort text', icon = '󰖽' },
-    -- { 'gss', desc = '[s]ort current line', icon = '󰖽' },
-  }
-end
+  { 'gs', desc = '[s]wap text', icon = '' },
+  { 'gss', desc = '[s]wap current line', icon = '' },
+}
 
 -- local statusline = require 'mini.statusline'
 -- statusline.setup { use_icons = vim.g.have_nerd_font }
