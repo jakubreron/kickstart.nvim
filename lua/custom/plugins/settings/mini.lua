@@ -66,6 +66,51 @@ if mini_surround_status_ok then
   }
 end
 
+-- local mini_animate_status_ok, mini_animate = pcall(require, 'mini.animate')
+-- if mini_animate_status_ok then
+--   mini_animate.setup {
+--     cursor = {
+--       enable = true,
+--       timing = mini_animate.gen_timing.linear { duration = 85, unit = 'total' },
+--     },
+--     scroll = {
+--       enable = false,
+--     },
+--     -- scroll = {
+--     --   enable = true,
+--     --   timing = require('mini.animate').gen_timing.linear { duration = 75, unit = 'total' },
+--     -- },
+--     resize = {
+--       enable = false,
+--     },
+--     open = {
+--       enable = false,
+--     },
+--     close = {
+--       enable = false,
+--     },
+--   }
+--
+--   -- disable scrolling on mouse since it's bugged with the smooth scroll plugin
+--   -- local scrolling_binds = {
+--   --   '<ScrollWheelUp>',
+--   --   '<S-ScrollWheelUp>',
+--   --   '<C-ScrollWheelUp>',
+--   --   '<ScrollWheelDown>',
+--   --   '<S-ScrollWheelDown>',
+--   --   '<C-ScrollWheelDown>',
+--   --   '<ScrollWheelLeft>',
+--   --   '<S-ScrollWheelLeft>',
+--   --   '<C-ScrollWheelLeft>',
+--   --   '<ScrollWheelRight>',
+--   --   '<S-ScrollWheelRight>',
+--   --   '<C-ScrollWheelRight>',
+--   -- }
+--   --
+--   -- for i = 1, #scrolling_binds do
+--   --   vim.keymap.set({ 'n', 'v', 'i' }, scrolling_binds[i], '<nop>')
+--   -- end
+-- end
 
 local mini_operators_status_ok, mini_operators = pcall(require, 'mini.operators')
 if mini_operators_status_ok then
@@ -75,32 +120,28 @@ if mini_operators_status_ok then
       prefix = 'g=',
     },
 
-    -- e[x]change text regions
+    -- [a]rrange text regions
     exchange = {
-      prefix = 'gx',
-      -- Whether to reindent new text to match previous indent
-      reindent_linewise = true,
+      prefix = 'ga',
+      reindent_linewise = true, -- Whether to reindent new text to match previous indent
     },
 
     -- [m]ultiply (duplicate) text
     multiply = {
       prefix = 'gm',
-      -- Function which can modify text before multiplying
-      func = nil,
+      func = nil, -- Function which can modify text before multiplying
     },
 
     -- [s]wap text with register
     replace = {
       prefix = 'gs',
-      -- Whether to reindent new text to match previous indent
-      reindent_linewise = true,
+      reindent_linewise = true, -- Whether to reindent new text to match previous indent
     },
 
-    -- [a]rrange text
+    -- [s]ort text
     sort = {
-      prefix = 'ga',
-      -- Function which does the sort
-      func = nil,
+      prefix = '',
+      func = nil, -- Function which does the sort
     },
   }
 
@@ -108,17 +149,17 @@ if mini_operators_status_ok then
     { 'g=', desc = '[=]evaluate', icon = '' },
     { 'g==', desc = '[=]evaluate current line', icon = '' },
 
-    { 'gs', desc = '[s]wap text', icon = '' },
-    { 'gss', desc = '[s]wap current line', icon = '' },
-
-    { 'ga', desc = '[a]rrange text', icon = '󰖽' },
-    { 'gaa', desc = '[a]rrange current line', icon = '󰖽' },
-
-    { 'gx', desc = 'e[x]change text', icon = '' },
-    { 'gxx', desc = 'e[x]change current line', icon = '' },
+    { 'ga', desc = 'exch[a]nge text', icon = '' },
+    { 'gaa', desc = 'exch[a]nge current line', icon = '' },
 
     { 'gm', desc = '[m]ultiply text', icon = '' },
     { 'gmm', desc = '[m]ultiply current line', icon = '' },
+
+    { 'gs', desc = '[s]wap text', icon = '' },
+    { 'gss', desc = '[s]wap current line', icon = '' },
+
+    -- { 'gs', desc = '[s]ort text', icon = '󰖽' },
+    -- { 'gss', desc = '[s]ort current line', icon = '󰖽' },
   }
 end
 
