@@ -502,6 +502,8 @@ require('lazy').setup({
         'css-lsp',
         'eslint-lsp',
         'intelephense',
+        'gopls',
+        'sqls',
 
         -- NOTE: linters
         -- ''
