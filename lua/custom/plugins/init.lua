@@ -147,28 +147,6 @@ return {
   },
 
   {
-    'ThePrimeagen/harpoon',
-    lazy = true,
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require 'custom.plugins.settings.harpoon'
-    end,
-    keys = {
-      { '<C-f>', desc = 'toggle harpoon quick menu' },
-      { '<C-b>', desc = 'add file to harpoon' },
-      { '] ', desc = '[ ] next harpoon file' },
-      { '[ ', desc = '[ ] prev harpoon file' },
-      { '<leader>1', desc = '[1] mark' },
-      { '<leader>2', desc = '[2] mark' },
-      { '<leader>3', desc = '[3] mark' },
-      { '<leader>4', desc = '[4] mark' },
-      { '<leader>5', desc = '[5] mark' },
-      { '<leader>6', desc = '[6] mark' },
-    },
-  },
-
-  {
     'christoomey/vim-tmux-navigator', -- tmux navigation from within nvim
     lazy = true,
     cmd = {
