@@ -1,4 +1,4 @@
-local Mappings = {}
+local M = {}
 
 local action_with_formatting = function(command)
   return function()
@@ -10,7 +10,7 @@ local action_with_formatting = function(command)
   end
 end
 
-Mappings.config = function(bufnr)
+M.config = function(bufnr)
   vim.keymap.set('n', 'gR', '<cmd>TSToolsFileReferences<cr>', {
     desc = '[g]oto file [R]eference',
     buffer = bufnr,
@@ -58,4 +58,4 @@ Mappings.config = function(bufnr)
   })
 end
 
-return Mappings
+return M

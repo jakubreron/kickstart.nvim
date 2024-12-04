@@ -1,6 +1,6 @@
-local Mappings = {}
+local M = {}
 
-Mappings.config = function(bufnr)
+M.config = function(bufnr)
   vim.keymap.set('n', ']u', "<cmd>lua require('neotest').jump.next({ status = 'failed' })<cr>", {
     buffer = bufnr,
     desc = 'next failed [u]nit test',
@@ -77,4 +77,4 @@ Mappings.config = function(bufnr)
   })
 end
 
-return Mappings
+return M
