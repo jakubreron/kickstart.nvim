@@ -8,7 +8,7 @@ telescope.setup {
   defaults = {
     mappings = {
       i = {
-        ['<c-enter>'] = require('telescope.actions').to_fuzzy_refine, -- this is useful
+        ['<C-space>'] = require('telescope.actions').to_fuzzy_refine,
 
         ['<C-a>'] = { '<Home>', type = 'command' },
         ['<C-e>'] = { '<End>', type = 'command' },
@@ -34,8 +34,9 @@ telescope.setup {
       auto_quoting = true,
       mappings = {
         i = {
+          ['<C-i>'] = require('telescope-live-grep-args.actions').quote_prompt,
           ['<C-g>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob ' },
-          ['<C-s>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob *.spec.*' },
+          ['<C-s>'] = require('telescope-live-grep-args.actions').quote_prompt { postfix = ' --iglob *.test.*' },
         },
       },
     },
