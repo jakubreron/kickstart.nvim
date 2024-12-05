@@ -232,6 +232,7 @@ return {
   {
     'folke/ts-comments.nvim',
     opts = {},
+    event = 'VeryLazy',
   },
 
   {
@@ -298,11 +299,6 @@ return {
         '-',
         '<cmd>Oil<cr>',
         desc = '[-] explorer',
-      },
-      {
-        '<leader>-',
-        '<cmd>Oil --float<cr>',
-        desc = '[-] explorer (floating window)',
       },
     },
   },
