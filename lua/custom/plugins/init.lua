@@ -16,21 +16,6 @@ return {
   },
 
   {
-    'folke/zen-mode.nvim',
-    lazy = true,
-    cmd = {
-      'ZenMode',
-    },
-    keys = {
-      {
-        '<leader>z',
-        '<cmd>ZenMode<cr>',
-        desc = '[z]en mode',
-      },
-    },
-  },
-
-  {
     'Wansmer/treesj',
     lazy = true,
     keys = {
