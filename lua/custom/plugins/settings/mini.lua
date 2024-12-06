@@ -28,11 +28,11 @@ require('mini.surround').setup {
   mappings = {
     add = 'ys', -- Add surrounding in Normal and Visual modes
     delete = 'ds', -- Delete surrounding
-    find = ']s', -- Find surrounding (to the right)
-    find_left = '[s', -- Find surrounding (to the left)
     replace = 'cs', -- Replace surrounding
 
     -- unused / unnecessary
+    find = '', -- Find surrounding (to the right)
+    find_left = '', -- Find surrounding (to the left)
     update_n_lines = '', -- Update `n_lines`
     highlight = '', -- Highlight surrounding
   },
