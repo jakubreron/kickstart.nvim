@@ -89,7 +89,7 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
   pattern = vim.fn.expand '$VIMWIKI_DIR' .. '/**/*',
   callback = function()
     local filename = vim.fn.expand '%:t'
-    vim.fn.jobstart(auto_commit('docs', 'vimwiki', filename), { detach = true })
+    vim.fn.jobstart(auto_commit('docs', 'vimwiki', filename))
   end,
 })
 
@@ -102,6 +102,6 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
   },
   callback = function()
     local filename = vim.fn.expand '%:t'
-    vim.fn.jobstart(auto_commit('config', filename), { detach = true })
+    vim.fn.jobstart(auto_commit('config', filename))
   end,
 })
