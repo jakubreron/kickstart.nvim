@@ -42,7 +42,7 @@ require('mini.surround').setup {
 }
 
 require('mini.operators').setup {
-  -- Evaluate text and replace with output
+  -- [=] Evaluate text and replace with output
   evaluate = {
     prefix = 'g=',
   },
