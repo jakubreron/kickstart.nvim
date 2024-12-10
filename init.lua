@@ -1,4 +1,4 @@
-require 'custom.plugins.settings.vars'
+require 'custom.plugin-vars'
 
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -197,12 +197,53 @@ require('lazy').setup({
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
-      require 'custom.plugins.settings.telescope'
+      local telescope = require 'telescope'
+      local actions = require 'telescope.actions'
+      local live_grep_args_actions = require 'telescope-live-grep-args.actions'
+
+      telescope.setup {
+        defaults = {
+          mappings = {
+            i = {
+              ['<C-space>'] = actions.to_fuzzy_refine,
+
+              ['<C-a>'] = { '<Home>', type = 'command' },
+              ['<C-e>'] = { '<End>', type = 'command' },
+
+              ['<C-j>'] = actions.cycle_history_next,
+              ['<C-k>'] = actions.cycle_history_prev,
+            },
+          },
+          path_display = {
+            filename_first = {
+              reverse_directories = false,
+            },
+          },
+          scroll_strategy = 'limit',
+          layout_strategy = 'vertical',
+          layout_config = { height = 0.95 },
+        },
+        extensions = {
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown(),
+          },
+          live_grep_args = {
+            auto_quoting = true,
+            mappings = {
+              i = {
+                ['<C-i>'] = live_grep_args_actions.quote_prompt,
+                ['<C-g>'] = live_grep_args_actions.quote_prompt { postfix = ' --iglob ' },
+                ['<C-s>'] = live_grep_args_actions.quote_prompt { postfix = ' --iglob *.test.*' },
+              },
+            },
+          },
+        },
+      }
 
       -- Enable Telescope extensions if they are installed
-      pcall(require('telescope').load_extension, 'fzf')
-      pcall(require('telescope').load_extension, 'ui-select')
-      pcall(require('telescope').load_extension, 'live_grep_args')
+      pcall(telescope.load_extension, 'fzf')
+      pcall(telescope.load_extension, 'ui-select')
+      pcall(telescope.load_extension, 'live_grep_args')
 
       local builtin = require 'telescope.builtin'
 
@@ -220,7 +261,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[s]elect telescope' })
       vim.keymap.set('n', '<leader>sh', builtin.search_history, { desc = '[h]istory' })
       vim.keymap.set('n', '<leader>sw', require('telescope-live-grep-args.shortcuts').grep_word_under_cursor, { desc = '[w]ord' })
-      vim.keymap.set('n', '<leader>st', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[t]ext' })
+      vim.keymap.set('n', '<leader>st', telescope.extensions.live_grep_args.live_grep_args, { desc = '[t]ext' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[d]iagnostics' })
       vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[l]ast resume' })
       vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[r]ecent files' })
@@ -772,15 +813,6 @@ require('lazy').setup({
       for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('lua/custom/snippets/*.lua', true)) do
         loadfile(ft_path)()
       end
-    end,
-  },
-
-  {
-    'echasnovski/mini.nvim',
-    lazy = true,
-    event = 'VeryLazy',
-    config = function()
-      require 'custom.plugins.settings.mini'
     end,
   },
 
