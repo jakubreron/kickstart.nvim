@@ -6,56 +6,32 @@ local action_with_formatting = function(command)
 
     vim.defer_fn(function()
       require('conform').format { async = true, lsp_fallback = false }
-    end, 200)
+    end, 250)
   end
 end
 
 M.config = function(bufnr)
-  vim.keymap.set('n', 'gR', '<cmd>TSToolsFileReferences<cr>', {
-    desc = '[g]oto file [R]eference',
-    buffer = bufnr,
-  })
+  local set_normal_keymap = function(keybind, command, desc)
+    vim.keymap.set('n', keybind, command, {
+      buffer = bufnr,
+      desc = desc,
+    })
+  end
 
-  vim.keymap.set('n', 'gd', '<cmd>TSToolsGoToSourceDefinition<cr>', {
-    desc = '[g]oto [d]efiniton',
-    buffer = bufnr,
-  })
-
-  vim.keymap.set('n', '<leader>fr', action_with_formatting 'TSToolsRenameFile', {
-    desc = '[r]ename',
-    buffer = bufnr,
-  })
+  set_normal_keymap('gd', '<cmd>TSToolsGoToSourceDefinition<cr>', '[g]oto [d]efiniton')
+  set_normal_keymap('gR', '<cmd>TSToolsFileReferences<cr>', '[g]oto file [R]eference')
+  set_normal_keymap('<leader>fr', action_with_formatting 'TSToolsRenameFile', '[r]ename')
 
   require('which-key').add {
     { '<leader>li', desc = '[i]mports', icon = '󰋺' },
     { '<leader>lo', desc = '[o]rganize', icon = '󰒺' },
   }
-
-  vim.keymap.set('n', '<leader>lio', action_with_formatting 'TSToolsOrganizeImports', {
-    desc = '[o]rganize',
-    buffer = bufnr,
-  })
-  vim.keymap.set('n', '<leader>lis', action_with_formatting 'TSToolsSortImports', {
-    desc = '[s]ort',
-    buffer = bufnr,
-  })
-  vim.keymap.set('n', '<leader>lir', action_with_formatting 'TSToolsRemoveUnusedImports', {
-    desc = '[r]emove unused',
-    buffer = bufnr,
-  })
-  vim.keymap.set('n', '<leader>lia', action_with_formatting 'TSToolsAddMissingImports', {
-    desc = '[a]dd missing',
-    buffer = bufnr,
-  })
-
-  vim.keymap.set('n', '<leader>lor', action_with_formatting 'TSToolsRemoveUnused', {
-    desc = '[r]emove unused statements',
-    buffer = bufnr,
-  })
-  vim.keymap.set('n', '<leader>lof', action_with_formatting 'TSToolsFixAll', {
-    desc = '[f]ix fixable errors',
-    buffer = bufnr,
-  })
+  set_normal_keymap('<leader>lio', action_with_formatting 'TSToolsOrganizeImports', '[o]rganize')
+  set_normal_keymap('<leader>lis', action_with_formatting 'TSToolsSortImports', '[s]ort')
+  set_normal_keymap('<leader>lir', action_with_formatting 'TSToolsRemoveUnusedImports', '[r]emove unused')
+  set_normal_keymap('<leader>lia', action_with_formatting 'TSToolsAddMissingImports', '[a]dd missing')
+  set_normal_keymap('<leader>lor', action_with_formatting 'TSToolsRemoveUnused', '[r]emove unused statements')
+  set_normal_keymap('<leader>lof', action_with_formatting 'TSToolsFixAll', '[f]ix fixable errors')
 end
 
 return M
