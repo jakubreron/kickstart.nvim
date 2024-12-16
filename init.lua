@@ -158,7 +158,6 @@ require('lazy').setup({
         { '<leader>r', desc = '[r]eplace', icon = '󰛔' },
         { '<leader>o', desc = '[o]bsession', icon = '' },
         { '<leader>l', desc = '[l]sp', icon = '' },
-        { '<leader>l_', desc = '[_]actions', icon = '' },
         { '<leader>p', desc = '[p]ackages', icon = '' },
         { '<leader>t', desc = '[t]ab', icon = '󰓩' },
         { '<leader>f', desc = '[f]ile', icon = '' },
@@ -224,6 +223,7 @@ require('lazy').setup({
           layout_config = { height = 0.95 },
         },
         extensions = {
+          fzf = {},
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
