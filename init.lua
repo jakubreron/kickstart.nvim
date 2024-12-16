@@ -384,9 +384,6 @@ require('lazy').setup({
           map('<leader>lr', vim.lsp.buf.rename, '[r]ename')
           map('<leader>la', vim.lsp.buf.code_action, '[a]ction', { 'n', 'x' })
 
-          map('<leader>l_i', '<cmd>LspInfo<cr>', '[i]nfo')
-          map('<leader>l_r', '<cmd>LspRestart<cr>', '[r]estart')
-
           -- hover with lsp instead of manpages
           map('H', vim.lsp.buf.signature_help, 'signature [H]elp')
 
