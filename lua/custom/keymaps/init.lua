@@ -14,6 +14,8 @@ vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<cr>', { desc = '[s]pelling tog
 vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<cr>', { desc = '[p]olish' })
 vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<cr>', { desc = '[e]nglish' })
 
+-- fix weird terminal alignment after quitting to normal mode
+vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'exit terminal mode' })
 -- NOTE: center search matches
 vim.keymap.set('n', 'n', 'nzzzv', { silent = true })
 vim.keymap.set('n', 'N', 'Nzzzv', { silent = true })
