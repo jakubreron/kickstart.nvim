@@ -15,6 +15,9 @@ vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<cr>', { desc = '[s]pelling tog
 vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<cr>', { desc = '[p]olish' })
 vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<cr>', { desc = '[e]nglish' })
 
+-- fix weird terminal alignment after quitting to normal mode
+vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'exit terminal mode' })
+
 -- NOTE: center search matches
 vim.keymap.set('n', 'n', 'nzzzv', { silent = true })
 vim.keymap.set('n', 'N', 'Nzzzv', { silent = true })
@@ -45,18 +48,11 @@ vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j')
 vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k')
 vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l')
 
--- NOTE: tab
-vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<cr>', { desc = '[n]ew' })
-vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>', { desc = '[c]lose' })
-vim.keymap.set('n', '<leader>to', '<cmd>tabonly<cr>', { desc = '[o]nly' })
-vim.keymap.set('n', '<leader>tm', ':tabmove', { desc = '[m]ove' })
-vim.keymap.set('n', '<leader>te', ":tabedit <C-r>=expand('%:p:h')<cr>/", { desc = '[e]dit' })
-
 -- NOTE: lazy
 vim.keymap.set('n', '<leader>ph', '<cmd>Lazy<cr>', { desc = '[h]ome' })
 vim.keymap.set('n', '<leader>pi', '<cmd>Lazy install<cr>', { desc = '[i]nstall' })
 vim.keymap.set('n', '<leader>ps', '<cmd>Lazy sync<cr>', { desc = '[s]ync' })
-vim.keymap.set('n', '<leader>px', '<cmd>Lazy clean<cr>', { desc = '[x] clean' })
+vim.keymap.set('n', '<leader>px', '<cmd>Lazy clean<cr>', { desc = '[x]clean' })
 vim.keymap.set('n', '<leader>pp', '<cmd>Lazy profile<cr>', { desc = '[p]rofile' })
 vim.keymap.set('n', '<leader>pr', '<cmd>Lazy restore<cr>', { desc = '[r]estore' })
 

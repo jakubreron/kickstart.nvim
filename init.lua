@@ -158,7 +158,6 @@ require('lazy').setup({
         { '<leader>r', desc = '[r]eplace', icon = '󰛔' },
         { '<leader>o', desc = '[o]bsession', icon = '' },
         { '<leader>l', desc = '[l]sp', icon = '' },
-        { '<leader>l_', desc = '[_]actions', icon = '' },
         { '<leader>p', desc = '[p]ackages', icon = '' },
         { '<leader>t', desc = '[t]ab', icon = '󰓩' },
         { '<leader>f', desc = '[f]ile', icon = '' },
@@ -224,6 +223,7 @@ require('lazy').setup({
           layout_config = { height = 0.95 },
         },
         extensions = {
+          fzf = {},
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
@@ -383,9 +383,6 @@ require('lazy').setup({
 
           map('<leader>lr', vim.lsp.buf.rename, '[r]ename')
           map('<leader>la', vim.lsp.buf.code_action, '[a]ction', { 'n', 'x' })
-
-          map('<leader>l_i', '<cmd>LspInfo<cr>', '[i]nfo')
-          map('<leader>l_r', '<cmd>LspRestart<cr>', '[r]estart')
 
           -- hover with lsp instead of manpages
           map('H', vim.lsp.buf.signature_help, 'signature [H]elp')
