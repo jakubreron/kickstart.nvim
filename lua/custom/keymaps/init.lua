@@ -15,6 +15,7 @@ vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<cr>', { desc = '[
 
 -- fix weird terminal alignment after quitting to normal mode
 vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'exit terminal mode' })
+
 -- NOTE: center search matches
 vim.keymap.set('n', 'n', 'nzzzv', { silent = true })
 vim.keymap.set('n', 'N', 'Nzzzv', { silent = true })
