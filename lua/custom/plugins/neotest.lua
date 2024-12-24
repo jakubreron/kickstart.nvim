@@ -11,6 +11,15 @@ return {
       'marilari88/neotest-vitest',
     },
     config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'neotest-output', 'neotest-output-panel', 'neotest-attach' },
+        callback = function()
+          vim.cmd 'norm G'
+          vim.cmd 'setlocal number'
+          vim.cmd 'setlocal relativenumber'
+        end,
+      })
+
       local neotest = require 'neotest'
       local function get_vitest_adapter()
         -- NOTE: it was being attached to monorepo that contains both jest and vitest

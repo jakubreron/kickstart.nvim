@@ -1,3 +1,4 @@
+-- NOTE: restore cursor to previous position
 vim.api.nvim_create_autocmd('BufRead', {
   pattern = '*',
   command = 'normal g\'"',
@@ -8,6 +9,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   pattern = '*',
   callback = function()
     local bufname = vim.fn.expand '<afile>'
+
     if not string.match(bufname, 'node_modules') then
       vim.cmd 'checktime'
     end
@@ -23,7 +25,7 @@ vim.api.nvim_create_autocmd({ 'VimResized' }, {
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { '*/node_modules/*' },
   callback = function(args)
-    vim.diagnostic.disable(args.buf)
+    vim.diagnostic.enable(false, { bufnr = args.buf })
 
     vim.cmd 'setlocal noundofile'
     vim.cmd 'setlocal noautoindent'
@@ -37,15 +39,6 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     vim.cmd 'TSBufDisable incremental_selection'
     vim.cmd 'TSBufDisable indent'
     vim.cmd 'TSBufDisable autotag'
-  end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'neotest-output', 'neotest-output-panel', 'neotest-attach' },
-  callback = function()
-    vim.cmd 'norm G'
-    vim.cmd 'setlocal number'
-    vim.cmd 'setlocal relativenumber'
   end,
 })
 
@@ -64,20 +57,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  pattern = '*.tfvars',
-  command = 'setlocal filetype=tf',
-})
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  pattern = { '.env*' },
-  command = 'setlocal filetype=sh',
-})
-
-vim.api.nvim_create_autocmd({ 'VimLeave' }, {
-  pattern = 'bm-*',
-  command = '!shortcuts',
-})
-
 local auto_commit = function(type, scope, description)
   description = description or '⚙️ auto-commit changes'
   local commit = string.format('%s(%s): %s', type, scope, description)
@@ -86,7 +65,10 @@ local auto_commit = function(type, scope, description)
 end
 
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
-  pattern = vim.fn.expand '$VIMWIKI_DIR' .. '/**/*',
+  pattern = {
+    vim.fn.expand '$VIMWIKI_DIR' .. '/**/*',
+    vim.fn.expand '$HOME' .. '/.config/ticker/.ticker.yaml',
+  },
   callback = function()
     local filename = vim.fn.expand '%:t'
     vim.fn.jobstart(auto_commit('docs', 'vimwiki', filename))
@@ -94,14 +76,10 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
-  pattern = {
-    vim.fn.expand '$HOME' .. '/.config/shell/aliasrc*',
-    vim.fn.expand '$HOME' .. '/.config/shell/profile*',
-    vim.fn.expand '$HOME' .. '/.config/ticker/.ticker.yaml',
-    'bm-*',
-  },
+  pattern = 'bm-*',
   callback = function()
     local filename = vim.fn.expand '%:t'
     vim.fn.jobstart(auto_commit('config', filename))
+    vim.cmd '!shortcuts'
   end,
 })
