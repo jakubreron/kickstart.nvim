@@ -450,6 +450,9 @@ require('lazy').setup({
           server_capabilities = {
             semanticTokensProvider = vim.NIL,
           },
+          -- cmd = { ... },
+          -- filetypes = { ... },
+          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
