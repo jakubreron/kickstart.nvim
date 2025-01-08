@@ -313,6 +313,11 @@ require('lazy').setup({
         event = 'User FileOpened',
         lazy = true,
         config = true,
+        opts = {
+          ui = {
+            border = 'rounded',
+          },
+        },
       }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -542,13 +547,6 @@ require('lazy').setup({
           server_capabilities = {
             documentFormattingProvider = false,
           },
-        },
-      }
-
-      -- Ensure the servers and tools above are installed
-      require('mason').setup {
-        ui = {
-          border = 'rounded',
         },
       }
 
