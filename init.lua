@@ -42,7 +42,6 @@ vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
--- Displays which-key popup sooner
 vim.opt.timeoutlen = 300
 
 -- Configure how new splits should be opened
@@ -101,6 +100,9 @@ require('lazy').setup({
     lazy = true,
     keys = { '<leader>', '<c-r>', '"', "'", '`', 'c', 'v', 'g' },
     opts = {
+      -- delay between pressing a key and opening which-key (milliseconds)
+      -- this setting is independent of vim.opt.timeoutlen
+      delay = 0,
       plugins = {
         presets = {
           operators = false, -- adds help for operators like d, y, ...
@@ -302,7 +304,6 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       {
         'williamboman/mason.nvim',
-        cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog' },
         keys = {
           {
             '<leader>lm',
@@ -310,9 +311,6 @@ require('lazy').setup({
             desc = '[m]ason',
           },
         },
-        event = 'User FileOpened',
-        lazy = true,
-        config = true,
         opts = {
           ui = {
             border = 'rounded',
