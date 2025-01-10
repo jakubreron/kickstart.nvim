@@ -1,7 +1,7 @@
 -- vim.opt.dictionary = '/usr/share/dict/words' -- ctrl-x ctrl-k word suggestion
 vim.opt.swapfile = false -- creates a swapfile
 vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program) it is not allowed to be edited
-vim.opt.jumpoptions = 'stack,view' -- preserve the jump position on the screen (if I jumped from "zb" position, I should go back there, instead of to "zz")
+-- vim.opt.cmdheight = 0 -- NOTE: not enabled since there is no way to see if macro is being recorded
 
 vim.opt.spelllang:append 'cjk' -- disable spellchecking for asian characters (VIM algorithm does not support it)
 
