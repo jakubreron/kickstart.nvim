@@ -64,11 +64,28 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 
+vim.opt.swapfile = false -- creates a swapfile
+
+vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program) it is not allowed to be edited
+
+vim.opt.spelllang:append 'cjk' -- disable spellchecking for asian characters (VIM algorithm does not support it)
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[q]uickfix List' })
+
+vim.filetype.add {
+  pattern = {
+    ['.*/hypr/.*%.conf'] = 'hyprlang',
+    ['[jt]sconfig.*.json'] = 'jsonc',
+    ['%.env.*'] = 'sh',
+  },
+  extension = {
+    tfvars = 'tf',
+  },
+}
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'highlight when yanking (copying) text',
@@ -421,6 +438,24 @@ require('lazy').setup({
           end
         end,
       })
+
+      -- add border to all hover actions
+      local border = {
+        { '╭', 'FloatBorder' },
+        { '─', 'FloatBorder' },
+        { '╮', 'FloatBorder' },
+        { '│', 'FloatBorder' },
+        { '╯', 'FloatBorder' },
+        { '─', 'FloatBorder' },
+        { '╰', 'FloatBorder' },
+        { '│', 'FloatBorder' },
+      }
+      local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or border
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+      end
 
       -- Change diagnostic symbols in the sign column (gutter)
       if vim.g.have_nerd_font then
@@ -883,11 +918,9 @@ require('lazy').setup({
   },
 })
 
-require 'custom.settings'
 require 'custom.autocmds'
 require 'custom.iabbrev'
 require 'custom.keymaps'
-require 'custom.neovide'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
