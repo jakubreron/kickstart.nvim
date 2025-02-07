@@ -84,7 +84,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({
+require('lazy').setup {
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   {
@@ -194,16 +194,12 @@ require('lazy').setup({
     dependencies = {
       {
         'williamboman/mason.nvim',
+        config = true,
         keys = {
           {
             '<leader>lm',
             '<cmd>Mason<cr>',
             desc = '[m]ason',
-          },
-        },
-        opts = {
-          ui = {
-            border = 'rounded',
           },
         },
       }, -- NOTE: Must be loaded before dependants
@@ -213,22 +209,11 @@ require('lazy').setup({
       {
         'j-hui/fidget.nvim',
         config = true,
-        opts = {
-          notification = {
-            window = {
-              border = 'rounded',
-              x_padding = 0,
-              y_padding = 0,
-            },
-          },
-        },
       },
 
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
-      require('lspconfig.ui.windows').default_options.border = 'rounded'
-
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -283,23 +268,6 @@ require('lazy').setup({
           end
         end,
       })
-
-      local border = {
-        { '╭', 'FloatBorder' },
-        { '─', 'FloatBorder' },
-        { '╮', 'FloatBorder' },
-        { '│', 'FloatBorder' },
-        { '╯', 'FloatBorder' },
-        { '─', 'FloatBorder' },
-        { '╰', 'FloatBorder' },
-        { '│', 'FloatBorder' },
-      }
-      local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-        opts = opts or {}
-        opts.border = opts.border or border
-        return orig_util_open_floating_preview(contents, syntax, opts, ...)
-      end
 
       local signs = { Error = '', Warn = '', Hint = '', Info = '' }
       for type, icon in pairs(signs) do
@@ -571,11 +539,6 @@ require('lazy').setup({
         },
         completion = { completeopt = completeopt },
 
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-
         mapping = cmp.mapping.preset.insert {
           ['<C-n>'] = cmp.mapping.select_next_item(),
           ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -663,11 +626,7 @@ require('lazy').setup({
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'custom.plugins' },
-}, {
-  ui = {
-    border = 'rounded',
-  },
-})
+}
 
 require 'custom.autocmds'
 require 'custom.iabbrev'
