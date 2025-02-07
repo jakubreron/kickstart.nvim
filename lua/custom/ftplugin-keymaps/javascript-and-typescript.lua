@@ -14,10 +14,6 @@ M.config = function(bufnr)
     '[p]erformance console.log'
   )
 
-  require('which-key').add {
-    { '<leader>u', desc = '[u]nit tests', icon = '󰙨' },
-  }
-
   set_normal_keymap(']u', "<cmd>lua require('neotest').jump.next({ status = 'failed' })<cr>", 'next failed [u]nit test')
   set_normal_keymap('[u', "<cmd>lua require('neotest').jump.prev({ status = 'failed' })<cr>", 'previous failed [u]nit test')
   set_normal_keymap('<leader>ur', function()

@@ -22,10 +22,6 @@ M.config = function(bufnr)
   set_normal_keymap('gR', '<cmd>TSToolsFileReferences<cr>', '[g]oto file [R]eference')
   set_normal_keymap('<leader>fr', action_with_formatting 'TSToolsRenameFile', '[r]ename')
 
-  require('which-key').add {
-    { '<leader>li', desc = '[i]mports', icon = '󰋺' },
-    { '<leader>lo', desc = '[o]rganize', icon = '󰒺' },
-  }
   set_normal_keymap('<leader>lio', action_with_formatting 'TSToolsOrganizeImports', '[o]rganize')
   set_normal_keymap('<leader>lis', action_with_formatting 'TSToolsSortImports', '[s]ort')
   set_normal_keymap('<leader>lir', action_with_formatting 'TSToolsRemoveUnusedImports', '[r]emove unused')

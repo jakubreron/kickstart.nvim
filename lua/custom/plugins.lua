@@ -38,13 +38,6 @@ return {
       'gz',
       'gzz',
     },
-    config = function()
-      require('which-key').add {
-        { 'gz', desc = '[z]Z titlecase', icon = '' },
-        { 'gJ', desc = '[J]oin', icon = '󰦦' },
-        { 'gS', desc = '[S]plit', icon = '󰦦' },
-      }
-    end,
   },
 
   {
@@ -117,12 +110,6 @@ return {
         { 'toBeEnabled', 'toBeDisabled' },
         { 'left', 'center', 'right' },
         { 'light', 'dark' },
-      },
-      allow_caps_additions = {
-        { 'enable', 'disable' },
-        -- enable → disable
-        -- Enable → Disable
-        -- ENABLE → DISABLE
       },
     },
     keys = {
@@ -210,78 +197,24 @@ return {
         },
       }
 
-      require('mini.surround').setup {
-        -- I liked tpope bindings more
-        mappings = {
-          add = 'ys', -- Add surrounding in Normal and Visual modes
-          delete = 'ds', -- Delete surrounding
-          replace = 'cs', -- Replace surrounding
-
-          -- unused / unnecessary
-          find = '', -- Find surrounding (to the right)
-          find_left = '', -- Find surrounding (to the left)
-          update_n_lines = '', -- Update `n_lines`
-          highlight = '', -- Highlight surrounding
-        },
-
-        -- Number of lines within which surrounding is searched
-        n_lines = 500,
-      }
-
       require('mini.operators').setup {
-        -- [=] Evaluate text and replace with output
         evaluate = {
-          prefix = 'g=',
+          prefix = 'g=', -- [=] Evaluate text and replace with output
         },
-
-        -- [a]rrange text regions
         exchange = {
-          prefix = 'ga',
+          prefix = 'ga', -- [a]rrange text regions
           reindent_linewise = true, -- Whether to reindent new text to match previous indent
         },
-
-        -- [m]ultiply (duplicate) text
         multiply = {
-          prefix = 'gm',
+          prefix = 'gm', -- [m]ultiply (duplicate) text
           func = nil, -- Function which can modify text before multiplying
         },
-
-        -- [s]wap text with register
         replace = {
-          prefix = 'gs',
+          prefix = 'gs', -- [s]wap text with register
           reindent_linewise = true, -- Whether to reindent new text to match previous indent
         },
-
         sort = { prefix = '' },
       }
-
-      require('which-key').add {
-        { 'g=', desc = '[=]evaluate', icon = '' },
-        { 'g==', desc = '[=]evaluate current line', icon = '' },
-
-        { 'ga', desc = 'exch[a]nge text', icon = '' },
-        { 'gaa', desc = 'exch[a]nge current line', icon = '' },
-
-        { 'gm', desc = '[m]ultiply text', icon = '' },
-        { 'gmm', desc = '[m]ultiply current line', icon = '' },
-
-        { 'gs', desc = '[s]wap text', icon = '' },
-        { 'gss', desc = '[s]wap current line', icon = '' },
-      }
-
-      -- local statusline = require 'mini.statusline'
-      -- statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      -- statusline.section_location = function()
-      --   return '%2l:%-2v'
-      -- end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
 
@@ -484,9 +417,7 @@ return {
         desc = '[S]plit',
       },
     },
-    opts = {
-      use_default_keymaps = false,
-    },
+    opts = { use_default_keymaps = false },
   },
   {
     'christoomey/vim-tmux-navigator', -- tmux navigation from within nvim
@@ -510,5 +441,12 @@ return {
       vim.g.tmux_navigator_disable_when_zoomed = 1
       vim.g.tmux_navigator_save_on_switch = 2
     end,
+  },
+
+  {
+    'kylechui/nvim-surround',
+    version = '*', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VeryLazy',
+    config = true,
   },
 }
