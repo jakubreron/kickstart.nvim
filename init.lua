@@ -4,6 +4,9 @@ vim.g.maplocalleader = ' '
 
 vim.g.monorepo_name = 'singularity'
 
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -85,8 +88,6 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
   {
     'nvim-telescope/telescope.nvim',
     lazy = true,
@@ -384,12 +385,12 @@ require('lazy').setup {
             },
           },
         },
-        ts_ls = {
-          root_dir = require('lspconfig.util').root_pattern('package.json', '.git'),
-          server_capabilities = {
-            documentFormattingProvider = false,
-          },
-        },
+        -- ts_ls = {
+        --   root_dir = require('lspconfig.util').root_pattern('package.json', '.git'),
+        --   server_capabilities = {
+        --     documentFormattingProvider = false,
+        --   },
+        -- },
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -490,8 +491,6 @@ require('lazy').setup {
         end,
         formatters_by_ft = {
           lua = { 'stylua' },
-          -- Conform can also run multiple formatters sequentially
-          -- python = { "isort", "black" },
 
           javascript = js_ts_formatters_callback,
           javascriptreact = js_ts_formatters_callback,
@@ -559,7 +558,7 @@ require('lazy').setup {
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.autopairs',
+  -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
