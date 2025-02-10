@@ -89,104 +89,181 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
   {
-    'nvim-telescope/telescope.nvim',
-    lazy = true,
-    event = 'VeryLazy',
-    branch = 'master',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
-      },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-telescope/telescope-live-grep-args.nvim' },
-    },
-    config = function()
-      local telescope = require 'telescope'
-      local actions = require 'telescope.actions'
-      local live_grep_args_actions = require 'telescope-live-grep-args.actions'
-
-      telescope.setup {
-        defaults = {
-          mappings = {
-            i = {
-              ['<C-space>'] = actions.to_fuzzy_refine,
-
-              ['<C-a>'] = { '<Home>', type = 'command' },
-              ['<C-e>'] = { '<End>', type = 'command' },
-
-              ['<C-j>'] = actions.cycle_history_next,
-              ['<C-k>'] = actions.cycle_history_prev,
-            },
-          },
-          path_display = {
-            filename_first = {
-              reverse_directories = false,
-            },
-          },
-          scroll_strategy = 'limit',
-          layout_strategy = 'vertical',
-          layout_config = { height = 0.95 },
-        },
-        extensions = {
-          fzf = {},
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-          },
-          live_grep_args = {
-            auto_quoting = true,
-            mappings = {
-              i = {
-                ['<C-i>'] = live_grep_args_actions.quote_prompt,
-                ['<C-g>'] = live_grep_args_actions.quote_prompt { postfix = ' --iglob ' },
-                ['<C-s>'] = live_grep_args_actions.quote_prompt { postfix = ' --iglob *.test.*' },
-              },
-            },
-          },
-        },
-      }
-
-      pcall(telescope.load_extension, 'fzf')
-      pcall(telescope.load_extension, 'ui-select')
-      pcall(telescope.load_extension, 'live_grep_args')
-
-      local builtin = require 'telescope.builtin'
-
-      vim.keymap.set('n', '<leader>svh', builtin.help_tags, { desc = '[h]elp' })
-      vim.keymap.set('n', '<leader>svk', builtin.keymaps, { desc = '[k]eymaps' })
-      vim.keymap.set('n', '<leader>svc', function()
-        builtin.colorscheme { enable_preview = true }
-      end, { desc = '[c]olorscheme' })
-      vim.keymap.set('n', '<leader>svn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[n]eovim files' })
-
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[f]iles' })
-      vim.keymap.set('n', '<leader>sw', require('telescope-live-grep-args.shortcuts').grep_word_under_cursor, { desc = '[w]ord' })
-      vim.keymap.set('n', '<leader>st', telescope.extensions.live_grep_args.live_grep_args, { desc = '[t]ext' })
-      vim.keymap.set('n', '<leader>sl', builtin.resume, { desc = '[l]ast resume' })
-      vim.keymap.set('n', '<leader>sr', builtin.oldfiles, { desc = '[r]ecent files' })
-      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[b]uffers' })
-
-      vim.keymap.set('n', '<leader>sgf', builtin.git_status, { desc = '[f]iles (changed)' })
-      vim.keymap.set('n', '<leader>sgc', builtin.git_bcommits, { desc = '[c]ommit (current file)' })
-      vim.keymap.set('n', '<leader>sgC', builtin.git_commits, { desc = '[C]ommit (all files)' })
-      vim.keymap.set('n', '<leader>sgb', builtin.git_branches, { desc = '[b]ranch' })
-
-      vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] fuzzily search in current buffer' })
-    end,
-  },
-
-  {
     'folke/lazydev.nvim',
     ft = 'lua',
     opts = {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      -- statuscolumn = { enabled = true },
+      lazygit = { enabled = true },
+      picker = {
+        matcher = {
+          frecency = true,
+          history_bonus = true,
+        },
+        win = {
+          input = {
+            keys = {
+              ['<C-u>'] = { 'preview_scroll_up', mode = { 'i', 'n' } },
+              ['<C-d>'] = { 'preview_scroll_down', mode = { 'i', 'n' } },
+              ['<C-k>'] = { 'history_back', mode = { 'i', 'n' } },
+              ['<C-j>'] = { 'history_forward', mode = { 'i', 'n' } },
+            },
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        '<leader>sb',
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = '[b]uffers',
+      },
+      {
+        '<leader>sf',
+        function()
+          Snacks.picker.smart()
+        end,
+        desc = '[f]iles',
+      },
+      {
+        '<leader>sd',
+        function()
+          Snacks.picker.diagnostics()
+        end,
+        desc = '[d]iagnostic',
+      },
+      {
+        '<leader>svh',
+        function()
+          Snacks.picker.help()
+        end,
+        desc = '[h]elp',
+      },
+      {
+        '<leader>svc',
+        function()
+          Snacks.picker.colorschemes()
+        end,
+        desc = '[c]olorscheme',
+      },
+      {
+        '<leader>svk',
+        function()
+          Snacks.picker.keymaps()
+        end,
+        desc = '[k]eymaps',
+      },
+      {
+        '<leader>st',
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = '[t]ext',
+      },
+      {
+        '<leader>sp',
+        function()
+          Snacks.picker.projects()
+        end,
+        desc = '[p]rojects',
+      },
+      {
+        '<leader>sgf',
+        function()
+          Snacks.picker.git_status()
+        end,
+        desc = '[f]iles (changed)',
+      },
+      {
+        '<leader>sgb',
+        function()
+          Snacks.picker.git_branches()
+        end,
+        desc = '[b]ranches',
+      },
+      {
+        '<leader>sgla',
+        function()
+          Snacks.picker.git_log()
+        end,
+        desc = '[a]ll',
+      },
+      {
+        '<leader>sgll',
+        function()
+          Snacks.picker.git_log_line()
+        end,
+        desc = '[l]ine',
+      },
+      {
+        '<leader>sglf',
+        function()
+          Snacks.picker.git_log_file()
+        end,
+        desc = '[f]ile',
+      },
+      {
+        '<leader>sl',
+        function()
+          Snacks.picker.resume()
+        end,
+        desc = '[l]ast resume',
+      },
+      {
+        'gd',
+        function()
+          Snacks.picker.lsp_definitions()
+        end,
+        desc = '[d]efinition',
+      },
+      {
+        'gy',
+        function()
+          Snacks.picker.lsp_type_definitions()
+        end,
+        desc = 't[y]pe definition',
+      },
+      {
+        'gD',
+        function()
+          Snacks.picker.lsp_declarations()
+        end,
+        desc = '[D]eclaration',
+      },
+      {
+        'gr',
+        function()
+          Snacks.picker.lsp_references()
+        end,
+        desc = '[r]eferences',
+        nowait = true,
+      },
+      {
+        'gI',
+        function()
+          Snacks.picker.lsp_implementations()
+        end,
+        desc = '[i]mplementation',
+      },
+      {
+        '<leader>gg',
+        function()
+          Snacks.lazygit()
+        end,
+        desc = 'lazy[g]it',
       },
     },
   },
@@ -250,15 +327,6 @@ require('lazy').setup {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
           end
 
-          local builtin = require 'telescope.builtin'
-
-          map('gd', builtin.lsp_definitions, '[d]efinition')
-          map('gD', vim.lsp.buf.declaration, '[D]eclaration')
-          map('gr', builtin.lsp_references, '[r]eferences')
-          map('gI', builtin.lsp_implementations, '[I]mplementation')
-
-          map('<leader>lt', builtin.lsp_type_definitions, '[t]ype Definition')
-          map('<leader>ls', builtin.lsp_document_symbols, '[s]ymbols (file)')
           map('<leader>lr', vim.lsp.buf.rename, '[r]ename')
           map('<leader>la', vim.lsp.buf.code_action, '[a]ction', { 'n', 'x' })
 
