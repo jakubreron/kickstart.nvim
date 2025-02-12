@@ -106,6 +106,7 @@ require('lazy').setup {
     opts = {
       -- statuscolumn = { enabled = true },
       lazygit = { enabled = true },
+      git = { enabled = true },
       picker = {
         matcher = {
           frecency = true,
@@ -195,41 +196,6 @@ require('lazy').setup {
         desc = '[u]ndo',
       },
       {
-        '<leader>sgf',
-        function()
-          Snacks.picker.git_status()
-        end,
-        desc = '[f]iles (changed)',
-      },
-      {
-        '<leader>sgb',
-        function()
-          Snacks.picker.git_branches()
-        end,
-        desc = '[b]ranches',
-      },
-      {
-        '<leader>sgla',
-        function()
-          Snacks.picker.git_log()
-        end,
-        desc = '[a]ll',
-      },
-      {
-        '<leader>sgll',
-        function()
-          Snacks.picker.git_log_line()
-        end,
-        desc = '[l]ine',
-      },
-      {
-        '<leader>sglf',
-        function()
-          Snacks.picker.git_log_file()
-        end,
-        desc = '[f]ile',
-      },
-      {
         'gd',
         function()
           Snacks.picker.lsp_definitions()
@@ -272,6 +238,56 @@ require('lazy').setup {
         end,
         desc = 'lazy[g]it',
       },
+      {
+        '<leader>gb',
+        function()
+          Snacks.git.blame_line()
+        end,
+        desc = '[b]lame line',
+      },
+      {
+        '<leader>gf',
+        function()
+          Snacks.picker.git_status()
+        end,
+        desc = '[f]iles (changed)',
+      },
+      {
+        '<leader>gb',
+        function()
+          Snacks.picker.git_branches()
+        end,
+        desc = '[b]ranches',
+      },
+      {
+        '<leader>gd',
+        function()
+          Snacks.picker.git_diff()
+        end,
+        desc = '[d]iff',
+      },
+      {
+        '<leader>gla',
+        function()
+          Snacks.picker.git_log()
+        end,
+        desc = '[a]ll',
+      },
+      {
+        '<leader>gll',
+        function()
+          Snacks.picker.git_log_line()
+        end,
+        desc = '[l]ine',
+      },
+      {
+        '<leader>glf',
+        function()
+          Snacks.picker.git_log_file()
+        end,
+        desc = '[f]ile',
+      },
+
       {
         '<C-q>',
         function()
@@ -642,7 +658,7 @@ require('lazy').setup {
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'custom.plugins' },
 }
