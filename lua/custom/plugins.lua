@@ -150,7 +150,7 @@ return {
     lazy = true,
     event = 'VeryLazy',
     config = function()
-      require('mini.ai').setup { n_lines = 500 }
+      -- require('mini.ai').setup { n_lines = 500 }
       require('mini.icons').setup {}
 
       require('mini.bracketed').setup {
