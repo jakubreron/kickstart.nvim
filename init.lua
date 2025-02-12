@@ -181,6 +181,20 @@ require('lazy').setup {
         desc = '[p]rojects',
       },
       {
+        '<leader>sl',
+        function()
+          Snacks.picker.resume()
+        end,
+        desc = '[l]ast resume',
+      },
+      {
+        '<leader>su',
+        function()
+          Snacks.picker.undo()
+        end,
+        desc = '[u]ndo',
+      },
+      {
         '<leader>sgf',
         function()
           Snacks.picker.git_status()
@@ -214,13 +228,6 @@ require('lazy').setup {
           Snacks.picker.git_log_file()
         end,
         desc = '[f]ile',
-      },
-      {
-        '<leader>sl',
-        function()
-          Snacks.picker.resume()
-        end,
-        desc = '[l]ast resume',
       },
       {
         'gd',
@@ -264,6 +271,13 @@ require('lazy').setup {
           Snacks.lazygit()
         end,
         desc = 'lazy[g]it',
+      },
+      {
+        '<C-q>',
+        function()
+          Snacks.picker.qflist()
+        end,
+        desc = '[q]uickfix',
       },
     },
   },

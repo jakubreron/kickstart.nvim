@@ -1,12 +1,5 @@
 return {
   {
-    'kevinhwang91/nvim-bqf',
-    lazy = true,
-    event = 'QuickFixCmdPre',
-    ft = 'qf',
-  },
-
-  {
     'sangdol/mintabline.vim', -- tabs with numbers & icons
     lazy = true,
     event = 'TabEnter',
@@ -52,21 +45,6 @@ return {
       },
     },
     config = true,
-  },
-
-  {
-    'mbbill/undotree',
-    lazy = true,
-    cmd = {
-      'UndotreeToggle',
-    },
-    keys = {
-      {
-        '<leader>fu',
-        '<cmd>UndotreeToggle<cr>',
-        desc = '[u]undotree',
-      },
-    },
   },
 
   {

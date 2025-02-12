@@ -53,11 +53,3 @@ vim.api.nvim_create_autocmd('TabLeave', {
     vim.api.nvim_set_keymap('n', '<leader><leader>', '<cmd>tabn ' .. vim.api.nvim_tabpage_get_number(0) .. '<cr>', { desc = '[ ] last tab' })
   end,
 })
-
-vim.keymap.set({ 'n', 'v', 'i' }, '<C-q>', function()
-  if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
-    vim.cmd [[copen]]
-  else
-    vim.cmd [[cclose]]
-  end
-end, { desc = '[q]uickfix toggle', silent = true })
