@@ -25,29 +25,6 @@ return {
   },
 
   {
-    'christoomey/vim-titlecase', -- "gz" movement to toggle the words case
-    lazy = true,
-    keys = {
-      'gz',
-      'gzz',
-    },
-  },
-
-  {
-    'hedyhli/outline.nvim',
-    lazy = true,
-    cmd = { 'Outline', 'OutlineOpen' },
-    keys = {
-      {
-        '<leader>fo',
-        '<cmd>Outline<cr>',
-        desc = '[o]utline',
-      },
-    },
-    config = true,
-  },
-
-  {
     'vuki656/package-info.nvim',
     lazy = true,
     dependencies = 'MunifTanjim/nui.nvim',
@@ -152,6 +129,7 @@ return {
     config = function()
       -- require('mini.ai').setup { n_lines = 500 }
       require('mini.icons').setup {}
+      require('mini.pairs').setup {}
 
       require('mini.bracketed').setup {
         comment = { suffix = '/', options = {} },
@@ -308,7 +286,6 @@ return {
     'stevearc/oil.nvim',
     lazy = false, -- needed to hijack netrw
     ft = 'netrw',
-    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {
