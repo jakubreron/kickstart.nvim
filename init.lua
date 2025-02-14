@@ -108,6 +108,7 @@ require('lazy').setup {
       lazygit = { enabled = true },
       git = { enabled = true },
       picker = {
+        hidden = true,
         matcher = {
           frecency = true,
           history_bonus = true,
