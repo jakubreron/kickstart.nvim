@@ -1,27 +1,11 @@
 vim.keymap.set('n', 'p', ']p', { desc = '[p]aste' }) -- paste with indent
 
 -- NOTE: toggle
-vim.keymap.set('n', 'yoe', function()
-  vim.cmd('set eventignore=' .. (vim.o.eventignore == '' and 'all' or ''))
-  print(vim.o.eventignore == '' and 'Eventignore OFF' or 'Eventignore ON')
-end, { desc = '[e]ventignore' })
 vim.keymap.set('n', 'yor', '<cmd>setlocal relativenumber!<cr>', { desc = '[r]elativenumber toggle' })
 vim.keymap.set('n', 'yow', '<cmd>setlocal wrap!<cr>', { desc = '[w]rap toggle' })
 vim.keymap.set('n', 'yoss', '<cmd>setlocal spell!<cr>', { desc = '[s]pelling toggle' })
 vim.keymap.set('n', 'yosp', '<cmd>setlocal spell! spelllang=pl<cr>', { desc = '[p]olish' })
 vim.keymap.set('n', 'yose', '<cmd>setlocal spell! spelllang=en<cr>', { desc = '[e]nglish' })
-
--- fix weird terminal alignment after quitting to normal mode
-vim.keymap.set('t', '<C-\\><C-n>', '<C-\\><C-n>0', { desc = 'exit terminal mode' })
-
--- NOTE: center search matches
-vim.keymap.set('n', 'n', 'nzzzv', { silent = true })
-vim.keymap.set('n', 'N', 'Nzzzv', { silent = true })
-vim.keymap.set('n', 'J', 'mzJ`z', { silent = true })
-
--- NOTE: jumplist every 5 lines jump with j/k
-vim.keymap.set('n', 'k', 'v:count > 5 ? "m\'" .. v:count .. "k" : "k"', { expr = true, silent = true })
-vim.keymap.set('n', 'j', 'v:count > 5 ? "m\'" .. v:count .. "j" : "j"', { expr = true, silent = true })
 
 -- NOTE: emacs keybinds in command/insert mode
 vim.keymap.set('c', '<C-a>', '<Home>')

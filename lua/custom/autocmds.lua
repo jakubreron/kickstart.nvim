@@ -1,15 +1,19 @@
 -- NOTE: restore cursor to previous position
 vim.api.nvim_create_autocmd('BufRead', {
   pattern = '*',
-  command = 'normal g\'"',
+  callback = function()
+    local bufname = vim.fn.expand '<afile>'
+    if not string.match(bufname, 'node_modules') then
+      vim.cmd 'normal g\'"'
+    end
+  end,
 })
 
--- NOTE: reload the buffer if it doesn't come from node_modules
+-- NOTE: reload the buffer
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   pattern = '*',
   callback = function()
     local bufname = vim.fn.expand '<afile>'
-
     if not string.match(bufname, 'node_modules') then
       vim.cmd 'checktime'
     end
@@ -22,7 +26,7 @@ vim.api.nvim_create_autocmd({ 'VimResized' }, {
 })
 
 -- NOTE: performance settings
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+vim.api.nvim_create_autocmd({ 'BufRead' }, {
   pattern = { '*/node_modules/*' },
   callback = function(args)
     vim.diagnostic.enable(false, { bufnr = args.buf })
@@ -57,29 +61,9 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-local auto_commit = function(type, scope, description)
-  description = description or '⚙️ auto-commit changes'
-  local commit = string.format('%s(%s): %s', type, scope, description)
-
-  return string.format('git add .; git commit -m "%s"; git pull && git push;', commit)
-end
-
-vim.api.nvim_create_autocmd({ 'VimLeave' }, {
-  pattern = {
-    vim.fn.expand '$VIMWIKI_DIR' .. '/**/*',
-    vim.fn.expand '$HOME' .. '/.config/ticker/.ticker.yaml',
-  },
-  callback = function()
-    local filename = vim.fn.expand '%:t'
-    vim.fn.jobstart(auto_commit('docs', 'vimwiki', filename))
-  end,
-})
-
 vim.api.nvim_create_autocmd({ 'VimLeave' }, {
   pattern = 'bm-*',
   callback = function()
-    local filename = vim.fn.expand '%:t'
-    vim.fn.jobstart(auto_commit('config', filename))
     vim.cmd '!shortcuts'
   end,
 })
