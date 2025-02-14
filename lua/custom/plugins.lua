@@ -287,10 +287,6 @@ return {
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {
-      columns = {
-        'icon',
-        'size',
-      },
       keymaps = {
         ['<C-l>'] = false, -- refresh
         ['<C-h>'] = false, -- horizontal split
@@ -316,9 +312,7 @@ return {
         end,
       },
     },
-    cmd = {
-      'Oil',
-    },
+    cmd = { 'Oil' },
     keys = {
       {
         '-',
@@ -349,9 +343,9 @@ return {
         desc = '[a]ll',
       },
       {
-        '<leader>rw',
+        '<leader>ru',
         '<cmd>lua require("spectre").open_visual({select_word=true})<cr>',
-        desc = '[w]ord',
+        desc = '[u]under cursor',
       },
     },
   },
@@ -373,6 +367,7 @@ return {
     },
     opts = { use_default_keymaps = false },
   },
+
   {
     'christoomey/vim-tmux-navigator', -- tmux navigation from within nvim
     lazy = true,
@@ -394,6 +389,21 @@ return {
       vim.g.tmux_navigator_no_wrap = 1
       vim.g.tmux_navigator_disable_when_zoomed = 1
       vim.g.tmux_navigator_save_on_switch = 2
+    end,
+  },
+
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+    config = function()
+      vim.treesitter.language.register('markdown', 'vimwiki')
+
+      require('render-markdown').setup {
+        file_types = { 'markdown', 'vimwiki' },
+      }
     end,
   },
 

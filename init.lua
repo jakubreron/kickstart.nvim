@@ -359,7 +359,6 @@ require('lazy').setup {
 
           map('<leader>lr', vim.lsp.buf.rename, '[r]ename')
           map('<leader>la', vim.lsp.buf.code_action, '[a]ction', { 'n', 'x' })
-
           map('H', vim.lsp.buf.signature_help, 'signature [H]elp')
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -483,12 +482,12 @@ require('lazy').setup {
             },
           },
         },
-        -- ts_ls = {
-        --   root_dir = require('lspconfig.util').root_pattern('package.json', '.git'),
-        --   server_capabilities = {
-        --     documentFormattingProvider = false,
-        --   },
-        -- },
+        ts_ls = {
+          root_dir = require('lspconfig.util').root_pattern('package.json', '.git'),
+          server_capabilities = {
+            documentFormattingProvider = false,
+          },
+        },
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -547,20 +546,15 @@ require('lazy').setup {
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>ff',
+        '<leader>lf',
         function()
           require('conform').format { async = true, lsp_format = 'never' }
         end,
         desc = '[f]ormat buffer',
       },
-      {
-        '<leader>fa',
-        '<cmd>ConformInfo<cr>',
-        desc = '[a]ttached formatters',
-      },
     },
     config = function()
-      -- eslint-lsp is not a formatter, so we cannot return it, but it provides a command for formatting,
+      -- WARNING: eslint-lsp is not a formatter, so we cannot return it, but it provides a command for formatting,
       local prettier_paths = { vim.g.monorepo_name }
 
       local js_ts_formatters_callback = function(bufnr)
