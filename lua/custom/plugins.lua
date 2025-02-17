@@ -132,7 +132,10 @@ return {
 
       require('mini.bracketed').setup {
         comment = { suffix = '/', options = {} },
-
+        location = { suffix = '', options = {} },
+        jump = { suffix = '', options = {} },
+        indent = { suffix = '', options = {} },
+        oldfile = { suffix = '', options = {} },
         treesitter = { suffix = '', options = {} },
         undo = { suffix = '', options = {} },
         window = { suffix = '', options = {} },
