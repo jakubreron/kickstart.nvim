@@ -1,9 +1,5 @@
 return {
-  {
-    'sangdol/mintabline.vim', -- tabs with numbers & icons
-    lazy = true,
-    event = 'TabEnter',
-  },
+  { 'crispgm/nvim-tabline', config = true },
 
   {
     'vimwiki/vimwiki',
