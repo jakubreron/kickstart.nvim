@@ -486,7 +486,6 @@ require('lazy').setup {
           },
         },
         ts_ls = {
-          root_dir = require('lspconfig.util').root_pattern('package.json', '.git'),
           server_capabilities = {
             documentFormattingProvider = false,
           },
