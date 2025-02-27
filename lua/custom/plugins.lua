@@ -80,6 +80,7 @@ return {
       contrast = 'hard',
     },
   },
+
   {
     'akinsho/git-conflict.nvim',
     version = '*',
@@ -118,6 +119,7 @@ return {
       })
     end,
   },
+
   {
     'echasnovski/mini.nvim',
     lazy = true,
@@ -320,6 +322,7 @@ return {
       },
     },
   },
+
   {
     'nvim-pack/nvim-spectre', -- search & replace throughout all the files (without vimgrepping)
     lazy = true,
