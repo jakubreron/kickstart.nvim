@@ -60,10 +60,3 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.cmd 'setlocal spell'
   end,
 })
-
-vim.api.nvim_create_autocmd({ 'VimLeave' }, {
-  pattern = 'bm-*',
-  callback = function()
-    vim.cmd '!shortcuts'
-  end,
-})
