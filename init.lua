@@ -3,6 +3,13 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.g.monorepo_name = 'singularity'
+vim.g.vimwiki_list = {
+  {
+    path = vim.fn.expand '$VIMWIKI_DIR',
+    syntax = 'markdown',
+    ext = '.md',
+  },
+}
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -256,11 +263,11 @@ require('lazy').setup {
         desc = '[f]iles (changed)',
       },
       {
-        '<leader>gb',
+        '<leader>gB',
         function()
           Snacks.picker.git_branches()
         end,
-        desc = '[b]ranches',
+        desc = '[B]ranches',
       },
       {
         '<leader>gd',
