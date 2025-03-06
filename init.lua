@@ -96,11 +96,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup {
-  ui = {
-    border = 'rounded',
-  },
-
+require('lazy').setup({
   {
     'folke/lazydev.nvim',
     ft = 'lua',
@@ -720,7 +716,11 @@ require('lazy').setup {
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'custom.plugins' },
-}
+}, {
+  ui = {
+    border = 'rounded',
+  },
+})
 
 require 'custom.autocmds'
 require 'custom.iabbrev'
