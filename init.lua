@@ -97,6 +97,10 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
+  ui = {
+    border = 'rounded',
+  },
+
   {
     'folke/lazydev.nvim',
     ft = 'lua',
@@ -307,6 +311,9 @@ require('lazy').setup {
       },
     },
   },
+
+  { 'folke/neoconf.nvim', config = true, priority = 1000 },
+
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -343,12 +350,23 @@ require('lazy').setup {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
           },
           completion = {
+            menu = {
+              border = 'single',
+            },
             documentation = {
               auto_show = true,
               auto_show_delay_ms = 0,
+              window = {
+                border = 'single',
+              },
             },
           },
-          signature = { enabled = true },
+          signature = {
+            enabled = true,
+            window = {
+              border = 'single',
+            },
+          },
         },
         opts_extend = { 'sources.default' },
       },
@@ -356,12 +374,40 @@ require('lazy').setup {
       {
         'j-hui/fidget.nvim',
         config = true,
+        opts = {
+          notification = {
+            window = {
+              border = 'rounded',
+              x_padding = 0,
+              y_padding = 0,
+            },
+          },
+        },
       },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
+          require('lspconfig.ui.windows').default_options.border = 'rounded'
+
+          local border = {
+            { '╭', 'FloatBorder' },
+            { '─', 'FloatBorder' },
+            { '╮', 'FloatBorder' },
+            { '│', 'FloatBorder' },
+            { '╯', 'FloatBorder' },
+            { '─', 'FloatBorder' },
+            { '╰', 'FloatBorder' },
+            { '│', 'FloatBorder' },
+          }
+          local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+          function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+            opts = opts or {}
+            opts.border = opts.border or border
+            return orig_util_open_floating_preview(contents, syntax, opts, ...)
+          end
+
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
@@ -401,7 +447,11 @@ require('lazy').setup {
       local signs = { Error = '', Warn = '', Hint = '', Info = '' }
       for type, icon in pairs(signs) do
         local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+        vim.fn.sign_define(hl, {
+          text = icon,
+          texthl = hl,
+          numhl = hl,
+        })
       end
 
       local servers = {
@@ -571,6 +621,12 @@ require('lazy').setup {
 
         if buf_modified then
           vim.cmd 'silent! EslintFixAll'
+
+          local ts_tools_status_ok = pcall(require, 'typescript-tools')
+          if ts_tools_status_ok then
+            vim.cmd 'TSToolsOrganizeImports'
+            vim.cmd 'TSToolsSortImports'
+          end
         end
 
         for i = 1, #prettier_paths do
