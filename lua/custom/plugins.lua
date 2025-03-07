@@ -68,7 +68,6 @@ return {
     end,
     opts = {
       transparent_mode = false,
-      contrast = 'hard',
     },
   },
 
