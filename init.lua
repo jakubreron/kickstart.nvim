@@ -308,8 +308,6 @@ require('lazy').setup({
     },
   },
 
-  { 'folke/neoconf.nvim', config = true, priority = 1000 },
-
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -617,12 +615,6 @@ require('lazy').setup({
 
         if buf_modified then
           vim.cmd 'silent! EslintFixAll'
-
-          local ts_tools_status_ok = pcall(require, 'typescript-tools')
-          if ts_tools_status_ok then
-            vim.cmd 'TSToolsOrganizeImports'
-            vim.cmd 'TSToolsSortImports'
-          end
         end
 
         for i = 1, #prettier_paths do
