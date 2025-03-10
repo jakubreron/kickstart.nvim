@@ -15,14 +15,12 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smarttab = true
+vim.opt.smartindent = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.mouse = 'a'
-
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
 
 -- disable native complete with C-n, C-p
 vim.opt.cpt = ''
