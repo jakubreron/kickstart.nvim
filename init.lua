@@ -341,6 +341,11 @@ require('lazy').setup({
           sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
           },
+          cmdline = {
+            completion = {
+              menu = { auto_show = true },
+            },
+          },
           completion = {
             menu = {
               border = 'single',
