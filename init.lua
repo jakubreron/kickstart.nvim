@@ -17,6 +17,8 @@ vim.opt.expandtab = true
 vim.opt.smarttab = true
 vim.opt.smartindent = true
 
+vim.opt.winborder = 'rounded'
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -94,7 +96,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({
+require('lazy').setup {
   {
     'folke/lazydev.nvim',
     ft = 'lua',
@@ -225,7 +227,7 @@ require('lazy').setup({
         desc = '[D]eclaration',
       },
       {
-        'gr',
+        'grr',
         function()
           Snacks.picker.lsp_references()
         end,
@@ -233,7 +235,7 @@ require('lazy').setup({
         nowait = true,
       },
       {
-        'gI',
+        'gri',
         function()
           Snacks.picker.lsp_implementations()
         end,
@@ -386,34 +388,6 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
-          require('lspconfig.ui.windows').default_options.border = 'rounded'
-
-          local border = {
-            { '╭', 'FloatBorder' },
-            { '─', 'FloatBorder' },
-            { '╮', 'FloatBorder' },
-            { '│', 'FloatBorder' },
-            { '╯', 'FloatBorder' },
-            { '─', 'FloatBorder' },
-            { '╰', 'FloatBorder' },
-            { '│', 'FloatBorder' },
-          }
-          local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-          function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-            opts = opts or {}
-            opts.border = opts.border or border
-            return orig_util_open_floating_preview(contents, syntax, opts, ...)
-          end
-
-          local map = function(keys, func, desc, mode)
-            mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
-          end
-
-          map('<leader>lr', vim.lsp.buf.rename, '[r]ename')
-          map('<leader>la', vim.lsp.buf.code_action, '[a]ction', { 'n', 'x' })
-          map('H', vim.lsp.buf.signature_help, 'signature [H]elp')
-
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
@@ -711,11 +685,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'custom.plugins' },
-}, {
-  ui = {
-    border = 'rounded',
-  },
-})
+}
 
 require 'custom.autocmds'
 require 'custom.iabbrev'
