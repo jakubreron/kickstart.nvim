@@ -254,11 +254,11 @@ require('lazy').setup({
         desc = '[b]lame line',
       },
       {
-        '<leader>gf',
+        '<leader>gc',
         function()
           Snacks.picker.git_status()
         end,
-        desc = '[f]iles (changed)',
+        desc = '[c]hanged files',
       },
       {
         '<leader>gB',
