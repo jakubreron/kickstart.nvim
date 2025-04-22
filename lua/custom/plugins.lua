@@ -19,18 +19,18 @@ return {
     config = true,
   },
 
-  -- {
-  --   'pmizio/typescript-tools.nvim',
-  --   lazy = true,
-  --   dependencies = { 'nvim-lua/plenary.nvim' },
-  --   ft = {
-  --     'javascript',
-  --     'typescript',
-  --     'typescriptreact',
-  --     'vue',
-  --   },
-  --   config = true,
-  -- },
+  {
+    'pmizio/typescript-tools.nvim',
+    lazy = true,
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    ft = {
+      'javascript',
+      'typescript',
+      'typescriptreact',
+      'vue',
+    },
+    config = true,
+  },
 
   {
     'folke/ts-comments.nvim',
