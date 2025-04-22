@@ -379,6 +379,7 @@ require('lazy').setup {
         config = true,
         opts = {
           notification = {
+            override_vim_notify = true, -- Override vim.notify() to use Fidget's notifications
             window = {
               border = 'rounded',
               x_padding = 0,
@@ -388,6 +389,7 @@ require('lazy').setup {
         },
       },
     },
+
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -552,6 +554,10 @@ require('lazy').setup {
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
+
+            if server_name == 'ts_ls' then
+              return
+            end
 
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
