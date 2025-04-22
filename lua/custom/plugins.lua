@@ -19,18 +19,18 @@ return {
     config = true,
   },
 
-  -- {
-  --   'pmizio/typescript-tools.nvim',
-  --   lazy = true,
-  --   dependencies = { 'nvim-lua/plenary.nvim' },
-  --   ft = {
-  --     'javascript',
-  --     'typescript',
-  --     'typescriptreact',
-  --     'vue',
-  --   },
-  --   config = true,
-  -- },
+  {
+    'pmizio/typescript-tools.nvim',
+    lazy = true,
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    ft = {
+      'javascript',
+      'typescript',
+      'typescriptreact',
+      'vue',
+    },
+    config = true,
+  },
 
   {
     'folke/ts-comments.nvim',
@@ -269,7 +269,6 @@ return {
       keymaps = {
         ['<C-l>'] = false, -- refresh
         ['<C-h>'] = false, -- horizontal split
-        ['<C-s>'] = false, -- vertical split
         ['~'] = false, -- cwd to current dir (cannot change the case)
       },
       view_options = {

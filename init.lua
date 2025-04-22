@@ -210,21 +210,21 @@ require('lazy').setup {
         desc = '[u]ndo',
       },
       {
-        'gd',
+        'grd',
         function()
           Snacks.picker.lsp_definitions()
         end,
         desc = '[d]efinition',
       },
       {
-        'gy',
+        'grt',
         function()
           Snacks.picker.lsp_type_definitions()
         end,
-        desc = 't[y]pe definition',
+        desc = '[t]ype definition',
       },
       {
-        'gD',
+        'grD',
         function()
           Snacks.picker.lsp_declarations()
         end,
@@ -244,6 +244,13 @@ require('lazy').setup {
           Snacks.picker.lsp_implementations()
         end,
         desc = '[i]mplementation',
+      },
+      {
+        'g0',
+        function()
+          Snacks.picker.lsp_symbols()
+        end,
+        desc = 'LSP Symbols',
       },
       {
         '<leader>gg',
@@ -345,7 +352,10 @@ require('lazy').setup {
             nerd_font_variant = 'mono',
           },
           sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
+            default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+            providers = {
+              lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+            },
           },
           cmdline = {
             completion = {
