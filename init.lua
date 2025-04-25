@@ -389,7 +389,6 @@ require('lazy').setup {
         config = true,
         opts = {
           notification = {
-            override_vim_notify = true, -- Override vim.notify() to use Fidget's notifications
             window = {
               border = 'rounded',
               x_padding = 0,
