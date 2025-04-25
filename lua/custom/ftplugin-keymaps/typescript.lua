@@ -23,10 +23,11 @@ M.config = function(bufnr)
     set_normal_keymap('grd', '<cmd>TSToolsGoToSourceDefinition<cr>', '[g]oto [d]efiniton')
     set_normal_keymap('grr', '<cmd>TSToolsFileReferences<cr>', '[g]oto file [R]eference')
     set_normal_keymap('grN', action_with_formatting 'TSToolsRenameFile', '[r]ename')
-    set_normal_keymap('grio', action_with_formatting 'TSToolsOrganizeImports', '[o]rganize')
-    set_normal_keymap('gris', action_with_formatting 'TSToolsSortImports', '[s]ort')
-    set_normal_keymap('grir', action_with_formatting 'TSToolsRemoveUnusedImports', '[r]emove unused')
-    set_normal_keymap('gria', action_with_formatting 'TSToolsAddMissingImports', '[a]dd missing')
+
+    set_normal_keymap('<leader>lio', action_with_formatting 'TSToolsOrganizeImports', '[o]rganize')
+    set_normal_keymap('<leader>lis', action_with_formatting 'TSToolsSortImports', '[s]ort')
+    set_normal_keymap('<leader>lir', action_with_formatting 'TSToolsRemoveUnusedImports', '[r]emove unused')
+    set_normal_keymap('<leader>lia', action_with_formatting 'TSToolsAddMissingImports', '[a]dd missing')
   end
 end
 
