@@ -692,6 +692,7 @@ require('lazy').setup {
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'custom.plugins' },
+  { import = 'custom.colorscheme' },
 }
 
 require 'custom.autocmds'
