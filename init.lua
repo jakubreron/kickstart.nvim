@@ -398,6 +398,7 @@ require('lazy').setup {
 
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
               group = highlight_augroup,
@@ -547,8 +548,6 @@ require('lazy').setup {
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-
       require('mason-lspconfig').setup {
         automatic_enable = {
           exclude = {
@@ -558,10 +557,10 @@ require('lazy').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         handlers = {
           function(server_name)
-            local server = servers[server_name] or {}
+            local config = servers[server_name] or {}
 
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.config(server_name, config)
+            vim.lsp.enable(server_name)
           end,
         },
       }
