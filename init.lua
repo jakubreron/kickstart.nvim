@@ -64,9 +64,6 @@ vim.opt.swapfile = false
 vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program) it is not allowed to be edited
 
 vim.opt.spelllang:append 'cjk' -- disable spellchecking for asian characters (VIM algorithm does not support it)
--- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
--- instead raise a dialog asking if you wish to save the current file(s)
--- See `:help 'confirm'`
 vim.opt.confirm = true
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -322,7 +319,7 @@ require('lazy').setup {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      {
+      { -- NOTE: Must be loaded before dependants
         'williamboman/mason.nvim',
         config = true,
         keys = {
@@ -332,7 +329,7 @@ require('lazy').setup {
             desc = '[m]ason',
           },
         },
-      }, -- NOTE: Must be loaded before dependants
+      },
 
       { 'williamboman/mason-lspconfig.nvim' },
       { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
@@ -363,22 +360,13 @@ require('lazy').setup {
             },
           },
           completion = {
-            menu = {
-              border = 'single',
-            },
             documentation = {
               auto_show = true,
               auto_show_delay_ms = 0,
-              window = {
-                border = 'single',
-              },
             },
           },
           signature = {
             enabled = true,
-            window = {
-              border = 'single',
-            },
           },
         },
         opts_extend = { 'sources.default' },
@@ -459,9 +447,6 @@ require('lazy').setup {
         'intelephense',
         'gopls',
         'sqls',
-
-        -- NOTE: linters
-        -- ''
 
         -- NOTE: formatters
         'stylua',
