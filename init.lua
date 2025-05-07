@@ -559,14 +559,15 @@ require('lazy').setup {
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       require('mason-lspconfig').setup {
+        automatic_enable = {
+          exclude = {
+            'ts_ls',
+          },
+        },
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
-
-            if server_name == 'ts_ls' then
-              return
-            end
 
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
