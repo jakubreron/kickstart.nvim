@@ -1,3 +1,4 @@
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', 'p', ']p', { desc = '[p]aste' }) -- paste with indent
 
 -- NOTE: toggle

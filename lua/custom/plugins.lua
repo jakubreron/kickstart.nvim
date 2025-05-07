@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   { 'crispgm/nvim-tabline', config = true },
 
