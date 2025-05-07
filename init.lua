@@ -1,7 +1,6 @@
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 vim.g.monorepo_name = 'singularity'
 vim.g.vimwiki_list = {
   {
@@ -11,62 +10,38 @@ vim.g.vimwiki_list = {
   },
 }
 
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.smarttab = true
-vim.opt.smartindent = true
-
-vim.opt.winborder = 'rounded'
-
-vim.opt.number = true
-vim.opt.relativenumber = true
-
-vim.opt.mouse = 'a'
-
--- disable native complete with C-n, C-p
-vim.opt.cpt = ''
-
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+vim.o.smarttab = true
+vim.o.smartindent = true
+vim.o.winborder = 'rounded'
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.mouse = 'a'
+vim.o.complete = ''
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+  vim.o.clipboard = 'unnamedplus'
 end)
-
-vim.opt.breakindent = true
-
-vim.opt.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
-
--- Decrease update time
-vim.opt.updatetime = 250
-
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
-
-vim.opt.cursorline = true
-
-vim.opt.scrolloff = 5
-vim.opt.sidescrolloff = 5
-
-vim.opt.swapfile = false
-
-vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program) it is not allowed to be edited
+vim.o.breakindent = true
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.signcolumn = 'yes'
+vim.o.updatetime = 250
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.list = true
+vim.o.inccommand = 'split'
+vim.o.cursorline = true
+vim.o.scrolloff = 5
+vim.o.sidescrolloff = 5
+vim.o.swapfile = false
+vim.o.writebackup = false
+vim.o.confirm = true
 
 vim.opt.spelllang:append 'cjk' -- disable spellchecking for asian characters (VIM algorithm does not support it)
-vim.opt.confirm = true
-
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 vim.filetype.add {
   pattern = {
@@ -101,9 +76,13 @@ require('lazy').setup {
   {
     'folke/lazydev.nvim',
     ft = 'lua',
+    ---@module 'lazydev'
+    ---@type lazydev.Config
+    ---@diagnostic disable-next-line: missing-fields
     opts = {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        { path = 'snacks.nvim', words = { 'Snacks' } },
       },
     },
   },
@@ -112,9 +91,10 @@ require('lazy').setup {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
+    ---@module 'snacks'
     ---@type snacks.Config
+    ---@diagnostic disable-next-line: missing-fields
     opts = {
-      -- statuscolumn = { enabled = true },
       lazygit = { enabled = true },
       git = { enabled = true },
       picker = {
@@ -343,10 +323,8 @@ require('lazy').setup {
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
-          keymap = { preset = 'default' },
           appearance = {
             use_nvim_cmp_as_default = true,
-            nerd_font_variant = 'mono',
           },
           sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
@@ -369,7 +347,6 @@ require('lazy').setup {
             enabled = true,
           },
         },
-        opts_extend = { 'sources.default' },
       },
 
       {
@@ -465,7 +442,7 @@ require('lazy').setup {
             'ts_ls',
           },
         },
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer, here it works only with LSPs, not with formatters/linters)
         handlers = {
           function(server_name)
             local config = servers[server_name] or {}
@@ -514,7 +491,7 @@ require('lazy').setup {
 
       require('conform').setup {
         notify_on_error = false,
-        format_on_save = function(bufnr)
+        format_on_save = function()
           return {
             timeout_ms = 500,
             lsp_format = 'never',
@@ -550,6 +527,9 @@ require('lazy').setup {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    ---@module 'nvim-treesitter.configs'
+    ---@type TSConfig
+    ---@diagnostic disable-next-line: missing-fields
     opts = {
       ensure_installed = {
         'bash',
