@@ -387,15 +387,6 @@ require('lazy').setup {
       {
         'j-hui/fidget.nvim',
         config = true,
-        opts = {
-          notification = {
-            window = {
-              border = 'rounded',
-              x_padding = 0,
-              y_padding = 0,
-            },
-          },
-        },
       },
     },
 
