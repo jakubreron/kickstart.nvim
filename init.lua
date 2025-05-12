@@ -58,7 +58,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -69,8 +69,11 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     error('Error cloning lazy.nvim:\n' .. out)
   end
-end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
+end
+
+---@type vim.Option
+local rtp = vim.opt.rtp
+rtp:prepend(lazypath)
 
 require('lazy').setup {
   {
@@ -300,7 +303,7 @@ require('lazy').setup {
     'neovim/nvim-lspconfig',
     dependencies = {
       { -- NOTE: Must be loaded before dependants
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         config = true,
         keys = {
           {
@@ -311,7 +314,7 @@ require('lazy').setup {
         },
       },
 
-      { 'williamboman/mason-lspconfig.nvim' },
+      { 'mason-org/mason-lspconfig.nvim' },
       { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 
       {
