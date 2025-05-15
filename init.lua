@@ -98,8 +98,6 @@ require('lazy').setup {
     ---@type snacks.Config
     ---@diagnostic disable-next-line: missing-fields
     opts = {
-      lazygit = { enabled = true },
-      git = { enabled = true },
       picker = {
         hidden = true,
         matcher = {
@@ -109,8 +107,6 @@ require('lazy').setup {
         win = {
           input = {
             keys = {
-              ['<C-u>'] = { 'preview_scroll_up', mode = { 'i', 'n' } },
-              ['<C-d>'] = { 'preview_scroll_down', mode = { 'i', 'n' } },
               ['<C-k>'] = { 'history_back', mode = { 'i', 'n' } },
               ['<C-j>'] = { 'history_forward', mode = { 'i', 'n' } },
             },
@@ -305,13 +301,6 @@ require('lazy').setup {
       { -- NOTE: Must be loaded before dependants
         'mason-org/mason.nvim',
         config = true,
-        keys = {
-          {
-            '<leader>lm',
-            '<cmd>Mason<cr>',
-            desc = '[m]ason',
-          },
-        },
       },
 
       { 'mason-org/mason-lspconfig.nvim' },
@@ -345,9 +334,6 @@ require('lazy').setup {
               auto_show = true,
               auto_show_delay_ms = 0,
             },
-          },
-          signature = {
-            enabled = true,
           },
         },
       },
@@ -467,63 +453,38 @@ require('lazy').setup {
       {
         '<leader>lf',
         function()
-          require('conform').format { async = true, lsp_format = 'never' }
+          require('conform').format { lsp_format = 'prefer' }
         end,
         desc = '[f]ormat buffer',
       },
     },
-    config = function()
-      -- WARNING: eslint-lsp is not a formatter, so we cannot return it, but it provides a command for formatting,
-      local prettier_paths = { vim.g.monorepo_name }
+    -- This will provide type hinting with LuaLS
+    ---@module "conform"
+    ---@type conform.setupOpts
+    opts = {
+      format_on_save = { lsp_format = 'prefer' },
+      formatters_by_ft = {
+        lua = { 'stylua' },
 
-      local js_ts_formatters_callback = function(bufnr)
-        local buf_modified = vim.api.nvim_get_option_value('modified', { buf = bufnr })
+        javascript = { 'prettierd' },
+        javascriptreact = { 'prettierd' },
+        vue = { 'prettierd' },
+        typescript = { 'prettierd' },
+        typescriptreact = { 'prettierd' },
 
-        if buf_modified then
-          vim.cmd 'silent! EslintFixAll'
-        end
+        css = { 'prettierd' },
+        scss = { 'prettierd' },
+        less = { 'prettierd' },
+        sass = { 'prettierd' },
+        html = { 'prettierd' },
+        php = { 'prettier' },
+        yaml = { 'prettierd' },
+        json = { 'prettier' }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
 
-        for i = 1, #prettier_paths do
-          if string.find(vim.api.nvim_buf_get_name(bufnr), prettier_paths[i]) then
-            return { 'prettierd' }
-          end
-
-          return {}
-        end
-      end
-
-      require('conform').setup {
-        notify_on_error = false,
-        format_on_save = function()
-          return {
-            timeout_ms = 500,
-            lsp_format = 'never',
-          }
-        end,
-        formatters_by_ft = {
-          lua = { 'stylua' },
-
-          javascript = js_ts_formatters_callback,
-          javascriptreact = js_ts_formatters_callback,
-          vue = js_ts_formatters_callback,
-          typescript = js_ts_formatters_callback,
-          typescriptreact = js_ts_formatters_callback,
-
-          css = { 'prettierd' },
-          scss = { 'prettierd' },
-          less = { 'prettierd' },
-          sass = { 'prettierd' },
-
-          markdown = { 'markdownlint' },
-          vimwiki = { 'markdownlint' },
-
-          html = { 'prettierd' },
-          php = { 'prettier' },
-          yaml = { 'prettierd' },
-          json = { 'prettier' }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
-        },
-      }
-    end,
+        markdown = { 'markdownlint' },
+        vimwiki = { 'markdownlint' },
+      },
+    },
   },
 
   { -- Highlight, edit, and navigate code

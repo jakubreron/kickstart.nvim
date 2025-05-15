@@ -1,8 +1,6 @@
 ---@module 'lazy'
 ---@type LazySpec
 return {
-  { 'crispgm/nvim-tabline', config = true },
-
   {
     'vimwiki/vimwiki',
     lazy = true,
@@ -60,45 +58,6 @@ return {
       '<C-a>',
       '<C-x>',
     },
-  },
-
-  {
-    'akinsho/git-conflict.nvim',
-    version = '*',
-    opts = {
-      default_mappings = true, -- disable buffer local mapping created by this plugin
-      default_commands = true, -- disable commands created by this plugin
-      disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
-      list_opener = 'copen', -- command or function to open the conflicts list
-      highlights = { -- They must have background color, otherwise the default color will be used
-        incoming = 'DiffAdd',
-        current = 'DiffText',
-      },
-    },
-    config = function()
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'GitConflictDetected',
-        callback = function()
-          vim.notify('Conflict detected in ' .. vim.fn.expand '<afile>')
-
-          require('conform').setup { format_on_save = nil }
-        end,
-      })
-
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'GitConflictResolved',
-        callback = function()
-          vim.notify('Conflict resolved in ' .. vim.fn.expand '<afile>')
-
-          require('conform').setup {
-            format_on_save = {
-              timeout_ms = 500,
-              lsp_format = 'never',
-            },
-          }
-        end,
-      })
-    end,
   },
 
   {
@@ -165,73 +124,14 @@ return {
       })
 
       local neotest = require 'neotest'
-      local function get_vitest_adapter()
-        -- NOTE: it was being attached to monorepo that contains both jest and vitest
-        if not string.match(vim.fn.expand '%:p', vim.g.monorepo_name) then
-          return require 'neotest-vitest' {}
-        end
-      end
-
+      ---@diagnostic disable-next-line: missing-fields
       neotest.setup {
-        jump = {
-          enabled = true,
-        },
-
-        output = {
-          open_on_run = false,
-        },
-
-        quickfix = {
-          enabled = false,
-          open = false,
-        },
-
-        summary = {
-          open = 'topleft vsplit | vertical resize 50',
-          animated = true,
-          enabled = true,
-          expand_errors = false,
-          follow = true,
-          mappings = {
-            attach = 'a',
-            clear_marked = 'M',
-            clear_target = 'T',
-            debug = 'd',
-            debug_marked = 'D',
-            expand = { '<cr>', '<2-LeftMouse>' },
-            expand_all = 'e',
-            jumpto = { 'i', 'l' },
-            mark = 'm',
-            next_failed = ']u',
-            output = 'o',
-            prev_failed = '[u',
-            run = 'r',
-            run_marked = 'R',
-            short = 'O',
-            stop = 'u',
-            target = 't',
-          },
-        },
-        output_panel = {
-          enabled = true,
-          open = 'rightbelow vsplit | resize 75',
-        },
-
+        ---@diagnostic disable-next-line: missing-fields
+        summary = { open = 'topleft vsplit | vertical resize 50' },
+        output_panel = { enabled = true, open = 'rightbelow vsplit | resize 75' },
         adapters = {
           require 'neotest-jest' {},
-          get_vitest_adapter(),
-        },
-      }
-
-      local neodev_status_ok, neodev = pcall(require, 'neodev')
-      if not neodev_status_ok then
-        return
-      end
-
-      neodev.setup {
-        library = {
-          plugins = { 'neotest' },
-          types = true,
+          require 'neotest-vitest' {},
         },
       }
     end,
@@ -269,7 +169,6 @@ return {
         timeout_ms = 50000,
       },
       git = {
-        -- Return true to automatically git add/mv/rm files
         add = function()
           return true
         end,
@@ -283,11 +182,7 @@ return {
     },
     cmd = { 'Oil' },
     keys = {
-      {
-        '-',
-        '<cmd>Oil<cr>',
-        desc = '[-] explorer',
-      },
+      { '-', '<cmd>Oil<cr>', desc = '[-] explorer' },
     },
   },
 
@@ -298,11 +193,7 @@ return {
       replace_engine = {
         ['sed'] = {
           cmd = 'sed',
-          args = {
-            '-i',
-            '',
-            '-E',
-          },
+          args = { '-i', '', '-E' },
         },
       },
     },
@@ -324,16 +215,8 @@ return {
     'Wansmer/treesj',
     lazy = true,
     keys = {
-      {
-        'gJ',
-        '<cmd>TSJJoin<cr>',
-        desc = '[J]oin',
-      },
-      {
-        'gS',
-        '<cmd>TSJSplit<cr>',
-        desc = '[S]plit',
-      },
+      { 'gJ', '<cmd>TSJJoin<cr>', desc = '[J]oin' },
+      { 'gS', '<cmd>TSJSplit<cr>', desc = '[S]plit' },
     },
     opts = { use_default_keymaps = false },
   },
@@ -341,20 +224,8 @@ return {
   {
     'christoomey/vim-tmux-navigator', -- tmux navigation from within nvim
     lazy = true,
-    cmd = {
-      'TmuxNavigateLeft',
-      'TmuxNavigateDown',
-      'TmuxNavigateUp',
-      'TmuxNavigateRight',
-      'TmuxNavigatePrevious',
-    },
-    keys = {
-      '<C-h>',
-      '<C-j>',
-      '<C-k>',
-      '<C-l>',
-      '<C-\\>',
-    },
+    cmd = { 'TmuxNavigateLeft', 'TmuxNavigateDown', 'TmuxNavigateUp', 'TmuxNavigateRight', 'TmuxNavigatePrevious' },
+    keys = { '<C-h>', '<C-j>', '<C-k>', '<C-l>', '<C-\\>' },
     config = function()
       vim.g.tmux_navigator_no_wrap = 1
       vim.g.tmux_navigator_disable_when_zoomed = 1
@@ -367,13 +238,11 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
-    opts = {},
+    opts = {
+      file_types = { 'markdown', 'vimwiki' },
+    },
     config = function()
       vim.treesitter.language.register('markdown', 'vimwiki')
-
-      require('render-markdown').setup {
-        file_types = { 'markdown', 'vimwiki' },
-      }
     end,
   },
 
