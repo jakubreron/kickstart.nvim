@@ -85,7 +85,7 @@ require('lazy').setup {
     opts = {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-        { path = 'snacks.nvim', words = { 'Snacks' } },
+        { path = 'snacks.nvim',        words = { 'Snacks' } },
       },
     },
   },
@@ -416,7 +416,7 @@ require('lazy').setup {
 
         -- NOTE: formatters
         'stylua',
-        'prettier', -- only json because prettierd is bugged
+        'prettier',  -- only json because prettierd is bugged
         'prettierd', -- html, yaml, json, etc
 
         -- NOTE: 2 in 1, linters & formatters
