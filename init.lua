@@ -85,7 +85,7 @@ require('lazy').setup {
     opts = {
       library = {
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-        { path = 'snacks.nvim',        words = { 'Snacks' } },
+        { path = 'snacks.nvim', words = { 'Snacks' } },
       },
     },
   },
@@ -416,7 +416,7 @@ require('lazy').setup {
 
         -- NOTE: formatters
         'stylua',
-        'prettier',  -- only json because prettierd is bugged
+        'prettier', -- only json because prettierd is bugged
         'prettierd', -- html, yaml, json, etc
 
         -- NOTE: 2 in 1, linters & formatters
@@ -453,7 +453,7 @@ require('lazy').setup {
       {
         '<leader>lf',
         function()
-          require('conform').format { lsp_format = 'prefer' }
+          require('conform').format { lsp_format = 'fallback' }
         end,
         desc = '[f]ormat buffer',
       },
@@ -462,7 +462,7 @@ require('lazy').setup {
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
-      format_on_save = { lsp_format = 'prefer' },
+      format_on_save = { lsp_format = 'fallback' },
       formatters_by_ft = {
         lua = { 'stylua' },
 
@@ -535,7 +535,7 @@ require('lazy').setup {
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'custom.plugins' },
   { import = 'custom.colorscheme' },
