@@ -62,7 +62,6 @@ return {
 
   {
     'echasnovski/mini.nvim',
-    lazy = true,
     event = 'VeryLazy',
     config = function()
       require('mini.icons').setup {}
@@ -106,7 +105,16 @@ return {
   {
     'nvim-neotest/neotest', -- run tests directly from the file
     lazy = true,
-    event = 'BufWinEnter *.spec.*',
+    event = {
+      'BufReadPost *.spec.ts',
+      'BufReadPost *.spec.js',
+      'BufReadPost *.spec.tsx',
+      'BufReadPost *.spec.jsx',
+      'BufReadPost *.test.ts',
+      'BufReadPost *.test.js',
+      'BufReadPost *.test.tsx',
+      'BufReadPost *.test.jsx',
+    },
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
@@ -153,7 +161,6 @@ return {
   {
     'stevearc/oil.nvim',
     lazy = false, -- needed to hijack netrw
-    ft = 'netrw',
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {
@@ -248,8 +255,25 @@ return {
 
   {
     'kylechui/nvim-surround',
-    version = '*', -- Use for stability; omit to use `main` branch for the latest features
     event = 'VeryLazy',
     config = true,
+  },
+
+  {
+    'greggh/claude-code.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- Required for git operations
+    },
+    config = function()
+      require('claude-code').setup {
+        window = {
+          split_ratio = 0.5,
+          position = 'vertical',
+        },
+      }
+    end,
+    keys = {
+      { '<leader>cc', '<cmd>ClaudeCode<cr>', desc = '[c]laude [c]ode' },
+    },
   },
 }
