@@ -3,7 +3,6 @@
 return {
   {
     'vimwiki/vimwiki',
-    lazy = true,
     cmd = { 'VimwikiIndex', 'VimwikiDiaryIndex' },
     event = 'BufWinEnter ' .. vim.fn.expand '$VIMWIKI_DIR' .. '/*',
     keys = {
@@ -13,7 +12,6 @@ return {
 
   {
     'vuki656/package-info.nvim',
-    lazy = true,
     dependencies = 'MunifTanjim/nui.nvim',
     event = 'BufRead package.json',
     config = true,
@@ -21,7 +19,6 @@ return {
 
   {
     'pmizio/typescript-tools.nvim',
-    lazy = true,
     dependencies = { 'nvim-lua/plenary.nvim' },
     ft = {
       'javascript',
@@ -40,7 +37,6 @@ return {
 
   {
     'nat-418/boole.nvim',
-    lazy = true,
     opts = {
       mappings = {
         increment = '<C-a>',
@@ -104,7 +100,6 @@ return {
 
   {
     'nvim-neotest/neotest', -- run tests directly from the file
-    lazy = true,
     event = {
       'BufReadPost *.spec.ts',
       'BufReadPost *.spec.js',
@@ -147,7 +142,6 @@ return {
 
   {
     'tpope/vim-obsession', -- save the session
-    lazy = true,
     cmd = { 'Obsession' },
     keys = {
       { '<leader>ot', '<cmd>Obsession<cr>', desc = '[t]rack session' },
@@ -195,7 +189,6 @@ return {
 
   {
     'nvim-pack/nvim-spectre', -- search & replace throughout all the files (without vimgrepping)
-    lazy = true,
     opts = {
       replace_engine = {
         ['sed'] = {
@@ -220,7 +213,6 @@ return {
 
   {
     'Wansmer/treesj',
-    lazy = true,
     keys = {
       { 'gJ', '<cmd>TSJJoin<cr>', desc = '[J]oin' },
       { 'gS', '<cmd>TSJSplit<cr>', desc = '[S]plit' },
@@ -230,7 +222,6 @@ return {
 
   {
     'christoomey/vim-tmux-navigator', -- tmux navigation from within nvim
-    lazy = true,
     cmd = { 'TmuxNavigateLeft', 'TmuxNavigateDown', 'TmuxNavigateUp', 'TmuxNavigateRight', 'TmuxNavigatePrevious' },
     keys = { '<C-h>', '<C-j>', '<C-k>', '<C-l>', '<C-\\>' },
     config = function()
@@ -247,6 +238,10 @@ return {
     ---@type render.md.UserConfig
     opts = {
       file_types = { 'markdown', 'vimwiki' },
+    },
+    ft = {
+      'markdown',
+      'vimwiki',
     },
     config = function()
       vim.treesitter.language.register('markdown', 'vimwiki')
@@ -276,4 +271,8 @@ return {
       { '<leader>cc', '<cmd>ClaudeCode<cr>', desc = '[c]laude [c]ode' },
     },
   },
+  -- {
+  --   'iamkarasik/sonarqube.nvim',
+  --   config = true,
+  -- },
 }
