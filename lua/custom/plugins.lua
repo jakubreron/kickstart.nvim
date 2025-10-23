@@ -271,8 +271,4 @@ return {
       { '<leader>cc', '<cmd>ClaudeCode<cr>', desc = '[c]laude [c]ode' },
     },
   },
-  -- {
-  --   'iamkarasik/sonarqube.nvim',
-  --   config = true,
-  -- },
 }
