@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.hl.on_yank()
+    vim.highlight.on_yank()
   end,
 })
 
@@ -345,37 +345,6 @@ require('lazy').setup {
     },
 
     config = function()
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
-        callback = function(event)
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
-
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
-
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
-            })
-
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
-            })
-
-            vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
-              callback = function(event2)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
-              end,
-            })
-          end
-        end,
-      })
-
       local servers = {
         lua_ls = {
           server_capabilities = {
@@ -425,21 +394,21 @@ require('lazy').setup {
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+      for name, config in pairs(servers) do
+        local local_config = config or {}
+        local_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, local_config.capabilities or {})
+        vim.lsp.config(name, local_config)
+      end
+
       require('mason-lspconfig').setup {
         automatic_enable = {
           exclude = {
             'ts_ls',
           },
         },
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer, here it works only with LSPs, not with formatters/linters)
-        handlers = {
-          function(server_name)
-            local config = servers[server_name] or {}
-
-            vim.lsp.config(server_name, config)
-            vim.lsp.enable(server_name)
-          end,
-        },
+        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer, here it works only with LSPs, not with formatters/linters, so mason-tool-installer is needed for now)
       }
     end,
   },
