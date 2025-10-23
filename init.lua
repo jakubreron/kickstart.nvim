@@ -158,6 +158,8 @@ require('lazy').setup {
       {
         '<leader>st',
         function()
+          -- to refine the search, add -- and then ripgrep args, like "-- -g={*.md,*.tsx}"
+          -- or press <C-g> and add file:md$
           Snacks.picker.grep()
         end,
         desc = '[t]ext',
