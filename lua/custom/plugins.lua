@@ -268,7 +268,14 @@ return {
       }
     end,
     keys = {
-      { '<leader>cc', '<cmd>ClaudeCode<cr>', desc = '[c]laude [c]ode' },
+      {
+        '<leader>cc',
+        function()
+          vim.cmd 'ClaudeCode'
+          vim.cmd 'wincmd =' -- equalize the splits
+        end,
+        desc = '[c]laude [c]ode',
+      },
     },
   },
 }
