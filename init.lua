@@ -1,7 +1,6 @@
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.g.monorepo_name = 'singularity'
 vim.g.vimwiki_list = {
   {
     path = vim.fn.expand '$VIMWIKI_DIR',
