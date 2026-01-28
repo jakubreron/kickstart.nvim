@@ -422,7 +422,7 @@ require('lazy').setup {
       {
         '<leader>lf',
         function()
-          require('conform').format { lsp_format = 'fallback' }
+          require('conform').format { lsp_format = 'last' }
         end,
         desc = '[f]ormat buffer',
       },
@@ -431,7 +431,7 @@ require('lazy').setup {
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
-      format_on_save = { lsp_format = 'fallback' },
+      format_on_save = { lsp_format = 'last' },
       formatters_by_ft = {
         lua = { 'stylua' },
 
