@@ -19,6 +19,7 @@ M.config = function(bufnr)
   end
 
   set_normal_keymap('<leader>lio', action_with_formatting 'TSToolsOrganizeImports', '[o]rganize')
+  -- TODO: @Jakub combine these 3 into one keymap
   set_normal_keymap('<leader>lis', action_with_formatting 'TSToolsSortImports', '[s]ort')
   set_normal_keymap('<leader>lir', action_with_formatting 'TSToolsRemoveUnusedImports', '[r]emove unused')
   set_normal_keymap('<leader>lia', action_with_formatting 'TSToolsAddMissingImports', '[a]dd missing')
