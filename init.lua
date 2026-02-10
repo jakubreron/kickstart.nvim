@@ -17,10 +17,10 @@ vim.o.winborder = 'rounded'
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.mouse = 'a'
+
 vim.o.complete = ''
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
+vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+
 vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.ignorecase = true
@@ -55,18 +55,14 @@ vim.filetype.add {
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+  callback = function() vim.hl.on_yank() end,
 })
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then
-    error('Error cloning lazy.nvim:\n' .. out)
-  end
+  if vim.v.shell_error ~= 0 then error('Error cloning lazy.nvim:\n' .. out) end
 end
 
 ---@type vim.Option
@@ -74,20 +70,6 @@ local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
 require('lazy').setup {
-  {
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    ---@module 'lazydev'
-    ---@type lazydev.Config
-    ---@diagnostic disable-next-line: missing-fields
-    opts = {
-      library = {
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-        { path = 'snacks.nvim', words = { 'Snacks' } },
-      },
-    },
-  },
-
   {
     'folke/snacks.nvim',
     priority = 1000,
@@ -115,44 +97,32 @@ require('lazy').setup {
     keys = {
       {
         '<leader>sb',
-        function()
-          Snacks.picker.buffers()
-        end,
+        function() Snacks.picker.buffers() end,
         desc = '[b]uffers',
       },
       {
         '<leader>sf',
-        function()
-          Snacks.picker.smart()
-        end,
+        function() Snacks.picker.smart() end,
         desc = '[f]iles',
       },
       {
         '<leader>sd',
-        function()
-          Snacks.picker.diagnostics()
-        end,
+        function() Snacks.picker.diagnostics() end,
         desc = '[d]iagnostic',
       },
       {
         '<leader>svh',
-        function()
-          Snacks.picker.help()
-        end,
+        function() Snacks.picker.help() end,
         desc = '[h]elp',
       },
       {
         '<leader>svc',
-        function()
-          Snacks.picker.colorschemes()
-        end,
+        function() Snacks.picker.colorschemes() end,
         desc = '[c]olorscheme',
       },
       {
         '<leader>svk',
-        function()
-          Snacks.picker.keymaps()
-        end,
+        function() Snacks.picker.keymaps() end,
         desc = '[k]eymaps',
       },
       {
@@ -166,130 +136,94 @@ require('lazy').setup {
       },
       {
         '<leader>sp',
-        function()
-          Snacks.picker.projects()
-        end,
+        function() Snacks.picker.projects() end,
         desc = '[p]rojects',
       },
       {
         '<leader>sl',
-        function()
-          Snacks.picker.resume()
-        end,
+        function() Snacks.picker.resume() end,
         desc = '[l]ast resume',
       },
       {
         '<leader>su',
-        function()
-          Snacks.picker.undo()
-        end,
+        function() Snacks.picker.undo() end,
         desc = '[u]ndo',
       },
       {
         'grd',
-        function()
-          Snacks.picker.lsp_definitions()
-        end,
+        function() Snacks.picker.lsp_definitions() end,
         desc = '[d]efinition',
       },
       {
         'grt',
-        function()
-          Snacks.picker.lsp_type_definitions()
-        end,
+        function() Snacks.picker.lsp_type_definitions() end,
         desc = '[t]ype definition',
       },
       {
         'grD',
-        function()
-          Snacks.picker.lsp_declarations()
-        end,
+        function() Snacks.picker.lsp_declarations() end,
         desc = '[D]eclaration',
       },
       {
         'grr',
-        function()
-          Snacks.picker.lsp_references()
-        end,
+        function() Snacks.picker.lsp_references() end,
         desc = '[r]eferences',
         nowait = true,
       },
       {
         'gri',
-        function()
-          Snacks.picker.lsp_implementations()
-        end,
+        function() Snacks.picker.lsp_implementations() end,
         desc = '[i]mplementation',
       },
       {
         'g0',
-        function()
-          Snacks.picker.lsp_symbols()
-        end,
+        function() Snacks.picker.lsp_symbols() end,
         desc = 'LSP Symbols',
       },
       {
         '<leader>gg',
-        function()
-          Snacks.lazygit()
-        end,
+        function() Snacks.lazygit() end,
         desc = 'lazy[g]it',
       },
       {
         '<leader>gb',
-        function()
-          Snacks.git.blame_line()
-        end,
+        function() Snacks.git.blame_line() end,
         desc = '[b]lame line',
       },
       {
         '<leader>gc',
-        function()
-          Snacks.picker.git_status()
-        end,
+        function() Snacks.picker.git_status() end,
         desc = '[c]hanged files',
       },
       {
         '<leader>gB',
-        function()
-          Snacks.picker.git_branches()
-        end,
+        function() Snacks.picker.git_branches() end,
         desc = '[B]ranches',
       },
       {
         '<leader>gd',
-        function()
-          Snacks.picker.git_diff()
-        end,
+        function() Snacks.picker.git_diff() end,
         desc = '[d]iff',
       },
       {
         '<leader>gla',
-        function()
-          Snacks.picker.git_log()
-        end,
+        function() Snacks.picker.git_log() end,
         desc = '[a]ll',
       },
       {
         '<leader>gll',
-        function()
-          Snacks.picker.git_log_line()
-        end,
+        function() Snacks.picker.git_log_line() end,
         desc = '[l]ine',
       },
       {
         '<leader>glf',
-        function()
-          Snacks.picker.git_log_file()
-        end,
+        function() Snacks.picker.git_log_file() end,
         desc = '[f]ile',
       },
 
       {
         '<C-q>',
-        function()
-          Snacks.picker.qflist()
-        end,
+        function() Snacks.picker.qflist() end,
         desc = '[q]uickfix',
       },
     },
@@ -298,19 +232,16 @@ require('lazy').setup {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { -- NOTE: Must be loaded before dependants
-        'mason-org/mason.nvim',
-        config = true,
-      },
-
-      { 'mason-org/mason-lspconfig.nvim' },
+      { 'mason-org/mason.nvim', opts = {} },
       { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+      { 'j-hui/fidget.nvim', config = true },
 
       {
         'saghen/blink.cmp',
         dependencies = {
           'rafamadriz/friendly-snippets',
         },
+        event = 'VimEnter',
         version = '*',
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
@@ -319,10 +250,7 @@ require('lazy').setup {
             use_nvim_cmp_as_default = true,
           },
           sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
-            providers = {
-              lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-            },
+            default = { 'lsp', 'path', 'snippets', 'buffer' },
           },
           cmdline = {
             completion = {
@@ -337,33 +265,12 @@ require('lazy').setup {
           },
         },
       },
-
-      {
-        'j-hui/fidget.nvim',
-        config = true,
-      },
     },
 
     config = function()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
       local servers = {
-        lua_ls = {
-          server_capabilities = {
-            semanticTokensProvider = vim.NIL,
-          },
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
-        ts_ls = {
-          server_capabilities = {
-            documentFormattingProvider = false,
-          },
-        },
+        -- ts_ls = {},
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -394,22 +301,38 @@ require('lazy').setup {
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-      for name, config in pairs(servers) do
-        local local_config = config or {}
-        local_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, local_config.capabilities or {})
-        vim.lsp.config(name, local_config)
+      for name, server in pairs(servers) do
+        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        vim.lsp.config(name, server)
+        vim.lsp.enable(name)
       end
 
-      require('mason-lspconfig').setup {
-        automatic_enable = {
-          exclude = {
-            'ts_ls',
-          },
+      -- Special Lua Config, as recommended by neovim help docs
+      vim.lsp.config('lua_ls', {
+        on_init = function(client)
+          if client.workspace_folders then
+            local path = client.workspace_folders[1].name
+            if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
+          end
+
+          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+              version = 'LuaJIT',
+              path = { 'lua/?.lua', 'lua/?/init.lua' },
+            },
+            workspace = {
+              checkThirdParty = false,
+              -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
+              --  See https://github.com/neovim/nvim-lspconfig/issues/3189
+              library = vim.api.nvim_get_runtime_file('', true),
+            },
+          })
+        end,
+        settings = {
+          Lua = {},
         },
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer, here it works only with LSPs, not with formatters/linters, so mason-tool-installer is needed for now)
-      }
+      })
+      vim.lsp.enable 'lua_ls'
     end,
   },
 
@@ -420,10 +343,9 @@ require('lazy').setup {
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>lf',
-        function()
-          require('conform').format { lsp_format = 'last' }
-        end,
+        '<leader>f',
+        function() require('conform').format { async = true, lsp_format = 'fallback' } end,
+        mode = '',
         desc = '[f]ormat buffer',
       },
     },
@@ -458,13 +380,10 @@ require('lazy').setup {
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    ---@module 'nvim-treesitter.configs'
-    ---@type TSConfig
-    ---@diagnostic disable-next-line: missing-fields
-    opts = {
-      ensure_installed = {
+    lazy = false,
+    branch = 'main',
+    config = function()
+      local filetypes = {
         'bash',
         'c',
         'html',
@@ -489,14 +408,21 @@ require('lazy').setup {
         'hyprlang',
         'regex',
         'query',
-      },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
+      }
+
+      require('nvim-treesitter').install(filetypes)
+
+      -- Only attach Tree-sitter if a parser exists for the buffer's filetype
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = '*',
+        callback = function(args)
+          -- Check if Neovim recognizes a tree-sitter language for this filetype
+          local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+          -- Only start if a language parser is actually found/installed
+          if lang then pcall(vim.treesitter.start, args.buf) end
+        end,
+      })
+    end,
   },
 
   -- require 'kickstart.plugins.debug',
