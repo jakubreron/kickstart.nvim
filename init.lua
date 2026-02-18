@@ -232,9 +232,9 @@ require('lazy').setup {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'mason-org/mason.nvim', opts = {} },
+      { 'mason-org/mason.nvim',                     opts = {} },
       { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
-      { 'j-hui/fidget.nvim', config = true },
+      { 'j-hui/fidget.nvim',                        config = true },
 
       {
         'saghen/blink.cmp',
@@ -292,7 +292,7 @@ require('lazy').setup {
 
         -- NOTE: formatters
         'stylua',
-        'prettier', -- only json because prettierd is bugged
+        'prettier',  -- only json because prettierd is bugged
         'prettierd', -- html, yaml, json, etc
 
         -- NOTE: 2 in 1, linters & formatters
@@ -414,12 +414,10 @@ require('lazy').setup {
 
       -- Only attach Tree-sitter if a parser exists for the buffer's filetype
       vim.api.nvim_create_autocmd('FileType', {
-        pattern = '*',
+        pattern = { '*' },
         callback = function(args)
-          -- Check if Neovim recognizes a tree-sitter language for this filetype
-          local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
-          -- Only start if a language parser is actually found/installed
-          if lang then pcall(vim.treesitter.start, args.buf) end
+          local lang = vim.treesitter.language.get_lang(args.match)
+          if lang and vim.treesitter.language.add(lang) then vim.treesitter.start(args.buf) end
         end,
       })
     end,
