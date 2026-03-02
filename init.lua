@@ -232,7 +232,13 @@ require('lazy').setup {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'mason-org/mason.nvim',                     opts = {} },
+      {
+        'mason-org/mason.nvim',
+        ---@module 'mason.settings'
+        ---@type MasonSettings
+        ---@diagnostic disable-next-line: missing-fields
+        opts = {},
+      },
       { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
       { 'j-hui/fidget.nvim',                        config = true },
 
@@ -269,6 +275,8 @@ require('lazy').setup {
 
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+      ---@type table<string, vim.lsp.Config>
       local servers = {
         -- ts_ls = {},
       }
@@ -382,6 +390,7 @@ require('lazy').setup {
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     branch = 'main',
+    build = ':TSUpdate',
     config = function()
       local filetypes = {
         'bash',
