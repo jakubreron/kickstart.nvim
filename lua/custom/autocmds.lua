@@ -3,9 +3,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   pattern = '*',
   callback = function()
     local bufname = vim.fn.expand '<afile>'
-    if not string.match(bufname, 'node_modules') then
-      vim.cmd 'checktime'
-    end
+    if not string.match(bufname, 'node_modules') then vim.cmd 'checktime' end
   end,
 })
 
@@ -23,16 +21,10 @@ vim.api.nvim_create_autocmd({ 'BufRead' }, {
     vim.cmd 'setlocal nofoldenable'
     vim.cmd 'setlocal buftype=nowrite'
     vim.cmd 'setlocal bufhidden=unload'
-
-    vim.cmd 'TSBufDisable incremental_selection'
-    vim.cmd 'TSBufDisable indent'
-    vim.cmd 'TSBufDisable autotag'
   end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'markdown', 'text', 'vimwiki' },
-  callback = function()
-    vim.cmd 'setlocal spell'
-  end,
+  callback = function() vim.cmd 'setlocal spell' end,
 })
