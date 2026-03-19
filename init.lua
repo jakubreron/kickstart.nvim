@@ -239,6 +239,7 @@ require('lazy').setup {
         ---@diagnostic disable-next-line: missing-fields
         opts = {},
       },
+
       { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
       { 'j-hui/fidget.nvim',                        config = true },
 
@@ -257,6 +258,11 @@ require('lazy').setup {
           },
           sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
+          },
+          providers = {
+            buffer = {
+              score_offset = -100, -- Make buffer completions appear at the end.
+            },
           },
           cmdline = {
             completion = {
