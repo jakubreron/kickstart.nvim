@@ -365,17 +365,17 @@ require('lazy').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
 
-        javascript = { 'prettierd' },
-        javascriptreact = { 'prettierd' },
-        vue = { 'prettierd' },
-        typescript = { 'prettierd' },
-        typescriptreact = { 'prettierd' },
+        javascript = { 'biome' },
+        javascriptreact = { 'biome' },
+        vue = { 'biome' },
+        typescript = { 'biome' },
+        typescriptreact = { 'biome' },
 
-        css = { 'prettierd' },
-        scss = { 'prettierd' },
-        less = { 'prettierd' },
-        sass = { 'prettierd' },
-        html = { 'prettierd' },
+        css = { 'biome' },
+        scss = { 'biome' },
+        less = { 'biome' },
+        sass = { 'biome' },
+        html = { 'biome' },
         php = { 'prettier' },
         yaml = { 'prettierd' },
         json = { 'prettier' }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
