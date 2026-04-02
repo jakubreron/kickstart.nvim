@@ -258,10 +258,10 @@ require('lazy').setup {
           },
           sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
-          },
-          providers = {
-            buffer = {
-              score_offset = -100, -- Make buffer completions appear at the end.
+            providers = {
+              buffer = {
+                score_offset = -100, -- Make buffer completions appear at the end.
+              },
             },
           },
           cmdline = {
@@ -296,7 +296,7 @@ require('lazy').setup {
         'bash-language-server',
         'json-lsp',
         'markdown-oxide', -- markdown, vimwiki
-        'stylelint-lsp',
+        'stylelint-language-server',
         'html-lsp',
         'css-lsp',
         'eslint-lsp',
