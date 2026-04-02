@@ -43,11 +43,11 @@ return {
         decrement = '<C-x>',
       },
       additions = {
-        { 'child', 'parent' },
-        { 'toBeTruthy', 'toBeFalsy' },
+        { 'child',       'parent' },
+        { 'toBeTruthy',  'toBeFalsy' },
         { 'toBeEnabled', 'toBeDisabled' },
-        { 'left', 'center', 'right' },
-        { 'light', 'dark' },
+        { 'left',        'center',      'right' },
+        { 'light',       'dark' },
       },
     },
     keys = {
@@ -82,15 +82,15 @@ return {
           prefix = 'g=', -- [=] Evaluate text and replace with output
         },
         exchange = {
-          prefix = 'ga', -- [a]rrange text regions
+          prefix = 'ga',            -- [a]rrange text regions
           reindent_linewise = true, -- Whether to reindent new text to match previous indent
         },
         multiply = {
           prefix = 'gm', -- [m]ultiply (duplicate) text
-          func = nil, -- Function which can modify text before multiplying
+          func = nil,    -- Function which can modify text before multiplying
         },
         replace = {
-          prefix = 'gs', -- [s]wap text with register
+          prefix = 'gs',            -- [s]wap text with register
           reindent_linewise = true, -- Whether to reindent new text to match previous indent
         },
         sort = { prefix = '' },
@@ -144,10 +144,10 @@ return {
     'tpope/vim-obsession', -- save the session
     cmd = { 'Obsession' },
     keys = {
-      { '<leader>ot', '<cmd>Obsession<cr>', desc = '[t]rack session' },
+      { '<leader>ot', '<cmd>Obsession<cr>',                              desc = '[t]rack session' },
       { '<leader>oT', ':Obsession Session-.vim<Left><Left><Left><Left>', desc = '[T]rack custom session' },
-      { '<leader>os', '<cmd>source Session.vim<cr>', desc = '[s]ource session' },
-      { '<leader>oS', ':source Session-', desc = '[S]ource custom session' },
+      { '<leader>os', '<cmd>source Session.vim<cr>',                     desc = '[s]ource session' },
+      { '<leader>oS', ':source Session-',                                desc = '[S]ource custom session' },
     },
     event = 'SessionLoadPost',
   },
@@ -161,7 +161,7 @@ return {
       keymaps = {
         ['<C-l>'] = false, -- refresh
         ['<C-h>'] = false, -- horizontal split
-        ['~'] = false, -- cwd to current dir (cannot change the case)
+        ['~'] = false,     -- cwd to current dir (cannot change the case)
       },
       view_options = {
         show_hidden = true,
@@ -170,15 +170,9 @@ return {
         timeout_ms = 50000,
       },
       git = {
-        add = function()
-          return true
-        end,
-        mv = function()
-          return true
-        end,
-        rm = function()
-          return true
-        end,
+        add = function() return true end,
+        mv = function() return true end,
+        rm = function() return true end,
       },
     },
     cmd = { 'Oil' },
@@ -214,7 +208,7 @@ return {
   {
     'Wansmer/treesj',
     keys = {
-      { 'gJ', '<cmd>TSJJoin<cr>', desc = '[J]oin' },
+      { 'gJ', '<cmd>TSJJoin<cr>',  desc = '[J]oin' },
       { 'gS', '<cmd>TSJSplit<cr>', desc = '[S]plit' },
     },
     opts = { use_default_keymaps = false },
@@ -231,22 +225,22 @@ return {
     end,
   },
 
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {
-      file_types = { 'markdown', 'vimwiki' },
-    },
-    ft = {
-      'markdown',
-      'vimwiki',
-    },
-    config = function()
-      vim.treesitter.language.register('markdown', 'vimwiki')
-    end,
-  },
+  -- {
+  --   'MeanderingProgrammer/render-markdown.nvim',
+  --   dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
+  --   ---@module 'render-markdown'
+  --   ---@type render.md.UserConfig
+  --   opts = {
+  --     file_types = { 'markdown', 'vimwiki' },
+  --   },
+  --   ft = {
+  --     'markdown',
+  --     'vimwiki',
+  --   },
+  --   config = function()
+  --     vim.treesitter.language.register('markdown', 'vimwiki')
+  --   end,
+  -- },
 
   {
     'kylechui/nvim-surround',
