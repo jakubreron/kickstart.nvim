@@ -8,6 +8,11 @@ return {
     keys = {
       '<leader>w',
     },
+    config = function()
+      vim.cmd [[
+      au BufNewFile **/diary/*.md :silent 0r !~/.local/bin/generate-vimwiki-diary-template '%'
+      ]]
+    end,
   },
 
   {
