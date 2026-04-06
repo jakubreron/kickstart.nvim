@@ -269,7 +269,19 @@ require('lazy').setup {
               menu = { auto_show = true },
             },
           },
+          signature = {
+            enabled = true,
+          },
           completion = {
+            menu = {
+              draw = {
+                columns = {
+                  { 'kind_icon' },
+                  { 'label',    'label_description', gap = 1 },
+                  { 'kind' },
+                },
+              },
+            },
             documentation = {
               auto_show = true,
               auto_show_delay_ms = 0,
@@ -282,38 +294,37 @@ require('lazy').setup {
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      ---@type table<string, vim.lsp.Config>
-      local servers = {
-        -- ts_ls = {},
+      require('mason-tool-installer').setup {
+        ensure_installed = {
+          -- NOTE: LSP
+          'lua-language-server',
+          'typescript-language-server',
+          'emmet-language-server',
+          'bash-language-server',
+          'json-lsp',
+          'markdown-oxide', -- markdown, vimwiki
+          'stylelint-language-server',
+          'html-lsp',
+          'css-lsp',
+          'eslint-lsp',
+          'intelephense',
+          'gopls',
+          'sqls',
+
+          -- NOTE: formatters
+          'stylua',
+          'prettier',  -- only json because prettierd is bugged
+          'prettierd', -- html, yaml, json, etc
+
+          -- NOTE: 2 in 1, linters & formatters
+          'markdownlint', -- markdown, vimwiki
+        },
       }
 
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        -- NOTE: LSP
-        'lua-language-server',
-        'typescript-language-server',
-        'emmet-language-server',
-        'bash-language-server',
-        'json-lsp',
-        'markdown-oxide', -- markdown, vimwiki
-        'stylelint-language-server',
-        'html-lsp',
-        'css-lsp',
-        'eslint-lsp',
-        'intelephense',
-        'gopls',
-        'sqls',
-
-        -- NOTE: formatters
-        'stylua',
-        'prettier',  -- only json because prettierd is bugged
-        'prettierd', -- html, yaml, json, etc
-
-        -- NOTE: 2 in 1, linters & formatters
-        'markdownlint', -- markdown, vimwiki
-      })
-
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      ---@type table<string, vim.lsp.Config>
+      local servers = {
+        ts_ls = {},
+      }
 
       for name, server in pairs(servers) do
         server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})

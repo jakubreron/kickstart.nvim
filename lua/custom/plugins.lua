@@ -23,18 +23,6 @@ return {
   },
 
   {
-    'pmizio/typescript-tools.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    ft = {
-      'javascript',
-      'typescript',
-      'typescriptreact',
-      'vue',
-    },
-    config = true,
-  },
-
-  {
     'folke/ts-comments.nvim',
     opts = {},
     event = 'VeryLazy',
@@ -76,9 +64,6 @@ return {
           hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
           todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
           note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-
-          -- Highlight hex color strings (`#rrggbb`) using that color
-          hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       }
 
@@ -101,6 +86,22 @@ return {
         sort = { prefix = '' },
       }
     end,
+  },
+
+  {
+    'eero-lehtinen/oklch-color-picker.nvim',
+    event = 'VeryLazy',
+    version = '*',
+    keys = {
+      -- One handed keymap recommended, you will be using the mouse
+      {
+        '<leader>v',
+        function() require('oklch-color-picker').pick_under_cursor() end,
+        desc = 'Color pick under cursor',
+      },
+    },
+    ---@type oklch.Opts
+    opts = {},
   },
 
   {
