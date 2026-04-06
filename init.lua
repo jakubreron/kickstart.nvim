@@ -236,12 +236,52 @@ require('lazy').setup {
         'mason-org/mason.nvim',
         ---@module 'mason.settings'
         ---@type MasonSettings
-        ---@diagnostic disable-next-line: missing-fields
         opts = {},
       },
 
-      { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
-      { 'j-hui/fidget.nvim',                        config = true },
+      {
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
+        opts = {
+          ensure_installed = {
+            -- NOTE: LSP
+            'lua-language-server',
+            'typescript-language-server',
+            'emmet-language-server',
+            'bash-language-server',
+            'tailwindcss-language-server',
+            'stylelint-language-server',
+            'json-lsp',
+            'markdown-oxide',
+            'html-lsp',
+            'css-lsp',
+            'eslint-lsp',
+            'intelephense',
+            'gopls',
+            'sqls',
+
+            -- NOTE: LSP, formatters, linters
+            'stylua',
+            'biome',
+
+            -- NOTE: formatters, linters
+            'markdownlint',
+
+            -- NOTE: formatters
+            'prettier', -- only json because prettierd is bugged
+            'prettierd', -- html, yaml, json, etc
+          },
+        },
+      },
+
+      {
+        'mason-org/mason-lspconfig.nvim',
+        opts = { automatic_enable = true },
+      },
+
+      {
+        'j-hui/fidget.nvim',
+        config = true,
+      },
 
       {
         'saghen/blink.cmp',
@@ -277,7 +317,7 @@ require('lazy').setup {
               draw = {
                 columns = {
                   { 'kind_icon' },
-                  { 'label',    'label_description', gap = 1 },
+                  { 'label', 'label_description', gap = 1 },
                   { 'kind' },
                 },
               },
@@ -290,75 +330,6 @@ require('lazy').setup {
         },
       },
     },
-
-    config = function()
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-      require('mason-tool-installer').setup {
-        ensure_installed = {
-          -- NOTE: LSP
-          'lua-language-server',
-          'typescript-language-server',
-          'emmet-language-server',
-          'bash-language-server',
-          'json-lsp',
-          'markdown-oxide', -- markdown, vimwiki
-          'stylelint-language-server',
-          'html-lsp',
-          'css-lsp',
-          'eslint-lsp',
-          'intelephense',
-          'gopls',
-          'sqls',
-
-          -- NOTE: formatters
-          'stylua',
-          'prettier',  -- only json because prettierd is bugged
-          'prettierd', -- html, yaml, json, etc
-
-          -- NOTE: 2 in 1, linters & formatters
-          'markdownlint', -- markdown, vimwiki
-        },
-      }
-
-      ---@type table<string, vim.lsp.Config>
-      local servers = {
-        ts_ls = {},
-      }
-
-      for name, server in pairs(servers) do
-        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        vim.lsp.config(name, server)
-        vim.lsp.enable(name)
-      end
-
-      -- Special Lua Config, as recommended by neovim help docs
-      vim.lsp.config('lua_ls', {
-        on_init = function(client)
-          if client.workspace_folders then
-            local path = client.workspace_folders[1].name
-            if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
-          end
-
-          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-            runtime = {
-              version = 'LuaJIT',
-              path = { 'lua/?.lua', 'lua/?/init.lua' },
-            },
-            workspace = {
-              checkThirdParty = false,
-              -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
-              --  See https://github.com/neovim/nvim-lspconfig/issues/3189
-              library = vim.api.nvim_get_runtime_file('', true),
-            },
-          })
-        end,
-        settings = {
-          Lua = {},
-        },
-      })
-      vim.lsp.enable 'lua_ls'
-    end,
   },
 
   { -- Autoformat
