@@ -353,17 +353,17 @@ require('lazy').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
 
-        javascript = { 'biome', 'biome-organize-imports' },
-        javascriptreact = { 'biome', 'biome-organize-imports' },
-        vue = { 'biome', 'biome-organize-imports' },
-        typescript = { 'biome', 'biome-organize-imports' },
-        typescriptreact = { 'biome', 'biome-organize-imports' },
+        javascript = { 'biome-check' },
+        javascriptreact = { 'biome-check' },
+        vue = { 'biome-check' },
+        typescript = { 'biome-check' },
+        typescriptreact = { 'biome-check' },
 
-        css = { 'biome', 'biome-organize-imports' },
-        scss = { 'biome', 'biome-organize-imports' },
-        less = { 'biome', 'biome-organize-imports' },
-        sass = { 'biome', 'biome-organize-imports' },
-        html = { 'biome', 'biome-organize-imports' },
+        css = { 'biome-check' },
+        scss = { 'biome-check' },
+        less = { 'biome-check' },
+        sass = { 'biome-check' },
+        html = { 'biome-check' },
         php = { 'prettier' },
         yaml = { 'prettierd' },
         json = { 'prettier' }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
