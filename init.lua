@@ -340,7 +340,7 @@ require('lazy').setup {
     keys = {
       {
         '<leader>f',
-        function() require('conform').format { async = true, lsp_format = 'fallback' } end,
+        function() require('conform').format { async = true, lsp_format = 'never' } end,
         mode = '',
         desc = '[f]ormat buffer',
       },
@@ -349,21 +349,21 @@ require('lazy').setup {
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
-      format_on_save = { lsp_format = 'last' },
+      format_on_save = { lsp_format = 'never' },
       formatters_by_ft = {
         lua = { 'stylua' },
 
-        javascript = { 'biome' },
-        javascriptreact = { 'biome' },
-        vue = { 'biome' },
-        typescript = { 'biome' },
-        typescriptreact = { 'biome' },
+        javascript = { 'biome', 'biome-organize-imports' },
+        javascriptreact = { 'biome', 'biome-organize-imports' },
+        vue = { 'biome', 'biome-organize-imports' },
+        typescript = { 'biome', 'biome-organize-imports' },
+        typescriptreact = { 'biome', 'biome-organize-imports' },
 
-        css = { 'biome' },
-        scss = { 'biome' },
-        less = { 'biome' },
-        sass = { 'biome' },
-        html = { 'biome' },
+        css = { 'biome', 'biome-organize-imports' },
+        scss = { 'biome', 'biome-organize-imports' },
+        less = { 'biome', 'biome-organize-imports' },
+        sass = { 'biome', 'biome-organize-imports' },
+        html = { 'biome', 'biome-organize-imports' },
         php = { 'prettier' },
         yaml = { 'prettierd' },
         json = { 'prettier' }, -- NOTE: nice to have prettierd, but it creates bugs in japanese characters
