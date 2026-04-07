@@ -231,23 +231,6 @@ return {
     end,
   },
 
-  -- {
-  --   'MeanderingProgrammer/render-markdown.nvim',
-  --   dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
-  --   ---@module 'render-markdown'
-  --   ---@type render.md.UserConfig
-  --   opts = {
-  --     file_types = { 'markdown', 'vimwiki' },
-  --   },
-  --   ft = {
-  --     'markdown',
-  --     'vimwiki',
-  --   },
-  --   config = function()
-  --     vim.treesitter.language.register('markdown', 'vimwiki')
-  --   end,
-  -- },
-
   {
     'kylechui/nvim-surround',
     event = 'VeryLazy',
