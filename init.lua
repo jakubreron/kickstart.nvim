@@ -309,9 +309,6 @@ require('lazy').setup {
               menu = { auto_show = true },
             },
           },
-          signature = {
-            enabled = true,
-          },
           completion = {
             menu = {
               draw = {
