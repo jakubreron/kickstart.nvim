@@ -9,13 +9,10 @@ vim.keymap.set('n', 'k', 'v:count > 5 ? "m\'" .. v:count .. "k" : "k"', { expr =
 vim.keymap.set('n', 'j', 'v:count > 5 ? "m\'" .. v:count .. "j" : "j"', { expr = true, silent = true })
 
 -- NOTE: emacs keybinds in command/insert mode
+-- Press C-f for vim movements
 vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-e>', '<End>')
-vim.keymap.set('c', '<C-f>', '<Right>') -- NOTE: you can open command line window not only by c-f, but also q:, q/, q?
-vim.keymap.set('c', '<C-b>', '<Left>')
 vim.keymap.set('c', '<C-d>', '<Delete>')
-vim.keymap.set('c', '<A-f>', '<C-Right>')
-vim.keymap.set('c', '<A-b>', '<C-Left>')
 
 -- NOTE: replace
 vim.keymap.set('n', '<leader>rr', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'quickly [r]eplace under cursor' })
