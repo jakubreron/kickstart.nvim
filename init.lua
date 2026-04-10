@@ -123,12 +123,10 @@ require('lazy').setup {
         desc = '[k]eymaps',
       },
       {
+        -- to refine the search, add -- and then ripgrep args, like "-- -g={*.md,*.tsx}"
+        -- or press <C-g> and add file:md$
         '<leader>st',
-        function()
-          -- to refine the search, add -- and then ripgrep args, like "-- -g={*.md,*.tsx}"
-          -- or press <C-g> and add file:md$
-          Snacks.picker.grep()
-        end,
+        function() Snacks.picker.grep() end,
         desc = '[t]ext',
       },
       {
@@ -335,7 +333,6 @@ require('lazy').setup {
         desc = '[f]ormat buffer',
       },
     },
-    -- This will provide type hinting with LuaLS
     ---@module "conform"
     ---@type conform.setupOpts
     opts = {
@@ -415,7 +412,7 @@ require('lazy').setup {
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  -- require 'kickstart.plugins.gitsigns',
 
   { import = 'custom.plugins' },
   { import = 'custom.colorscheme' },
