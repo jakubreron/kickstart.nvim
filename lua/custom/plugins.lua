@@ -20,9 +20,10 @@ return {
       '<leader>w',
     },
     config = function()
-      vim.cmd [[
-      au BufNewFile **/diary/*.md :silent 0r !~/.local/bin/generate-vimwiki-diary-template '%'
-      ]]
+      vim.api.nvim_create_autocmd('BufNewFile', {
+        pattern = '**/diary/*.md',
+        callback = function(event) vim.cmd('silent 0r !~/.local/bin/generate-vimwiki-diary-template ' .. vim.fn.shellescape(event.file)) end,
+      })
     end,
   },
 
@@ -126,16 +127,7 @@ return {
 
   {
     'nvim-neotest/neotest', -- run tests directly from the file
-    event = {
-      'BufReadPost *.spec.ts',
-      'BufReadPost *.spec.js',
-      'BufReadPost *.spec.tsx',
-      'BufReadPost *.spec.jsx',
-      'BufReadPost *.test.ts',
-      'BufReadPost *.test.js',
-      'BufReadPost *.test.tsx',
-      'BufReadPost *.test.jsx',
-    },
+    event = { 'BufReadPost *.{spec,test}.{ts,js,tsx,jsx}' },
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
@@ -274,7 +266,7 @@ return {
     'christoomey/vim-tmux-navigator', -- tmux navigation from within nvim
     cmd = { 'TmuxNavigateLeft', 'TmuxNavigateDown', 'TmuxNavigateUp', 'TmuxNavigateRight', 'TmuxNavigatePrevious' },
     keys = { '<C-h>', '<C-j>', '<C-k>', '<C-l>', '<C-\\>' },
-    config = function()
+    init = function()
       vim.g.tmux_navigator_no_wrap = 1
       vim.g.tmux_navigator_disable_when_zoomed = 1
       vim.g.tmux_navigator_save_on_switch = 2
