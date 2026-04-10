@@ -1,6 +1,17 @@
 ---@module 'lazy'
 ---@type LazySpec
 return {
+  -- Needed for neovim types in config
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
+
   {
     'vimwiki/vimwiki',
     cmd = { 'VimwikiIndex', 'VimwikiDiaryIndex' },
@@ -163,11 +174,6 @@ return {
       lsp_file_methods = {
         timeout_ms = 50000,
       },
-      git = {
-        add = function() return true end,
-        mv = function() return true end,
-        rm = function() return true end,
-      },
     },
     cmd = { 'Oil' },
     keys = {
@@ -226,27 +232,30 @@ return {
   },
 
   {
-    'greggh/claude-code.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim', -- Required for git operations
-    },
-    config = function()
-      require('claude-code').setup {
-        window = {
-          split_ratio = 0.5,
-          position = 'vertical',
-        },
-      }
-    end,
+    'coder/claudecode.nvim',
+    dependencies = { 'folke/snacks.nvim' },
+    config = true,
     keys = {
+      { '<leader>a', nil, desc = 'AI/Claude Code' },
+      { '<leader>ac', '<cmd>ClaudeCode<cr>', desc = 'Toggle Claude' },
+      { '<leader>af', '<cmd>ClaudeCodeFocus<cr>', desc = 'Focus Claude' },
+      { '<leader>ar', '<cmd>ClaudeCode --resume<cr>', desc = 'Resume Claude' },
+      { '<leader>aC', '<cmd>ClaudeCode --continue<cr>', desc = 'Continue Claude' },
+      { '<leader>am', '<cmd>ClaudeCodeSelectModel<cr>', desc = 'Select Claude model' },
+      { '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', desc = 'Add current buffer' },
+
+      -- Send to claude, from buffer or oil
+      { '<leader>as', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = 'Send to Claude' },
       {
-        '<leader>cc',
-        function()
-          vim.cmd 'ClaudeCode'
-          vim.cmd 'wincmd =' -- equalize the splits
-        end,
-        desc = '[c]laude [c]ode',
+        '<leader>as',
+        '<cmd>ClaudeCodeTreeAdd<cr>',
+        desc = 'Add file',
+        ft = { 'NvimTree', 'neo-tree', 'oil', 'minifiles', 'netrw' },
       },
+
+      -- Diff management, optionally use :w to accept, :q to reject
+      { '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', desc = 'Accept diff' },
+      { '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', desc = 'Deny diff' },
     },
   },
 }
