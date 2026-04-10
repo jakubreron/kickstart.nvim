@@ -13,18 +13,20 @@ vim.api.nvim_create_autocmd({ 'BufRead' }, {
   callback = function(args)
     vim.diagnostic.enable(false, { bufnr = args.buf })
 
-    vim.cmd 'setlocal noundofile'
-    vim.cmd 'setlocal noautoindent'
-    vim.cmd 'setlocal nosmartindent'
-    vim.cmd 'setlocal undolevels=10'
-    vim.cmd 'setlocal syntax=off'
-    vim.cmd 'setlocal nofoldenable'
-    vim.cmd 'setlocal buftype=nowrite'
-    vim.cmd 'setlocal bufhidden=unload'
+    vim.opt_local.undofile = false
+    vim.opt_local.autoindent = false
+    vim.opt_local.smartindent = false
+    vim.opt_local.undolevels = 10
+    vim.opt_local.syntax = 'off'
+    vim.opt_local.foldenable = false
+    vim.opt_local.buftype = 'nowrite'
+    vim.opt_local.bufhidden = 'unload'
+    vim.opt_local.modifiable = false
+    vim.opt_local.list = false
   end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'markdown', 'text', 'vimwiki' },
-  callback = function() vim.cmd 'setlocal spell' end,
+  callback = function() vim.opt_local.spell = true end,
 })

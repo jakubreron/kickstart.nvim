@@ -18,4 +18,4 @@ vim.keymap.set('c', '<A-f>', '<C-Right>')
 vim.keymap.set('c', '<A-b>', '<C-Left>')
 
 -- NOTE: replace
-vim.keymap.set('n', '<leader>ru', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[u]nder cursor' })
+vim.keymap.set('n', '<leader>rr', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'quickly [r]eplace under cursor' })

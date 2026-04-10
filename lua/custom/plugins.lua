@@ -35,7 +35,7 @@ return {
 
   {
     'lewis6991/gitsigns.nvim',
-    lazy = false,
+    event = { 'BufReadPost', 'BufNewFile' },
     ---@module 'gitsigns'
     ---@type Gitsigns.Config
     ---@diagnostic disable-next-line: missing-fields
@@ -147,8 +147,8 @@ return {
         pattern = { 'neotest-output', 'neotest-output-panel', 'neotest-attach' },
         callback = function()
           vim.cmd 'norm G'
-          vim.cmd 'setlocal number'
-          vim.cmd 'setlocal relativenumber'
+          vim.opt_local.number = true
+          vim.opt_local.relativenumber = true
         end,
       })
 
@@ -193,7 +193,7 @@ return {
         show_hidden = true,
       },
       lsp_file_methods = {
-        timeout_ms = 50000,
+        timeout_ms = 15000,
       },
     },
     cmd = { 'Oil' },
@@ -215,13 +215,13 @@ return {
     keys = {
       {
         '<leader>ra',
-        '<cmd>lua require("spectre").open()<cr>',
+        function() require('spectre').open() end,
         desc = '[a]ll',
       },
       {
         '<leader>ru',
-        '<cmd>lua require("spectre").open_visual({select_word=true})<cr>',
-        desc = '[u]under cursor',
+        function() require('spectre').open_visual { select_word = true } end,
+        desc = '[u]nder cursor',
       },
     },
   },

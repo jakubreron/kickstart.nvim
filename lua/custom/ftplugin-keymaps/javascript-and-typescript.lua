@@ -8,31 +8,31 @@ M.config = function(bufnr)
     })
   end
 
-  set_normal_keymap(']u', "<cmd>lua require('neotest').jump.next({ status = 'failed' })<cr>", 'next failed [u]nit test')
-  set_normal_keymap('[u', "<cmd>lua require('neotest').jump.prev({ status = 'failed' })<cr>", 'previous failed [u]nit test')
+  set_normal_keymap(']u', function() require('neotest').jump.next({ status = 'failed' }) end, 'next failed [u]nit test')
+  set_normal_keymap('[u', function() require('neotest').jump.prev({ status = 'failed' }) end, 'previous failed [u]nit test')
 
   set_normal_keymap('<leader>ur', function()
-    vim.cmd "lua require('neotest').output_panel.clear()"
-    vim.cmd "lua require('neotest').run.run()"
+    require('neotest').output_panel.clear()
+    require('neotest').run.run()
   end, '[r]un nearest')
   set_normal_keymap('<leader>uf', function()
-    vim.cmd "lua require('neotest').output_panel.clear()"
-    vim.cmd "lua require('neotest').run.run(vim.fn.expand('%'))"
+    require('neotest').output_panel.clear()
+    require('neotest').run.run(vim.fn.expand('%'))
   end, 'run [f]ile')
   set_normal_keymap('<leader>ul', function()
-    vim.cmd "lua require('neotest').output_panel.clear()"
-    vim.cmd "lua require('neotest').run.run_last()"
+    require('neotest').output_panel.clear()
+    require('neotest').run.run_last()
   end, 'run [l]ast')
   set_normal_keymap('<leader>uc', function()
-    vim.cmd "lua require('neotest').summary.toggle()"
-    vim.cmd "lua require('neotest').output_panel.toggle()"
+    require('neotest').summary.toggle()
+    require('neotest').output_panel.toggle()
   end, '[c]ombo: summary tree + output panel')
 
-  set_normal_keymap('<leader>us', '<cmd>lua require("neotest").run.stop()<cr>', '[s]top')
-  set_normal_keymap('<leader>ut', '<cmd>lua require("neotest").summary.toggle()<cr>', 'summary [t]ree')
-  set_normal_keymap('<leader>uw', '<cmd>lua require("neotest").run.run({ jestCommand = "jest --watch " })<cr>', '[w]atch')
-  set_normal_keymap('<leader>ua', '<cmd>lua require("neotest").run.attach()<cr>', '[a]ttach')
-  set_normal_keymap('<leader>up', '<cmd>lua require("neotest").output_panel.toggle()<cr>', '[p]anel toggle')
-  set_normal_keymap('<leader>uo', '<cmd>lua require("neotest").output.open({ enter = true })<cr>', '[o]utput')
+  set_normal_keymap('<leader>us', function() require('neotest').run.stop() end, '[s]top')
+  set_normal_keymap('<leader>ut', function() require('neotest').summary.toggle() end, 'summary [t]ree')
+  set_normal_keymap('<leader>uw', function() require('neotest').run.run({ jestCommand = 'jest --watch ' }) end, '[w]atch')
+  set_normal_keymap('<leader>ua', function() require('neotest').run.attach() end, '[a]ttach')
+  set_normal_keymap('<leader>up', function() require('neotest').output_panel.toggle() end, '[p]anel toggle')
+  set_normal_keymap('<leader>uo', function() require('neotest').output.open({ enter = true }) end, '[o]utput')
 end
 return M
