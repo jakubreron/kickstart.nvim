@@ -65,9 +65,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then error('Error cloning lazy.nvim:\n' .. out) end
 end
 
----@type vim.Option
-local rtp = vim.opt.rtp
-rtp:prepend(lazypath)
+vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
   {
@@ -76,7 +74,6 @@ require('lazy').setup {
     lazy = false,
     ---@module 'snacks'
     ---@type snacks.Config
-    ---@diagnostic disable-next-line: missing-fields
     opts = {
       picker = {
         hidden = true,
@@ -293,9 +290,6 @@ require('lazy').setup {
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
-          appearance = {
-            use_nvim_cmp_as_default = true,
-          },
           sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
             providers = {
@@ -331,7 +325,6 @@ require('lazy').setup {
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    lazy = true,
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
