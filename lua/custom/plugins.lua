@@ -172,10 +172,15 @@ return {
 
           set_keymap('<leader>us', function() neotest.run.stop() end, '[s]top')
           set_keymap('<leader>ut', function() neotest.summary.toggle() end, 'summary [t]ree')
-          set_keymap('<leader>uw', function() neotest.watch.toggle() end, '[w]atch')
+          set_keymap('<leader>uw', function() neotest.watch.toggle(vim.fn.expand '%') end, '[w]atch file')
           set_keymap('<leader>ua', function() neotest.run.attach() end, '[a]ttach')
           set_keymap('<leader>up', function() neotest.output_panel.toggle() end, '[p]anel toggle')
           set_keymap('<leader>uo', function() neotest.output.open { enter = true } end, '[o]utput')
+          set_keymap('<leader>uR', function() neotest.summary.run_marked() end, '[R]un marked')
+          set_keymap('<leader>uL', function()
+            local last = neotest.run.get_last_run()
+            if last then vim.notify(vim.inspect(last), vim.log.levels.INFO, { title = 'neotest last run' }) end
+          end, 'show [L]ast run info')
         end,
       })
 
