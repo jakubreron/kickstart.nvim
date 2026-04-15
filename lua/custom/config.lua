@@ -60,5 +60,5 @@ vim.cmd [[
 
   iabbrev tsi @ts-ignore<ESC>gcc
   iabbrev esi eslint-disable<ESC>gcc
+  iabbrev bii biome-ignore<ESC>gcc
 ]]
-
