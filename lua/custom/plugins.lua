@@ -216,6 +216,10 @@ return {
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {
+      columns = {
+        'icon',
+        'size',
+      },
       keymaps = {
         ['<C-l>'] = false, -- refresh
         ['<C-h>'] = false, -- horizontal split
