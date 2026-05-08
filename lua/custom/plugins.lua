@@ -9,11 +9,12 @@ require('mini.operators').setup {
   sort = { prefix = '' },
 }
 
--- lazydev (lua LSP types — must load before lspconfig)
+-- lazydev (lua LSP types)
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'lua',
   once = true,
   callback = function()
+    vim.pack.add { 'https://github.com/folke/lazydev.nvim' }
     require('lazydev').setup {
       library = {
         { path = 'luvit-meta/library', words = { 'vim%.uv' } },
@@ -107,34 +108,16 @@ require('conform').setup {
     vimwiki = { 'markdownlint' },
   },
 }
-vim.keymap.set('', '<leader>f', function() require('conform').format { async = true, lsp_format = 'never' } end, { desc = '[f]ormat buffer' })
+vim.keymap.set('', '<leader>f', function()
+  require('conform').format { async = true, lsp_format = 'never' }
+end, { desc = '[f]ormat buffer' })
 
 -- treesitter
 local ts_filetypes = {
-  'bash',
-  'c',
-  'html',
-  'lua',
-  'luadoc',
-  'markdown',
-  'markdown_inline',
-  'vim',
-  'vimdoc',
-  'diff',
-  'tsx',
-  'typescript',
-  'comment',
-  'javascript',
-  'css',
-  'scss',
-  'vue',
-  'json',
-  'jsdoc',
-  'yaml',
-  'toml',
-  'hyprlang',
-  'regex',
-  'query',
+  'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline',
+  'vim', 'vimdoc', 'diff', 'tsx', 'typescript', 'comment', 'javascript',
+  'css', 'scss', 'vue', 'json', 'jsdoc', 'yaml', 'toml', 'hyprlang',
+  'regex', 'query',
 }
 require('nvim-treesitter').install(ts_filetypes)
 vim.api.nvim_create_autocmd('FileType', {
@@ -142,15 +125,6 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(args)
     local lang = vim.treesitter.language.get_lang(args.match)
     if lang and vim.treesitter.language.add(lang) then vim.treesitter.start(args.buf) end
-  end,
-})
-vim.api.nvim_create_autocmd('PackChanged', {
-  callback = function(ev)
-    local name, kind = ev.data.spec.name, ev.data.kind
-    if name == 'nvim-treesitter' and kind == 'update' then
-      if not ev.data.active then vim.cmd.packadd 'nvim-treesitter' end
-      vim.cmd 'TSUpdate'
-    end
   end,
 })
 
@@ -216,13 +190,17 @@ require('gitsigns').setup {
 -- ts-comments
 vim.api.nvim_create_autocmd('BufReadPost', {
   once = true,
-  callback = function() require('ts-comments').setup {} end,
+  callback = function()
+    vim.pack.add { 'https://github.com/folke/ts-comments.nvim' }
+    require('ts-comments').setup {}
+  end,
 })
 
 -- boole
 vim.api.nvim_create_autocmd('BufReadPost', {
   once = true,
   callback = function()
+    vim.pack.add { 'https://github.com/nat-418/boole.nvim' }
     require('boole').setup {
       mappings = {
         increment = '<C-a>',
@@ -241,7 +219,10 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 
 -- oklch color picker
 vim.keymap.set('n', '<leader>c', function()
-  if not package.loaded['oklch-color-picker'] then require('oklch-color-picker').setup {} end
+  if not package.loaded['oklch-color-picker'] then
+    vim.pack.add { 'https://github.com/eero-lehtinen/oklch-color-picker.nvim' }
+    require('oklch-color-picker').setup {}
+  end
   require('oklch-color-picker').pick_under_cursor()
 end, { desc = 'Color pick under cursor' })
 
@@ -259,10 +240,15 @@ local neotest_configured = false
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'javascript', 'typescript', 'typescriptreact' },
   callback = function(event)
-    local neotest = require 'neotest'
     if not neotest_configured then
       neotest_configured = true
-      neotest.setup {
+      vim.pack.add {
+        'https://github.com/nvim-neotest/neotest',
+        'https://github.com/haydenmeade/neotest-jest',
+        'https://github.com/marilari88/neotest-vitest',
+        'https://github.com/nvim-neotest/nvim-nio',
+      }
+      require('neotest').setup {
         summary = { open = 'topleft vsplit | vertical resize 50' },
         output_panel = { enabled = true, open = 'rightbelow vsplit | resize 75' },
         adapters = {
@@ -272,7 +258,10 @@ vim.api.nvim_create_autocmd('FileType', {
       }
     end
 
-    local set_keymap = function(keybind, command, desc) vim.keymap.set('n', keybind, command, { buffer = event.buf, desc = desc }) end
+    local neotest = require 'neotest'
+    local set_keymap = function(keybind, command, desc)
+      vim.keymap.set('n', keybind, command, { buffer = event.buf, desc = desc })
+    end
 
     set_keymap(']u', function() neotest.jump.next { status = 'failed' } end, 'next failed [u]nit test')
     set_keymap('[u', function() neotest.jump.prev { status = 'failed' } end, 'previous failed [u]nit test')
@@ -312,7 +301,7 @@ vim.keymap.set('n', '<leader>oT', ':Obsession Session-.vim<Left><Left><Left><Lef
 vim.keymap.set('n', '<leader>os', '<cmd>source Session.vim<cr>', { desc = '[s]ource session' })
 vim.keymap.set('n', '<leader>oS', ':source Session-', { desc = '[S]ource custom session' })
 
--- oil
+-- oil (eager — must hijack netrw before it loads)
 require('oil').setup {
   columns = { 'icon', 'size' },
   keymaps = {
@@ -327,6 +316,7 @@ vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = '[-] explorer' })
 
 -- nvim-spectre
 local function load_spectre()
+  vim.pack.add { 'https://github.com/nvim-pack/nvim-spectre' }
   require('spectre').setup {
     replace_engine = {
       ['sed'] = {
@@ -347,7 +337,10 @@ vim.keymap.set('n', '<leader>ru', function()
 end, { desc = '[u]nder cursor' })
 
 -- treesj
-local function load_treesj() require('treesj').setup { use_default_keymaps = false } end
+local function load_treesj()
+  vim.pack.add { 'https://github.com/Wansmer/treesj' }
+  require('treesj').setup { use_default_keymaps = false }
+end
 
 vim.keymap.set('n', 'gJ', function()
   if not package.loaded['treesj'] then load_treesj() end
@@ -361,7 +354,10 @@ end, { desc = '[S]plit' })
 -- nvim-surround
 vim.api.nvim_create_autocmd('BufReadPost', {
   once = true,
-  callback = function() require('nvim-surround').setup {} end,
+  callback = function()
+    vim.pack.add { 'https://github.com/kylechui/nvim-surround' }
+    require('nvim-surround').setup {}
+  end,
 })
 
 -- claudecode
@@ -379,14 +375,35 @@ vim.keymap.set('n', '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', { desc = 'Acc
 vim.keymap.set('n', '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', { desc = 'Deny diff' })
 
 -- vimwiki
-vim.api.nvim_create_autocmd('BufNewFile', {
-  pattern = '**/diary/*.md',
-  callback = function(event) vim.cmd('silent 0r !~/.local/bin/generate-vimwiki-diary-template ' .. vim.fn.shellescape(event.file)) end,
+local function load_vimwiki()
+  vim.pack.add { 'https://github.com/vimwiki/vimwiki' }
+  vim.cmd.packadd 'vimwiki'
+  vim.api.nvim_create_autocmd('BufNewFile', {
+    pattern = '**/diary/*.md',
+    callback = function(event)
+      vim.cmd('silent 0r !~/.local/bin/generate-vimwiki-diary-template ' .. vim.fn.shellescape(event.file))
+    end,
+  })
+end
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = vim.fn.expand '$VIMWIKI_DIR' .. '/*',
+  once = true,
+  callback = load_vimwiki,
 })
+
+vim.keymap.set('n', '<leader>w', function()
+  load_vimwiki()
+  vim.keymap.del('n', '<leader>w')
+  vim.cmd 'VimwikiIndex'
+end, { desc = '[w]iki' })
 
 -- package-info
 vim.api.nvim_create_autocmd('BufRead', {
   pattern = 'package.json',
   once = true,
-  callback = function() require('package-info').setup {} end,
+  callback = function()
+    vim.pack.add { 'https://github.com/vuki656/package-info.nvim' }
+    require('package-info').setup {}
+  end,
 })

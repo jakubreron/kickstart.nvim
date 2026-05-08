@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.vimwiki_list = {
@@ -61,43 +63,55 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.hl.on_yank() end,
 })
 
-local gh = function(repo) return 'https://github.com/' .. repo end
+-- run TSUpdate whenever nvim-treesitter is updated
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == 'nvim-treesitter' and kind == 'update' then
+      if not ev.data.active then vim.cmd.packadd 'nvim-treesitter' end
+      vim.cmd 'TSUpdate'
+    end
+  end,
+})
 
+-- plugins loaded eagerly on every startup
 vim.pack.add {
-  gh 'L3MON4D3/LuaSnip',
-  gh 'saghen/blink.cmp',
-  gh 'nat-418/boole.nvim',
-  gh 'coder/claudecode.nvim',
-  gh 'stevearc/conform.nvim',
-  gh 'j-hui/fidget.nvim',
-  gh 'rafamadriz/friendly-snippets',
-  gh 'lewis6991/gitsigns.nvim',
-  gh 'ellisonleao/gruvbox.nvim',
-  gh 'folke/lazydev.nvim',
-  gh 'mason-org/mason-lspconfig.nvim',
-  gh 'WhoIsSethDaniel/mason-tool-installer.nvim',
-  gh 'mason-org/mason.nvim',
-  gh 'nvim-mini/mini.nvim',
-  gh 'nvim-neotest/neotest',
-  gh 'haydenmeade/neotest-jest',
-  gh 'marilari88/neotest-vitest',
-  gh 'MunifTanjim/nui.nvim',
-  gh 'neovim/nvim-lspconfig',
-  gh 'nvim-neotest/nvim-nio',
-  gh 'nvim-pack/nvim-spectre',
-  gh 'kylechui/nvim-surround',
-  { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' },
-  gh 'stevearc/oil.nvim',
-  gh 'eero-lehtinen/oklch-color-picker.nvim',
-  gh 'vuki656/package-info.nvim',
-  gh 'nvim-lua/plenary.nvim',
-  gh 'folke/snacks.nvim',
-  gh 'Wansmer/treesj',
-  gh 'folke/ts-comments.nvim',
-  gh 'tpope/vim-obsession',
-  gh 'christoomey/vim-tmux-navigator',
-  gh 'vimwiki/vimwiki',
+  'https://github.com/L3MON4D3/LuaSnip',
+  'https://github.com/saghen/blink.cmp',
+  'https://github.com/coder/claudecode.nvim',
+  'https://github.com/stevearc/conform.nvim',
+  'https://github.com/j-hui/fidget.nvim',
+  'https://github.com/rafamadriz/friendly-snippets',
+  'https://github.com/lewis6991/gitsigns.nvim',
+  'https://github.com/ellisonleao/gruvbox.nvim',
+  'https://github.com/mason-org/mason-lspconfig.nvim',
+  'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
+  'https://github.com/mason-org/mason.nvim',
+  'https://github.com/nvim-mini/mini.nvim',
+  'https://github.com/MunifTanjim/nui.nvim',
+  'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/nvim-lua/plenary.nvim',
+  'https://github.com/folke/snacks.nvim',
+  'https://github.com/tpope/vim-obsession',
+  'https://github.com/christoomey/vim-tmux-navigator',
+  'https://github.com/stevearc/oil.nvim',
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
 }
+
+-- plugins loaded lazily (added via vim.pack.add inside their triggers in plugins.lua)
+-- https://github.com/nat-418/boole.nvim        — BufReadPost
+-- https://github.com/stevearc/oil.nvim          — eager (netrw hijack)
+-- https://github.com/nvim-pack/nvim-spectre     — <leader>ra / <leader>ru
+-- https://github.com/kylechui/nvim-surround     — BufReadPost
+-- https://github.com/folke/ts-comments.nvim     — BufReadPost
+-- https://github.com/Wansmer/treesj            — gJ / gS
+-- https://github.com/eero-lehtinen/oklch-color-picker.nvim — <leader>c
+-- https://github.com/nvim-neotest/neotest        — FileType js/ts
+-- https://github.com/haydenmeade/neotest-jest   — FileType js/ts
+-- https://github.com/marilari88/neotest-vitest  — FileType js/ts
+-- https://github.com/nvim-neotest/nvim-nio       — FileType js/ts
+-- https://github.com/vuki656/package-info.nvim  — BufRead package.json
+-- https://github.com/vimwiki/vimwiki            — BufEnter $VIMWIKI_DIR / <leader>w
 
 require 'custom.colorscheme'
 require 'custom.plugins'
