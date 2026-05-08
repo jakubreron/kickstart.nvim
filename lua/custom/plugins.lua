@@ -144,6 +144,15 @@ vim.api.nvim_create_autocmd('FileType', {
     if lang and vim.treesitter.language.add(lang) then vim.treesitter.start(args.buf) end
   end,
 })
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == 'nvim-treesitter' and kind == 'update' then
+      if not ev.data.active then vim.cmd.packadd 'nvim-treesitter' end
+      vim.cmd 'TSUpdate'
+    end
+  end,
+})
 
 -- snacks
 require('snacks').setup {
