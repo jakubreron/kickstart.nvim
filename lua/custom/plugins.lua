@@ -188,34 +188,22 @@ require('gitsigns').setup {
 }
 
 -- ts-comments
-vim.api.nvim_create_autocmd('BufReadPost', {
-  once = true,
-  callback = function()
-    vim.pack.add { 'https://github.com/folke/ts-comments.nvim' }
-    require('ts-comments').setup {}
-  end,
-})
+require('ts-comments').setup {}
 
 -- boole
-vim.api.nvim_create_autocmd('BufReadPost', {
-  once = true,
-  callback = function()
-    vim.pack.add { 'https://github.com/nat-418/boole.nvim' }
-    require('boole').setup {
-      mappings = {
-        increment = '<C-a>',
-        decrement = '<C-x>',
-      },
-      additions = {
-        { 'child', 'parent' },
-        { 'toBeTruthy', 'toBeFalsy' },
-        { 'toBeEnabled', 'toBeDisabled' },
-        { 'left', 'center', 'right' },
-        { 'light', 'dark' },
-      },
-    }
-  end,
-})
+require('boole').setup {
+  mappings = {
+    increment = '<C-a>',
+    decrement = '<C-x>',
+  },
+  additions = {
+    { 'child', 'parent' },
+    { 'toBeTruthy', 'toBeFalsy' },
+    { 'toBeEnabled', 'toBeDisabled' },
+    { 'left', 'center', 'right' },
+    { 'light', 'dark' },
+  },
+}
 
 -- oklch color picker
 vim.keymap.set('n', '<leader>c', function()
@@ -352,13 +340,7 @@ vim.keymap.set('n', 'gS', function()
 end, { desc = '[S]plit' })
 
 -- nvim-surround
-vim.api.nvim_create_autocmd('BufReadPost', {
-  once = true,
-  callback = function()
-    vim.pack.add { 'https://github.com/kylechui/nvim-surround' }
-    require('nvim-surround').setup {}
-  end,
-})
+require('nvim-surround').setup {}
 
 -- claudecode
 require('claudecode').setup {}

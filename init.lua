@@ -92,6 +92,9 @@ vim.pack.add {
   'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/folke/snacks.nvim',
+  'https://github.com/nat-418/boole.nvim',
+  'https://github.com/folke/ts-comments.nvim',
+  'https://github.com/kylechui/nvim-surround',
   'https://github.com/tpope/vim-obsession',
   'https://github.com/christoomey/vim-tmux-navigator',
   'https://github.com/stevearc/oil.nvim',
@@ -99,19 +102,16 @@ vim.pack.add {
 }
 
 -- plugins loaded lazily (added via vim.pack.add inside their triggers in plugins.lua)
--- https://github.com/nat-418/boole.nvim        — BufReadPost
--- https://github.com/stevearc/oil.nvim          — eager (netrw hijack)
--- https://github.com/nvim-pack/nvim-spectre     — <leader>ra / <leader>ru
--- https://github.com/kylechui/nvim-surround     — BufReadPost
--- https://github.com/folke/ts-comments.nvim     — BufReadPost
--- https://github.com/Wansmer/treesj            — gJ / gS
+-- https://github.com/folke/lazydev.nvim                    — FileType lua
+-- https://github.com/nvim-pack/nvim-spectre                — <leader>ra / <leader>ru
+-- https://github.com/Wansmer/treesj                        — gJ / gS
 -- https://github.com/eero-lehtinen/oklch-color-picker.nvim — <leader>c
--- https://github.com/nvim-neotest/neotest        — FileType js/ts
--- https://github.com/haydenmeade/neotest-jest   — FileType js/ts
--- https://github.com/marilari88/neotest-vitest  — FileType js/ts
--- https://github.com/nvim-neotest/nvim-nio       — FileType js/ts
--- https://github.com/vuki656/package-info.nvim  — BufRead package.json
--- https://github.com/vimwiki/vimwiki            — BufEnter $VIMWIKI_DIR / <leader>w
+-- https://github.com/nvim-neotest/neotest                  — FileType js/ts
+-- https://github.com/haydenmeade/neotest-jest              — FileType js/ts
+-- https://github.com/marilari88/neotest-vitest             — FileType js/ts
+-- https://github.com/nvim-neotest/nvim-nio                 — FileType js/ts
+-- https://github.com/vuki656/package-info.nvim             — BufRead package.json
+-- https://github.com/vimwiki/vimwiki                       — BufEnter $VIMWIKI_DIR / <leader>w
 
 require 'custom.colorscheme'
 require 'custom.plugins'
