@@ -8,6 +8,10 @@
       "rev": "d3874d2a13aa19b095bdd10d37a82a8f0aa7cad3",
       "src": "https://github.com/saghen/blink.cmp"
     },
+    "blink.lib": {
+      "rev": "f29d8bac6549bc1e7d699c83f680823d7def98bd",
+      "src": "https://github.com/saghen/blink.lib"
+    },
     "boole.nvim": {
       "rev": "7b4a3dae28e3b2497747aa840439e9493cabdc49",
       "src": "https://github.com/nat-418/boole.nvim"
@@ -98,8 +102,9 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "oklch-color-picker.nvim": {
-      "rev": "3f343962643f63d75ae3bcf65669df2930e94411",
-      "src": "https://github.com/eero-lehtinen/oklch-color-picker.nvim"
+      "rev": "9b5db80d5f6af8fbc31bad29f69ad76f63154944",
+      "src": "https://github.com/eero-lehtinen/oklch-color-picker.nvim",
+      "version": ">=0.0.0"
     },
     "package-info.nvim": {
       "rev": "9725099fb118bab8360e560c1219bff60763b7e1",
