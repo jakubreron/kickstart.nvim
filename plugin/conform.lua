@@ -1,4 +1,5 @@
 vim.pack.add { 'https://github.com/stevearc/conform.nvim' }
+
 require('conform').setup {
   format_on_save = { lsp_format = 'never' },
   formatters_by_ft = {
@@ -20,4 +21,10 @@ require('conform').setup {
     vimwiki = { 'markdownlint' },
   },
 }
-vim.keymap.set('', '<leader>f', function() require('conform').format { async = true, lsp_format = 'never' } end, { desc = '[f]ormat buffer' })
+
+vim.keymap.set('', '<leader>f', function()
+  require('conform').format {
+    async = true,
+    lsp_format = 'never',
+  }
+end, { desc = '[f]ormat buffer' })
