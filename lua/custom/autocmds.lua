@@ -18,32 +18,31 @@ vim.api.nvim_create_autocmd('PackChanged', {
 -- NOTE: reload the buffer
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   pattern = '*',
-  callback = function()
-    local bufname = vim.fn.expand '<afile>'
-    if not string.match(bufname, 'node_modules') then vim.cmd 'checktime' end
+  callback = function(event)
+    local is_real_file = vim.bo[event.buf].buftype == ''
+    local is_node_module = string.find(event.file, 'node_modules')
+
+    if is_real_file and not is_node_module then vim.cmd 'silent! checktime' end
   end,
 })
 
 -- NOTE: performance settings
-vim.api.nvim_create_autocmd({ 'BufRead' }, {
+vim.api.nvim_create_autocmd({ 'BufReadPre' }, {
   pattern = { '*/node_modules/*' },
-  callback = function(args)
-    vim.diagnostic.enable(false, { bufnr = args.buf })
+  callback = function(event)
+    vim.diagnostic.enable(false, { bufnr = event.buf })
+
+    vim.bo[event.buf].readonly = true
+    vim.bo[event.buf].undolevels = 10
 
     vim.opt_local.undofile = false
-    vim.opt_local.autoindent = false
-    vim.opt_local.smartindent = false
-    vim.opt_local.undolevels = 10
     vim.opt_local.syntax = 'off'
     vim.opt_local.foldenable = false
-    vim.opt_local.buftype = 'nowrite'
-    vim.opt_local.bufhidden = 'unload'
-    vim.opt_local.modifiable = false
     vim.opt_local.list = false
   end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'markdown', 'text', 'vimwiki' },
-  callback = function() vim.opt_local.spell = true end,
+  command = 'setlocal spell',
 })
