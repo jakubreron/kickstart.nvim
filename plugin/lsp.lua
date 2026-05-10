@@ -15,6 +15,7 @@ require('mason-tool-installer').setup {
     'tailwindcss-language-server',
     'stylelint-language-server',
     'json-lsp',
+    'hyprls',
     'markdown-oxide',
     'html-lsp',
     'css-lsp',
