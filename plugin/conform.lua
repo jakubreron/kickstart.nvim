@@ -1,10 +1,10 @@
 vim.pack.add { 'https://github.com/stevearc/conform.nvim' }
 
 --- @type conform.FormatOpts
-local format_on_save_opts = { lsp_format = 'never', async = true }
+local format_after_save_opts = { lsp_format = 'never', async = true }
 
 require('conform').setup {
-  format_on_save = format_on_save_opts,
+  format_after_save = format_after_save_opts,
   formatters_by_ft = {
     lua = { 'stylua' },
     javascript = { 'biome-check' },
@@ -25,4 +25,4 @@ require('conform').setup {
   },
 }
 
-vim.keymap.set('', '<leader>f', function() require('conform').format(format_on_save_opts) end, { desc = '[f]ormat buffer' })
+vim.keymap.set('', '<leader>f', function() require('conform').format(format_after_save_opts) end, { desc = '[f]ormat buffer' })
