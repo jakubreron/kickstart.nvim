@@ -1,4 +1,5 @@
 vim.g.vimwiki_global_ext = 0
+vim.g.vimwiki_syntax_list = { markdown = { list_markers = { '*', '-', '+', '1.' } } }
 vim.g.vimwiki_list = {
   {
     path = vim.fn.expand '$VIMWIKI_DIR',
