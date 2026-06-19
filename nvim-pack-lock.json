@@ -9,7 +9,7 @@
       "src": "https://github.com/saghen/blink.cmp"
     },
     "blink.lib": {
-      "rev": "b127d48bf8e9ac9cf41f6e0fbead317503f76558",
+      "rev": "5876dd95deeb70aadbe9f1c0b7117a135061cdac",
       "src": "https://github.com/saghen/blink.lib"
     },
     "boole.nvim": {
@@ -17,7 +17,7 @@
       "src": "https://github.com/nat-418/boole.nvim"
     },
     "claudecode.nvim": {
-      "rev": "7c7d47e75d1c8597a676ca20b36a8b85a776ac61",
+      "rev": "bcb3fe205efe88771e8801d0a99b6fcb0a982bbb",
       "src": "https://github.com/coder/claudecode.nvim"
     },
     "conform.nvim": {
@@ -33,7 +33,7 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gitsigns.nvim": {
-      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
+      "rev": "2038c666bd9d8a0b7349a0b6ee00dc83104b9ecf",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "gruvbox.nvim": {
@@ -77,7 +77,7 @@
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
+      "rev": "fef8b117ad5fb73943913f444f22065c4b834a60",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
