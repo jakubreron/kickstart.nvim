@@ -24,6 +24,8 @@ vim.api.nvim_create_autocmd('BufNewFile', {
       '',
       '## To do',
       '',
+      '### HTMA',
+      '',
       '* [ ] ',
       '',
       '## Notes',
