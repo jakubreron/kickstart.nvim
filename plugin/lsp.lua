@@ -6,6 +6,8 @@ vim.pack.add {
 }
 
 require('mason').setup {}
+vim.lsp.config('markdown_oxide', { filetypes = { 'markdown', 'vimwiki' } })
+
 require('mason-tool-installer').setup {
   ensure_installed = {
     'lua-language-server',
