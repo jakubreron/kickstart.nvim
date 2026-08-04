@@ -15,6 +15,7 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   callback = function(event)
     local filename = vim.fn.fnamemodify(event.file, ':t:r')
     local y, m, d = filename:match '(%d%d%d%d)-(%d%d)-(%d%d)'
+    local diary_dir = vim.fs.joinpath(vim.fn.expand '$VIMWIKI_DIR', 'diary')
 
     -- ISO week number calculation via Lua
     local week_num = os.date('%V', os.time { year = y, month = m, day = d })
@@ -31,6 +32,19 @@ vim.api.nvim_create_autocmd('BufNewFile', {
       '## Notes',
       '',
       '* ...',
+    })
+
+    vim.api.nvim_create_autocmd('BufWritePost', {
+      buffer = event.buf,
+      once = true,
+      callback = function()
+        local diary_index = vim.fs.joinpath(diary_dir, 'diary.md')
+        vim.cmd('keepalt edit ' .. vim.fn.fnameescape(diary_index))
+        vim.cmd 'VimwikiDiaryGenerateLinks'
+        vim.cmd 'write'
+        vim.cmd('buffer ' .. event.buf)
+        vim.notify 'diary.md links regenerated'
+      end,
     })
   end,
 })
