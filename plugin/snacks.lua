@@ -19,6 +19,7 @@ require('snacks').setup {
 }
 
 vim.keymap.set('n', '<leader>sb', function() Snacks.picker.buffers() end, { desc = '[b]uffers' })
+vim.keymap.set('n', '<leader>ss', function() Snacks.picker.lsp_workspace_symbols() end, { desc = '[b]uffers' })
 vim.keymap.set('n', '<leader>sf', function() Snacks.picker.smart() end, { desc = '[f]iles' })
 vim.keymap.set('n', '<leader>sd', function() Snacks.picker.diagnostics() end, { desc = '[d]iagnostic' })
 vim.keymap.set('n', '<leader>svh', function() Snacks.picker.help() end, { desc = '[h]elp' })

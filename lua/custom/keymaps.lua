@@ -10,7 +10,6 @@ vim.keymap.set('n', 'j', 'v:count > 5 ? "m\'" .. v:count .. "j" : "j"', { expr =
 -- NOTE: emacs keybinds in command/insert mode
 -- Press C-f for vim movements
 vim.keymap.set('c', '<C-a>', '<Home>')
-vim.keymap.set('c', '<C-e>', '<End>')
 vim.keymap.set('c', '<C-d>', '<Delete>')
 
 -- NOTE: replace
