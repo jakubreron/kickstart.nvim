@@ -15,12 +15,13 @@ vim.o.mouse = 'a'
 vim.o.complete = ''
 vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
-vim.o.breakindent = true
+vim.opt.breakindent = true
+vim.opt.showbreak = '↳ '
+
 vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.signcolumn = 'yes'
-vim.o.updatetime = 250
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.list = true
