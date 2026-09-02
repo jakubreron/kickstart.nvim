@@ -5,7 +5,6 @@ require('oil').setup {
   keymaps = {
     ['<C-l>'] = false,
     ['<C-h>'] = false,
-    ['~'] = false,
   },
   view_options = { show_hidden = true },
   lsp_file_methods = { timeout_ms = 15000 },
