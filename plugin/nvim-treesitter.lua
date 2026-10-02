@@ -2,7 +2,7 @@ vim.pack.add {
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
 }
 
-local blocklist = { 'fidget', 'vimwiki', 'blink-cmp-menu', 'blink-cmp-documentation' }
+local blocklist = { 'fidget', 'vimwiki', 'blink-cmp-menu', 'blink-cmp-documentation', 'snacks_terminal', 'snacks_win_backdrop', 'oil', 'snacks_layout_box', 'snacks_picker_input', 'snacks_picker_list', 'snacks_picker_preview', 'oil_preview', 'man', 'nvim-pack', 'env' }
 
 local function persist_blocklist(entry)
   local path = debug.getinfo(1, 'S').source:sub(2)
