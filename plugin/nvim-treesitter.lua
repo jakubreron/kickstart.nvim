@@ -21,6 +21,8 @@ local blocklist = {
   'lf',
   'text',
   'tmux',
+  'mason_backdrop',
+  'mason',
 }
 
 local function persist_blocklist(entry)
