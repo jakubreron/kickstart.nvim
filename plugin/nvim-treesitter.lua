@@ -2,14 +2,36 @@ vim.pack.add {
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
 }
 
-local blocklist = { 'fidget', 'vimwiki', 'blink-cmp-menu', 'blink-cmp-documentation', 'snacks_terminal', 'snacks_win_backdrop', 'oil', 'snacks_layout_box', 'snacks_picker_input', 'snacks_picker_list', 'snacks_picker_preview', 'oil_preview', 'man', 'nvim-pack', 'env', 'lf', 'text', 'tmux' }
+local blocklist = {
+  'fidget',
+  'vimwiki',
+  'blink-cmp-menu',
+  'blink-cmp-documentation',
+  'snacks_terminal',
+  'snacks_win_backdrop',
+  'oil',
+  'snacks_layout_box',
+  'snacks_picker_input',
+  'snacks_picker_list',
+  'snacks_picker_preview',
+  'oil_preview',
+  'man',
+  'nvim-pack',
+  'env',
+  'lf',
+  'text',
+  'tmux',
+}
 
 local function persist_blocklist(entry)
   local path = debug.getinfo(1, 'S').source:sub(2)
   local lines = vim.fn.readfile(path)
+  local in_blocklist = false
   for i, line in ipairs(lines) do
     if line:match '^local blocklist = {' then
-      lines[i] = line:gsub('%s*}%s*$', ", '" .. entry .. "' }")
+      in_blocklist = true
+    elseif in_blocklist and line:match '^}' then
+      table.insert(lines, i, "  '" .. entry .. "',")
       break
     end
   end
@@ -39,5 +61,16 @@ vim.api.nvim_create_autocmd('FileType', {
         persist_blocklist(args.match)
       end
     end)
+  end,
+})
+
+-- run TSUpdate whenever nvim-treesitter is updated
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == 'nvim-treesitter' and kind == 'update' then
+      if not ev.data.active then vim.cmd.packadd 'nvim-treesitter' end
+      vim.cmd 'TSUpdate'
+    end
   end,
 })
