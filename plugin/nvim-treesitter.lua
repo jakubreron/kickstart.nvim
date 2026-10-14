@@ -23,6 +23,7 @@ local blocklist = {
   'tmux',
   'mason_backdrop',
   'mason',
+  'zip',
 }
 
 local function persist_blocklist(entry)
