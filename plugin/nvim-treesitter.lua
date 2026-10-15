@@ -24,6 +24,9 @@ local blocklist = {
   'mason_backdrop',
   'mason',
   'zip',
+  'sshpublickey',
+  'conf',
+  'sshknownhosts',
 }
 
 local function persist_blocklist(entry)
