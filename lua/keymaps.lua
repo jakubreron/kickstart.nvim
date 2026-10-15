@@ -1,4 +1,5 @@
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+-- Can be done with C-l
+-- vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- NOTE: toggle
 vim.keymap.set('n', 'yor', '<cmd>setlocal relativenumber!<cr>', { desc = '[r]elativenumber toggle' })

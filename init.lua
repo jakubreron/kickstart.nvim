@@ -15,12 +15,13 @@ vim.o.mouse = 'a'
 vim.o.complete = ''
 vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
-vim.o.breakindent = true
+vim.opt.breakindent = true
+vim.opt.showbreak = '↳ '
+
 vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.signcolumn = 'yes'
-vim.o.updatetime = 250
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.list = true
@@ -35,9 +36,26 @@ vim.o.confirm = true
 vim.opt.spelllang:append 'cjk'
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-require 'custom.autocmds'
-require 'custom.iabbrev'
-require 'custom.keymaps'
-require 'custom.filetypes'
+vim.cmd [[
+  iabbrev PP PERF:<ESC>gcc^f:a
+  iabbrev HH HACK:<ESC>gcc^f:a
+  iabbrev TT TODO: @Jakub<ESC>gcc^fba
+  iabbrev NN NOTE:<ESC>gcc^f:a
+  iabbrev WW WARNING:<ESC>gcc^f:a
+  iabbrev FF FIX:<ESC>gcc^f:a
+
+  iabbrev tsi @ts-ignore<ESC>gcc
+  iabbrev esi eslint-disable<ESC>gcc
+  iabbrev bii biome-ignore<ESC>gcc
+]]
+
+vim.filetype.add {
+  pattern = {
+    ['%.env.*'] = 'sh',
+  },
+}
+
+require 'autocmds'
+require 'keymaps'
 
 -- vim: ts=2 sts=2 sw=2 et

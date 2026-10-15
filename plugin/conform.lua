@@ -7,6 +7,7 @@ require('conform').setup {
   format_after_save = format_after_save_opts,
   formatters_by_ft = {
     lua = { 'stylua' },
+
     javascript = { 'biome-check' },
     javascriptreact = { 'biome-check' },
     vue = { 'biome-check' },
@@ -17,9 +18,11 @@ require('conform').setup {
     less = { 'biome-check' },
     sass = { 'biome-check' },
     html = { 'biome-check' },
-    php = { 'prettier' },
+
+    php = { 'prettierd' },
     yaml = { 'prettierd' },
-    json = { 'prettier' },
+    json = { 'prettierd' },
+
     markdown = { 'markdownlint' },
     vimwiki = { 'markdownlint' },
   },

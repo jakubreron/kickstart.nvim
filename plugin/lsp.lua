@@ -28,7 +28,6 @@ require('mason-tool-installer').setup {
     'stylua',
     'biome',
     'markdownlint',
-    'prettier',
     'prettierd',
   },
 }

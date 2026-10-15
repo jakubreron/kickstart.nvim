@@ -28,10 +28,6 @@ vim.api.nvim_create_autocmd('BufNewFile', {
       '### HTMA',
       '',
       '* [ ] ',
-      '',
-      '## Notes',
-      '',
-      '* ...',
     })
 
     vim.api.nvim_create_autocmd('BufWritePost', {
