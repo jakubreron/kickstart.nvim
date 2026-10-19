@@ -27,6 +27,7 @@ local blocklist = {
   'sshpublickey',
   'conf',
   'sshknownhosts',
+  'systemd',
 }
 
 local function persist_blocklist(entry)
