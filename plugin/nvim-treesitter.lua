@@ -28,6 +28,7 @@ local blocklist = {
   'conf',
   'sshknownhosts',
   'systemd',
+  'srt',
 }
 
 local function persist_blocklist(entry)
