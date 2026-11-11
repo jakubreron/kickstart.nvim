@@ -1,6 +1,9 @@
 vim.pack.add { 'https://github.com/coder/claudecode.nvim' }
 
-require('claudecode').setup {}
+require('claudecode').setup {
+  ---@diagnostic disable-next-line: missing-fields
+  diff_opts = { layout = 'unified' },
+}
 
 vim.keymap.set('n', '<leader>ac', '<cmd>ClaudeCode<cr>', { desc = 'Toggle Claude' })
 vim.keymap.set('n', '<leader>af', '<cmd>ClaudeCodeFocus<cr>', { desc = 'Focus Claude' })
