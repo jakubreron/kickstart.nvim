@@ -30,6 +30,7 @@ local blocklist = {
   'systemd',
   'srt',
   'template',
+  'spajson',
 }
 
 local function persist_blocklist(entry)
