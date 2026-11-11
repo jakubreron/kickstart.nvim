@@ -11,3 +11,11 @@ vim.keymap.set('v', '<leader>as', '<cmd>ClaudeCodeSend<cr>', { desc = 'Send to C
 vim.keymap.set('n', '<leader>as', '<cmd>ClaudeCodeTreeAdd<cr>', { desc = 'Add file' })
 vim.keymap.set('n', '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', { desc = 'Accept diff' })
 vim.keymap.set('n', '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', { desc = 'Deny diff' })
+vim.keymap.set('n', '<leader>aD', '<cmd>ClaudeCodeCloseAllDiffs<cr>', { desc = 'Close all diffs' })
+vim.keymap.set('n', '<leader>at', function()
+  vim.ui.input({ prompt = 'Claude: ' }, function(text)
+    if text and text ~= '' then
+      vim.cmd.ClaudeCodeSendText(text)
+    end
+  end)
+end, { desc = 'Send text to Claude' })
