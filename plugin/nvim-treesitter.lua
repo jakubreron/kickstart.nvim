@@ -31,6 +31,8 @@ local blocklist = {
   'srt',
   'template',
   'spajson',
+  'claudecode',
+  'qf',
 }
 
 local function persist_blocklist(entry)
