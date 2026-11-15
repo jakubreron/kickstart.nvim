@@ -33,6 +33,7 @@ local blocklist = {
   'spajson',
   'claudecode',
   'qf',
+  'spectre_panel',
 }
 
 local function persist_blocklist(entry)
