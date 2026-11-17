@@ -52,8 +52,11 @@ vim.cmd [[
 vim.filetype.add {
   pattern = {
     ['%.env.*'] = 'sh',
+    -- GTK css (@define-color, @color values) is not valid css, so the css language server and biome must not see it
+    ['.*/waybar/.*%.css'] = 'gtkcss',
   },
 }
+vim.treesitter.language.register('css', 'gtkcss')
 
 require 'autocmds'
 require 'keymaps'
