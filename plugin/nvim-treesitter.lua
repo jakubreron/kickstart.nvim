@@ -34,6 +34,9 @@ local blocklist = {
   'claudecode',
   'qf',
   'spectre_panel',
+  'md',
+  'lsp_markdown',
+  'snacks_win_help',
 }
 
 local function persist_blocklist(entry)
